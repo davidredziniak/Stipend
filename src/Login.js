@@ -1,6 +1,7 @@
 import React from 'react';
 import {GoogleLogin} from 'react-google-login';
-const clientId = 'YOUR-CLIENT_ID.apps.googleusercontent.com';
+require('dotenv').config();
+const clientId = process.env.REACT_APP_YOUR_CLIENT_ID;
 
 function Login()
 {
