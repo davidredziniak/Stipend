@@ -3,6 +3,8 @@ from flask import Flask, send_from_directory
 from dotenv import load_dotenv, find_dotenv
 from flask_sqlalchemy import SQLAlchemy
 
+load_dotenv(find_dotenv())  # This is to load your env variables from .env
+
 APP = Flask(__name__, static_folder='./build/static')
 DB = SQLAlchemy(APP)
 

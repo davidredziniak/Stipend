@@ -6,6 +6,7 @@ class User(DB.Model):
     email = DB.Column(DB.String(80), unique=True, nullable=False)
     first_name = DB.Column(DB.String(80), nullable=False)
     last_name = DB.Column(DB.String(80), nullable=False)
+    trips = DB.relationship('UserTrip', backref='user', lazy=True)
 
     def __repr__(self):
         return '<User %r>' % self.id
