@@ -3,6 +3,7 @@
 ## Requirements
 1. `npm install`
 2. `pip install -r requirements.txt`
+3. `npm i react-google-login`
 
 ## Setup
 1. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
