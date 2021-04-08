@@ -4,11 +4,8 @@ import {GoogleLogin} from 'react-google-login';
 
 import {refreshTokenSetup} from './refreshToken.js';
 
-//const clientId = `${process.env.REACT_APP_CLIENT_ID}`;
-
-require('dotenv').config();
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
-
+const clientId = `${process.env.REACT_APP_CLIENT_ID}`;
+console.log(clientId)
 
 function Login()
 {
