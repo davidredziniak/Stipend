@@ -15,6 +15,7 @@ function Login()
 {
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
+    
     const [givenName,setGivenName] = useState('');
     const [logStatus,setLogStatus] = useState(false);
     
@@ -29,6 +30,7 @@ function Login()
     const onSuccess= (res)=>
     {
         console.log('[Login Success] currentUser:',res.profileObj);
+        console.log('[Login Success] currentUser:',res.tokenId);
         setEmail(res.profileObj['email']);
         setName(res.profileObj['name']);
         setGivenName(res.profileObj['givenName']);

@@ -3,7 +3,6 @@ from flask import Flask, send_from_directory
 
 app = Flask(__name__, static_folder='./build/static')
 
-
 @app.route('/', defaults={"filename": "index.html"})
 @app.route('/<path:filename>')
 
