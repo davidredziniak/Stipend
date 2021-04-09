@@ -6,23 +6,24 @@ import {refreshTokenSetup} from './refreshToken.js';
 import Dashboard from './Dashboard';
 import App from './App';
 
-<<<<<<< HEAD
+
 const clientId = process.env.REACT_APP_CLIENT_ID;
 // const clientId = `${process.env.REACT_APP_CLIENT_ID}`;
-=======
-//const clientId = `${process.env.REACT_APP_CLIENT_ID}`;
 
-require('dotenv').config();
-const clientId = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
->>>>>>> 803fca10eb8d5856faa63c7d32eeb2ee8dd1aa83
-
-function Login({log})
+function Login()
 {
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
     const [givenName,setGivenName] = useState('');
     const [logStatus,setLogStatus] = useState(false);
+    console.log(logStatus);
+    
+    // NEED TO FIND HOW TO DO GOOGLE LOGOUT
+    // const logout=()=>{
+    //     setLogStatus(false);
+    // }
+    
     
     const onSuccess= (res)=>
     {
@@ -31,7 +32,7 @@ function Login({log})
         setName(res.profileObj['name']);
         setGivenName(res.profileObj['givenName']);
         setLogStatus(true);
-        log = givenName;
+        // setName(givenName);
         // refreshed token after an hour
         refreshTokenSetup(res);
     };
@@ -39,28 +40,26 @@ function Login({log})
     {
         console.log('[Login failed] res:',res);
     }
-    
-    return (
-        <div>
+    if(logStatus){
+        return (<Dashboard email={email} name={name} givenName={givenName} setLogStatus={setLogStatus}/>);
+    }
+    else{
+        return (
             <div>
-            <GoogleLogin
-                clientId={clientId}
-                buttonText="Login"
-                onSuccess={onSuccess}
-                onFailure={onFailure}
-                cookiePolicy ={'single_host_origin'}
-                style ={{marginTop: '100px'}}
-                isSignedIn={true}
-            />
+                <div>
+                <GoogleLogin
+                    clientId={clientId}
+                    buttonText="Login"
+                    onSuccess={onSuccess}
+                    onFailure={onFailure}
+                    cookiePolicy ={'single_host_origin'}
+                    style ={{marginTop: '100px'}}
+                    isSignedIn={true}
+                />
+                </div>
             </div>
-            {logStatus?
-            (<div>
-                
-                <App email={email} name={name} givenName={givenName} log={log}/>
-            </div>) : null
-            }
-        </div>
-        );
+            );
+    }
 }
-// <Dashboard email={email} name={name} givenName={givenName} log={log}/>
+
 export default Login;

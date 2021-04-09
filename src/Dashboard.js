@@ -12,7 +12,9 @@ function Dashboard(props){
             <ul>GIVEN NAME: {(props.givenName).charAt(0).toUpperCase() + (props.givenName).slice(1)}</ul>
             <ul>FULLNAME: {props.name}</ul>
             <ul>EMAIL: {props.email}</ul>
+            <button onClick={()=>{props.setLogStatus(false)}}>Logout</button>
         </div>
         );
 }
+//<button onClick={props.setLogStatus(false)}>BUTTTTTTON</button>
 export default Dashboard;

@@ -5,28 +5,30 @@ import Login from'./Login.js';
 import Logout from'./Logout.js';
 import Dashboard from './Dashboard';
 
-function App(props) {
+function App() {
   
   // const [login, setLogin] = useState(false);
-  // const [newUser, setNewUser] = useState('');
+  // const [name, setName] = useState('');
   
   // const log = (username) => {
   //   setNewUser(username);
   //   setLogin(!login);
   // };
-  if (props.name !=null){
-    return(<Dashboard name={props.name} email={props.email} givenName={props.givenName}/>);
-  }
-  else{
-    return (
-      <div className="App">
-      <h1 className='heading'><i>STIPEND, Trips Made Easy </i></h1>
-        <Login/>
-        <br/>
-        <Logout/>
-      </div>
-    );
-  }
+  
+// if(name != ''){
+//   return (name);
+// }
+// else{
+//     return (
+//       <div className="App">
+//       <h1 className='heading'><i>STIPEND, Trips Made Easy </i></h1>
+return <Login/>
+  //       <Login name={name} setName={setName}/>
+  //       <br/>
+  //       <Logout/>
+  //     </div>
+  //   );
+  // }
 }
 
 export default App;
