@@ -12,7 +12,7 @@
 1. Run command in terminal (in your project directory): `python app.py`
 2. Run command in another terminal, `cd` into the project directory, and run `npm run start`
 3. Preview web page in browser '/'
-
+ 
 ## Deploy to Heroku
 *Don't do the Heroku step for assignments, you only need to deploy for Project 2*
 1. Create a Heroku app: `heroku create --buildpack heroku/python`
