@@ -4,11 +4,11 @@ import {GoogleLogin,GoogleLogout} from 'react-google-login';
 
 import {refreshTokenSetup} from './refreshToken.js';
 import Dashboard from './Dashboard';
-import App from './App';
+
 
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
-console.log(clientId)
+
 
 
 function Login()
@@ -17,7 +17,7 @@ function Login()
     const [name,setName] = useState('');
     const [givenName,setGivenName] = useState('');
     const [logStatus,setLogStatus] = useState(false);
-    console.log(logStatus);
+    
     
     const onSuccessLogout=()=>
     {
