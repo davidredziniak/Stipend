@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import dotenv from 'dotenv';
 import {GoogleLogin} from 'react-google-login';
-
+import {GoogleLogout} from 'react-google-login';
 import {refreshTokenSetup} from './refreshToken.js';
 import Dashboard from './Dashboard';
 import App from './App';
@@ -20,14 +20,21 @@ function Login()
     console.log(logStatus);
     
     // NEED TO FIND HOW TO DO GOOGLE LOGOUT
+ 
     // const logout=()=>{
     //     setLogStatus(false);
     // }
-    
+    const onSuccessLogout=()=>
+    {
+        alert('Logout made successfully');
+        console.log('Logout made successfully');
+    };
     
     const onSuccess= (res)=>
     {
         console.log('[Login Success] currentUser:',res.profileObj);
+        //console.log('WHOLE LOG:      ', res);
+        console.log(res['tokenId']);
         setEmail(res.profileObj['email']);
         setName(res.profileObj['name']);
         setGivenName(res.profileObj['givenName']);
@@ -41,7 +48,19 @@ function Login()
         console.log('[Login failed] res:',res);
     }
     if(logStatus){
-        return (<Dashboard email={email} name={name} givenName={givenName} setLogStatus={setLogStatus}/>);
+        return (
+            <div>
+                <Dashboard email={email} name={name} givenName={givenName} setLogStatus={setLogStatus}/>
+                <div>
+                    <GoogleLogout
+                    clientId={clientId}
+                    buttonText="Logout"
+                    onLogoutSuccess={onSuccessLogout}
+                    style ={{marginTop: '100px'}}
+                    />
+                </div>
+            </div>
+            );
     }
     else{
         return (
