@@ -15,5 +15,5 @@ function Dashboard(props){
         </div>
         );
 }
-//  <button onClick={()=>{props.setLogStatus(false)}}>Logout</button>
+
 export default Dashboard;
