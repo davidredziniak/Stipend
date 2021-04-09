@@ -5,6 +5,10 @@ from flask_sqlalchemy import SQLAlchemy
 
 load_dotenv(find_dotenv())  # This is to load your env variables from .env
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 221a0135b0c599038e709a1c93c546104362f26f
 APP = Flask(__name__, static_folder='./build/static')
 
 # Point SQLAlchemy to your Heroku database
@@ -22,6 +26,10 @@ def index(filename):
     return send_from_directory('./build', filename)
 
 APP.run(
+<<<<<<< HEAD
+=======
+
+>>>>>>> 221a0135b0c599038e709a1c93c546104362f26f
     host=os.getenv('IP', '0.0.0.0'),
     port=8081 if os.getenv('C9_PORT') else int(os.getenv('PORT', "8081")),
 )

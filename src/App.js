@@ -19,16 +19,13 @@ function App() {
 //   return (name);
 // }
 // else{
-//     return (
-//       <div className="App">
-//       <h1 className='heading'><i>STIPEND, Trips Made Easy </i></h1>
-return <Login/>
-  //       <Login name={name} setName={setName}/>
-  //       <br/>
-  //       <Logout/>
-  //     </div>
-  //   );
-  // }
-}
+    return (
+      <div className="App">
+      <h1 className='heading'><i>STIPEND, Trips Made Easy </i></h1>
+        <Login />
+      </div>
+    );
+  }
+//}
 
 export default App;
