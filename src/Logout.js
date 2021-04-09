@@ -16,7 +16,7 @@ function Logout()
         buttonText="Logout"
         onLogoutSucess={onSuccess}
         style ={{marginTop: '100px'}}
-        ></GoogleLogout>
+        />
         </div>
         
         );
