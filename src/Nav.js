@@ -19,7 +19,7 @@ class Nav extends React.Component {
                 <li>Test</li>
             </Link>
             { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
-            { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} /> }
+            { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }
         </ul>
     </nav>
     );

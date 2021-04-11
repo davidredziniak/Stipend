@@ -19,20 +19,20 @@ class App extends React.Component {
       }
     }
   
+      // When components gets added to the DOM tree, state is loaded from localStorage (if available)
     componentDidMount() {
       let storedAuth = localStorage.getItem('isAuth') === 'true';
       let storedTokenId = localStorage.getItem('tokenId');
       let newAuth = this.state.isAuthenticated;
       let newToken = this.state.tokenId;
-      if(storedAuth != undefined){
+      if(storedAuth != undefined)
         newAuth = storedAuth;
-      }
-      if(storedTokenId != undefined){
+      if(storedTokenId != undefined)
         newToken = storedTokenId;
-      }
       this.setState({ isAuthenticated: newAuth, tokenId: newToken });
     }
   
+    // Allows children of components to update the global 'logged in' state.
     authHandler = (auth) => {
       let data = this.state;
       data['isAuthenticated'] = auth;
@@ -40,6 +40,7 @@ class App extends React.Component {
       localStorage.setItem("isAuth", auth);
     }
     
+    // Allows children of components to update the global 'token ID' state.
     tokenHandler = (tokenId) => {
         const data = this.state;
         data['tokenId'] = tokenId;
@@ -51,7 +52,7 @@ class App extends React.Component {
     return (
     <Router>
     <div className="App">
-        <Nav auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated}/>
+        <Nav auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId}/>
         <Switch>
           <Route exact path="/" render={(props) => ( <HomePage auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
           <Route path="/test" component={TestPage}/>

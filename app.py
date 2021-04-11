@@ -21,7 +21,10 @@ DB = SQLAlchemy(APP)
 import models
 
 CURRENT_SESSIONS = {}
-    
+
+def get_email_from_token_id(sessions,token_id):
+     return [key for key in sessions if (sessions[key] == token_id)]
+
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
 def index(filename):
@@ -46,9 +49,18 @@ def authenticate_user():
             return {'success': True}, 200
     return {'success': False}, 401
 
-def get_email_from_token_id(sessions,token_id):
-     return [key for key in sessions if (sessions[key] == token_id)]
-     
+@APP.route('/api/auth/logout', methods=['POST'])
+def authenticate_user_logout():
+    token_id = request.get_json()['token_id']
+    if token_id != "" and token_id is not None:
+        email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
+            
+        # Token ID matches a session
+        if len(email) != 0 and email[0] != "":
+            CURRENT_SESSIONS.pop(email[0], None)
+            return {'success': True}, 200
+    return {'success': False}, 401
+
 @APP.route('/api/user', methods=['GET'])
 def handle_user_api():
     if 'Authorization' in request.headers:

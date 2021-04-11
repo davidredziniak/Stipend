@@ -5,9 +5,10 @@ import {loginApi, userApi} from '../api/api.js';
 
 function HomePage(props){
     
-      function onClickButton() {
-        userApi(props.currentToken).then(data => console.log('Verified Status:', data));
+  function onClickButton() {
+    userApi(props.currentToken).then(data => console.log('Verified Status:', data));
   }
+  
   return (
     <div>
       <h2> Homepage </h2>
