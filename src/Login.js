@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import dotenv from 'dotenv';
-import {GoogleLogin,GoogleLogout} from 'react-google-login';
+import {GoogleLogin} from 'react-google-login';
 
 import {refreshTokenSetup} from './refreshToken.js';
 import {loginApi, userApi} from './api/api.js';
@@ -16,11 +16,6 @@ function Login(props)
     const [givenName,setGivenName] = useState('');
     const [logStatus,setLogStatus] = useState(false);
     
-    const onSuccessLogout=()=>
-    {
-        alert('Logout made successfully');
-        console.log('Logout made successfully');
-    };
     
     const onSuccess= (res)=>
     {
@@ -39,6 +34,7 @@ function Login(props)
     {
         console.log('[Login failed] res: ',res);
     }
+
     return (
             <div>
                 <div>

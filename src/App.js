@@ -5,6 +5,7 @@ import Login from'./Login.js';
 import Logout from'./Logout.js';
 import HomePage from './components/HomePage';
 import TestPage from './components/TestPage';
+import Nav from './Nav';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
@@ -20,11 +21,11 @@ export default function App() {
     function tokenHandler(tokenId){
         setTokenId(tokenId);
     }
-    
+
   return (
     <Router>
-      <div>
-        <nav>
+    <div className="App">
+        <Nav />
           <ul>
             <li>
               <Link to="/">Home</Link>
@@ -33,14 +34,19 @@ export default function App() {
               <Link to="/test">Test</Link>
             </li>
           </ul>
-        </nav>
         <Switch>
           <Route exact path="/" render={(props) => ( <HomePage auth={authHandler} token={tokenHandler} isAuth={isAuthenticated} currentToken={tokenId} /> )}/>
           <Route path="/test" component={TestPage}/>
         </Switch>
       </div>
     </Router>
+
   );
 }
 
 
+const Home = ()=> (
+  <div>
+    <h1>Home Page</h1>
+  </div>
+  )
