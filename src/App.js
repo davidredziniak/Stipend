@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
+import Nav from './Nav';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
@@ -10,34 +11,22 @@ export default function App() {
   
   return (
     <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Login</Link>
-            </li>
-            <li>
-              <Link to="/Logout">Logout</Link>
-            </li>
-
-
-          </ul>
-        </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
+      <div className="App">
+        <Nav />
         <Switch>
-          <Route path="/" exact>
-            <Login />
-          </Route>
-          <Route path="/Logout">
-            <Logout />
-          </Route>
-
+          <Route path="/" exact component={Home}/>
+          <Route path="/Login" component={Login}/>
+          <Route path="/Logout" component={Logout}/>
         </Switch>
       </div>
     </Router>
+
   );
 }
 
 
+const Home = ()=> (
+  <div>
+    <h1>Home Page</h1>
+  </div>
+  )
