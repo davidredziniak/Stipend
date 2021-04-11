@@ -12,6 +12,7 @@ import {refreshTokenSetup} from './refreshToken.js';
 import {loginApi, userApi} from './api/api.js';
 import Dashboard from './Dashboard';
 
+<<<<<<< HEAD
 import {
   BrowserRouter as Router,
   Switch,
@@ -23,6 +24,11 @@ import {
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
 function Login()
+=======
+const clientId = process.env.REACT_APP_CLIENT_ID;
+
+function Login(props)
+>>>>>>> bee57b52b63726c0427716929fd1d905898280a7
 {
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
@@ -35,22 +41,22 @@ function Login()
     
     const onSuccess= (res)=>
     {
-        console.log('[Login Success] currentUser:',res.profileObj);
         console.log('[Login Success] currentUser:',res.tokenId);
         loginApi(res.tokenId).then(data => console.log('Verified Status:', data));
-        setTokenId(res.tokenId);
-        setEmail(res.profileObj['email']);
-        setName(res.profileObj['name']);
-        setGivenName(res.profileObj['givenName']);
+        //setTokenId(res.tokenId);
+        //setEmail(res.profileObj['email']);
+        //setName(res.profileObj['name']);
+        //setGivenName(res.profileObj['givenName']);
         setLogStatus(true);
-        // setName(givenName);
-        // refreshed token after an hour
         refreshTokenSetup(res);
+        props.authHandler(true);
+        props.tokenHandler(res.tokenId);
     };
     const onFailure = (res)=> 
     {
-        console.log('[Login failed] res:',res);
+        console.log('[Login failed] res: ',res);
     }
+<<<<<<< HEAD
     //<Dashboard email={email} name={name} givenName={givenName} setLogStatus={setLogStatus}/>
     if(logStatus){
         return (
@@ -67,6 +73,10 @@ function Login()
     }
     else{
         return (
+=======
+
+    return (
+>>>>>>> bee57b52b63726c0427716929fd1d905898280a7
             <div>
                 <div>
                 <GoogleLogin
@@ -81,7 +91,6 @@ function Login()
                 </div>
             </div>
             );
-    }
 }
 
 export default Login;
