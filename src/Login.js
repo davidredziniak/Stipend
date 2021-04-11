@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import {GoogleLogin,GoogleLogout} from 'react-google-login';
 
 import {refreshTokenSetup} from './refreshToken.js';
+import {loginApi} from './api/api.js';
 import Dashboard from './Dashboard';
 
 
@@ -31,6 +32,7 @@ function Login()
     {
         console.log('[Login Success] currentUser:',res.profileObj);
         console.log('[Login Success] currentUser:',res.tokenId);
+        loginApi(res.tokenId).then(data => console.log('Verified Status:', data));
         setEmail(res.profileObj['email']);
         setName(res.profileObj['name']);
         setGivenName(res.profileObj['givenName']);
