@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 import {GoogleLogin,GoogleLogout} from 'react-google-login';
 
 import {refreshTokenSetup} from './refreshToken.js';
-import {loginApi} from './api/api.js';
+import {loginApi, userApi} from './api/api.js';
 import Dashboard from './Dashboard';
 
 
@@ -16,10 +16,9 @@ function Login()
 {
     const [email,setEmail] = useState('');
     const [name,setName] = useState('');
-    
+    const [tokenId, setTokenId] = useState('');
     const [givenName,setGivenName] = useState('');
     const [logStatus,setLogStatus] = useState(false);
-    
     
     const onSuccessLogout=()=>
     {
@@ -27,12 +26,12 @@ function Login()
         console.log('Logout made successfully');
     };
     
-    
     const onSuccess= (res)=>
     {
         console.log('[Login Success] currentUser:',res.profileObj);
         console.log('[Login Success] currentUser:',res.tokenId);
         loginApi(res.tokenId).then(data => console.log('Verified Status:', data));
+        setTokenId(res.tokenId);
         setEmail(res.profileObj['email']);
         setName(res.profileObj['name']);
         setGivenName(res.profileObj['givenName']);

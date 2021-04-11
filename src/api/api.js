@@ -1,8 +1,8 @@
 const fetch = require("node-fetch");
 const loginApi = (tokenId) => {
-    console.log('token id is', tokenId);
+    //console.log('token id is', tokenId);
     const data = {'token_id': tokenId};
-    console.log('data is', data)
+    //console.log('data is', data)
     return fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -12,6 +12,17 @@ const loginApi = (tokenId) => {
     }).then(response => response.json());
 };
 
+const userApi = (tokenId) => {
+    return fetch('/api/user', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        }
+    }).then(response => response.json());
+};
+
 export {
     loginApi,
+    userApi
 }
