@@ -3,37 +3,40 @@ import React, { useState } from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
+import HomePage from './components/HomePage';
+import TestPage from './components/TestPage';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
 export default function App() {
   
+  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [tokenId, setTokenId] = useState("");
+
+    function authHandler(auth){
+        setAuthenticated(auth);
+    }
+    
+    function tokenHandler(tokenId){
+        setTokenId(tokenId);
+    }
+    
   return (
     <Router>
       <div>
         <nav>
           <ul>
             <li>
-              <Link to="/">Login</Link>
+              <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/Logout">Logout</Link>
+              <Link to="/test">Test</Link>
             </li>
-
-
           </ul>
         </nav>
-
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/" exact>
-            <Login />
-          </Route>
-          <Route path="/Logout">
-            <Logout />
-          </Route>
-
+          <Route exact path="/" render={(props) => ( <HomePage auth={authHandler} token={tokenHandler} isAuth={isAuthenticated} currentToken={tokenId} /> )}/>
+          <Route path="/test" component={TestPage}/>
         </Switch>
       </div>
     </Router>

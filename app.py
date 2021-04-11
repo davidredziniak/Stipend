@@ -21,11 +21,6 @@ DB = SQLAlchemy(APP)
 import models
 
 CURRENT_SESSIONS = {}
-
-def create_new_user(new_email, new_first_name, new_last_name):
-    new_user = models.User(email=new_email, first_name=new_first_name, last_name=new_last_name)
-    DB.session.add(new_user)
-    DB.session.commit()
     
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
