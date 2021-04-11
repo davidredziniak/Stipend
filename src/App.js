@@ -6,14 +6,15 @@ import Logout from'./Logout.js';
 import Dashboard from './Dashboard';
 
 function App() {
-  
+
     return (
-      <div className="App">
-      <h1 className='heading'><i>STIPEND, Trips Made Easy </i></h1>
-        <Login />
+      <div>
+          <div className="App">
+            <h1 className='heading'><i>STIPEND, Trips Made Easy </i></h1>
+            <Login />
+          </div>
       </div>
-    );
+       );
   }
-
-
+  
 export default App;

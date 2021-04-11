@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
 import dotenv from 'dotenv';
-
+import Logout from'./Logout.js';
 import {GoogleLogin,GoogleLogout} from 'react-google-login';
-
+import { Redirect } from 'react-router-dom';
 import {refreshTokenSetup} from './refreshToken.js';
 import {loginApi} from './api/api.js';
 import Dashboard from './Dashboard';
 
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
-
-
 
 function Login()
 {
@@ -22,17 +26,6 @@ function Login()
     const [logStatus,setLogStatus] = useState(false);
     const [tokenId,setTokenId] = useState('');
     console.log(logStatus);
-    
-    // NEED TO FIND HOW TO DO GOOGLE LOGOUT
- 
-    // const logout=()=>{
-    //     setLogStatus(false);
-    // }
-    const onSuccessLogout=()=>
-    {
-        alert('Logout made successfully');
-        console.log('Logout made successfully');
-    };
     
 const onSuccess= (res)=>
     {
@@ -51,19 +44,16 @@ const onSuccess= (res)=>
     {
         console.log('[Login failed] res:',res);
     }
+    //<Dashboard email={email} name={name} givenName={givenName} setLogStatus={setLogStatus}/>
     if(logStatus){
         return (
-            <div>
-                <Dashboard email={email} name={name} givenName={givenName} setLogStatus={setLogStatus}/>
+            <Router>
                 <div>
-                    <GoogleLogout
-                    clientId={clientId}
-                    buttonText="Logout"
-                    onLogoutSuccess={onSuccessLogout}
-                    style ={{marginTop: '100px'}}
-                    />
+                    <Switch>
+                        <Route exact path="/" render={(props) => ( <Dashboard email={email} name={name} givenName={givenName} setLogStatus={setLogStatus} /> )}/>
+                    </Switch>
                 </div>
-            </div>
+            </Router>
             );
     }
     else{

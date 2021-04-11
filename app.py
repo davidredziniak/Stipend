@@ -26,7 +26,7 @@ def index(filename):
 @APP.route('/api/auth/login', methods=['POST'])
 def authenticate_user():
     token_id = request.get_json()['token_id']
-    print("the token id is", token_id)
+    # print("the token id is", token_id)
     return {'Status': verify_user(token_id)}, 201
 
 # Note we need to add this line so we can import app in the python shell
