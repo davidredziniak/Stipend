@@ -11,9 +11,8 @@ function HomePage(props){
   
   return (
     <div>
-      <h2> Homepage </h2>
+      { props.isAuth && 'Token ID: ' && props.currentToken }
       <p>
-        Token ID: {props.currentToken}
         <button onClick={onClickButton} type="button">Test API</button>
       </p>
     </div>

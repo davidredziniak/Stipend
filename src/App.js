@@ -4,7 +4,6 @@ import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
 import HomePage from './components/HomePage';
-import TestPage from './components/TestPage';
 import Nav from './Nav';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
@@ -55,7 +54,6 @@ class App extends React.Component {
         <Nav auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId}/>
         <Switch>
           <Route exact path="/" render={(props) => ( <HomePage auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
-          <Route path="/test" component={TestPage}/>
         </Switch>
       </div>
     </Router>);
