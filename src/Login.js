@@ -10,12 +10,11 @@ const clientId = process.env.REACT_APP_CLIENT_ID;
 
 function Login(props)
 {
-    const [email,setEmail] = useState('');
-    const [name,setName] = useState('');
-    const [tokenId, setTokenId] = useState('');
-    const [givenName,setGivenName] = useState('');
+    //const [email,setEmail] = useState('');
+    //const [name,setName] = useState('');
+    //const [tokenId, setTokenId] = useState('');
+    //const [givenName,setGivenName] = useState('');
     const [logStatus,setLogStatus] = useState(false);
-    
     
     const onSuccess= (res)=>
     {
@@ -45,7 +44,7 @@ function Login(props)
                     onFailure={onFailure}
                     cookiePolicy ={'single_host_origin'}
                     style ={{marginTop: '100px'}}
-                    isSignedIn={true}
+                    isSignedIn={false}
                 />
                 </div>
             </div>

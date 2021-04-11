@@ -57,7 +57,7 @@ def handle_user_api():
             email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
             
             # Token ID matches a session
-            if email != "" and email is not None:
+            if len(email) != 0 and email[0] != "":
                 return {'success': True }, 200
         return {'success': False, 'error': 'Invalid token ID. Please relogin.'}, 401
     else:

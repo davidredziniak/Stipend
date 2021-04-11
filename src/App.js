@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React, { useState } from 'react';
+import React, { useState, Component } from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
@@ -9,44 +9,56 @@ import Nav from './Nav';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
-export default function App() {
+class App extends React.Component {
   
-  const [isAuthenticated, setAuthenticated] = useState(false);
-  const [tokenId, setTokenId] = useState("");
-
-    function authHandler(auth){
-        setAuthenticated(auth);
+    constructor(props) {
+      super(props);
+      this.state = {
+        isAuthenticated: false,
+        tokenId: ''
+      }
+    }
+  
+    componentDidMount() {
+      let storedAuth = localStorage.getItem('isAuth') === 'true';
+      let storedTokenId = localStorage.getItem('tokenId');
+      let newAuth = this.state.isAuthenticated;
+      let newToken = this.state.tokenId;
+      if(storedAuth != undefined){
+        newAuth = storedAuth;
+      }
+      if(storedTokenId != undefined){
+        newToken = storedTokenId;
+      }
+      this.setState({ isAuthenticated: newAuth, tokenId: newToken });
+    }
+  
+    authHandler = (auth) => {
+      let data = this.state;
+      data['isAuthenticated'] = auth;
+      this.setState(data);
+      localStorage.setItem("isAuth", auth);
     }
     
-    function tokenHandler(tokenId){
-        setTokenId(tokenId);
+    tokenHandler = (tokenId) => {
+        const data = this.state;
+        data['tokenId'] = tokenId;
+        this.setState(data);
+        localStorage.setItem('tokenId', tokenId );
     }
 
-  return (
+  render() {
+    return (
     <Router>
     <div className="App">
-        <Nav />
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/test">Test</Link>
-            </li>
-          </ul>
+        <Nav auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated}/>
         <Switch>
-          <Route exact path="/" render={(props) => ( <HomePage auth={authHandler} token={tokenHandler} isAuth={isAuthenticated} currentToken={tokenId} /> )}/>
+          <Route exact path="/" render={(props) => ( <HomePage auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
           <Route path="/test" component={TestPage}/>
         </Switch>
       </div>
-    </Router>
+    </Router>);
+  }
+};
 
-  );
-}
-
-
-const Home = ()=> (
-  <div>
-    <h1>Home Page</h1>
-  </div>
-  )
+export default App;
