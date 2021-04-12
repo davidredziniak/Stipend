@@ -13,10 +13,10 @@ function HomePage(props){
     <div>
       { props.isAuth && 'Token ID: ' && props.currentToken }
       <p>
-        <button onClick={onClickButton} type="button">Test API</button>
+        
       </p>
     </div>
   )
 }
-
+//<button onClick={onClickButton} type="button">Test API</button> 
 export default HomePage;
