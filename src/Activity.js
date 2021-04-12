@@ -8,10 +8,8 @@ import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
 function Activity(props){
     return(
         <div className="activity">
-           
              {props.isAuth && <Login tokenHandler={props.token} 
-             authHandler={props.auth}/>?(<ul>Welcome your Activity page</ul>):null}
-    
+             authHandler={props.auth}/>?(<ul>Welcome to your Activity Page!</ul>):null}
         </div>
         );
 }

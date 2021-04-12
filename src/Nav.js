@@ -10,7 +10,7 @@ class Nav extends React.Component {
     render(){
         return(
     <nav className='navStyle'>
-        <h1>Stipend</h1>
+        <h1 className='topic'>STIPEND</h1>
         <ul className="nav-links">
         <div>
             {this.props.isAuth && <Login tokenHandler={this.props.token} 
