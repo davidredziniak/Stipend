@@ -49,6 +49,7 @@ def authenticate_user():
             return {'success': True}, 200
     return {'success': False}, 401
 
+
 @APP.route('/api/auth/logout', methods=['POST'])
 def authenticate_user_logout():
     token_id = request.get_json()['token_id']
@@ -60,6 +61,7 @@ def authenticate_user_logout():
             CURRENT_SESSIONS.pop(email[0], None)
             return {'success': True}, 200
     return {'success': False}, 401
+
 
 @APP.route('/api/user', methods=['GET'])
 def handle_user_api():
