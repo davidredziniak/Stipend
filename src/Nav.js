@@ -3,7 +3,10 @@ import React, { useState, Component } from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
+
 import Test from './Test.js';
+
+import Activity from './Activity';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
@@ -14,10 +17,15 @@ class Nav extends React.Component {
         <h1>Stipend</h1>
 
         <ul className="nav-links">
-            {this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> ? (
-                <Link to="/Activity"><button>Acitivty</button></Link>
-                ):<Link to = "/Home"><button>Home</button></Link>
-            }
+
+        <div>
+            {this.props.isAuth && <Login tokenHandler={this.props.token} 
+            authHandler={this.props.auth}/>?(<Link to='/activity'>Activity</Link>):null}
+        </div>
+            <Link className='navStyle'to="/">
+              <li>Home</li>
+            </Link>
+
             { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
             { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }
         </ul>
