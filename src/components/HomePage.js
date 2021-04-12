@@ -12,11 +12,14 @@ function HomePage(props){
   //<button onClick={onClickButton} type="button">Test API</button>
   // { props.isAuth && 'Token ID: ' && props.currentToken }
   return (
-    <div>
-      {props.isAuth && <Login tokenHandler={props.token} 
-      authHandler={props.auth}/>?(<ul>Welcome to your Home Page!</ul>):null}
-    </div>
+
+            <div className="activity">
+             {props.isAuth && <Login tokenHandler={props.token} 
+             authHandler={props.auth}/>?(<ul>Welcome to your Home Page</ul>):null}
+        </div>
   )
 }
 
 export default HomePage;
+
+//<button onClick={onClickButton} type="button">Test API</button> 

@@ -50,7 +50,7 @@
 
 .nav-links
 {
-  width:40%;
+  width:20%;
   display:flex;
   justify-content:space-around;
   align-items:center;
@@ -74,5 +74,9 @@
 }
 
 .activity{
+
+  color:Hotpink;
+
   font-size:50px;
+
 }
