@@ -5,11 +5,8 @@ import Login from'./Login.js';
 import Logout from'./Logout.js';
 import HomePage from './components/HomePage';
 import Nav from './Nav';
-<<<<<<< HEAD
-import Test from './Test';
-=======
 import Activity from './Activity';
->>>>>>> 8d21e42092da63ca5c17676c76f0e7de1b397740
+
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
