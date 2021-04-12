@@ -14,6 +14,7 @@
 }
 
 .App-header {
+
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -37,12 +38,6 @@
   }
 }
 
-.heading{
-  font-size: 50px;
-  background: -webkit-linear-gradient(#1ad1ff, #000000);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 .navStyle
 {
   display:flex;
@@ -65,7 +60,23 @@
 {
   color:white;
 }
+
+.topic{
+  font-style: italic;
+  background-color: #f3ec78;
+  background-image: linear-gradient(45deg, #334d50, #000000);
+  background-size: 100%;
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  -webkit-text-fill-color: transparent; 
+  -moz-text-fill-color: transparent;
+  font-size:50px;
+}
+
 .activity{
+
   color:Hotpink;
-  
+
+  font-size:50px;
+
 }

@@ -14,17 +14,22 @@ class Nav extends React.Component {
     render(){
         return(
     <nav className='navStyle'>
-        <h1>Stipend</h1>
+       <h1 className='topic'>STIPEND</h1>
 
         <ul className="nav-links">
 
         <div>
             {this.props.isAuth && <Login tokenHandler={this.props.token} 
-            authHandler={this.props.auth}/>?(<Link to='/activity'><button>Activity</button></Link>):null}
+            authHandler={this.props.auth}/>?
+            (
+            <div>
+            <Link className='navStyle'to='/activity'><button>Activity</button></Link>
+            <Link className='navStyle'to='/'><button>Home</button></Link>
+            </div>
+            )
+            :null}
         </div>
-            <Link className='navStyle'to="/">
-              <li>Home</li>
-            </Link>
+
 
             { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
             { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }

@@ -13,8 +13,7 @@ function HomePage(props){
   // { props.isAuth && 'Token ID: ' && props.currentToken }
   return (
     <div>
-      { props.isAuth && 'Token ID: ' && props.currentToken }
-
+      <ul>Welcome to your Home Page</ul>
 
     </div>
   )
