@@ -2,29 +2,6 @@
 
 name: CI
 
-# Controls when the action will run. 
-on:
-  # Triggers the workflow on push or pull request events but only for the main branch
-  [push,pull_request]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  pylint:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      - name: Set up Python3.8
-        uses: actions/setup-python@v1
-         with:
-           python-version: '3.8'
-       - name: Install dependencies
-        run: | python3 -m pip install --upgrade pip
-          python3 -m pip install pylint
-          python3 -m pip install --requirement requirements.txt
 on: [push, pull_request]
 
 jobs:
@@ -39,9 +16,9 @@ jobs:
       - name: Install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install --requirement requirements.txt
           python3 -m pip install pylint
-      - name: Analyzing Python files with pylint
+          python3 -m pip install --requirement requirements.txt
+      - name: Fixing Python file with Pylint
         run: |
           python3 -m pylint $(find ./ -type f | grep '.py$' | xargs)
   eslint:
@@ -55,6 +32,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-      - name: Analyzing JS files with eslint
+      - name: fixing JS file with eslint
         run: |
           npx eslint src/ --ext js,jsx
