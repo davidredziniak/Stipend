@@ -3,12 +3,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import {BrowserRouter as Router,Switch,Route,Link} from "react-router-dom";
 
 function Dashboard(props){
     return(

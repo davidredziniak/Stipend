@@ -3,7 +3,7 @@ import React, { useState, Component } from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
-
+import Activity from './Activity';
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
 class Nav extends React.Component {
@@ -12,6 +12,10 @@ class Nav extends React.Component {
     <nav className='navStyle'>
         <h1>Stipend</h1>
         <ul className="nav-links">
+        <div>
+            {this.props.isAuth && <Login tokenHandler={this.props.token} 
+            authHandler={this.props.auth}/>?(<Link to='/activity'>Activity</Link>):null}
+        </div>
             <Link className='navStyle'to="/">
               <li>Home</li>
             </Link>
