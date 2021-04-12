@@ -22,10 +22,15 @@ class Nav extends React.Component {
             {this.props.isAuth && <Login tokenHandler={this.props.token} 
             authHandler={this.props.auth}/>?
             (
-            <div>
-            <Link className='navStyle'to='/activity'><button>Activity</button></Link>
-            <Link className='navStyle'to='/'><button>Home</button></Link>
-            </div>
+            <Link className='navStyle'to='/Activity'><li><button>Activity</button></li></Link>
+            )
+            :null}
+        </div>
+        <div>
+            {this.props.isAuth && <Login tokenHandler={this.props.token} 
+            authHandler={this.props.auth}/>?
+            (
+            <Link className='navStyle'to='/Home'><li><button>Home</button></li></Link>
             )
             :null}
         </div>
