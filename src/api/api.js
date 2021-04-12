@@ -12,6 +12,17 @@ const loginApi = (tokenId) => {
     }).then(response => response.json());
 };
 
+const logoutApi = (tokenId) => {
+    const data = {'token_id': tokenId};
+    return fetch('/api/auth/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    }).then(response => response.json());
+};
+
 const userApi = (tokenId) => {
     return fetch('/api/user', {
         method: 'GET',
@@ -24,5 +35,6 @@ const userApi = (tokenId) => {
 
 export {
     loginApi,
+    logoutApi,
     userApi
 }
