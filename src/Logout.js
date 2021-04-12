@@ -3,7 +3,6 @@ import dotenv from 'dotenv'
 import Login from'./Login.js';
 import { GoogleLogout } from 'react-google-login';
 import {logoutApi} from './api/api.js';
-
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
 function Logout(props)
@@ -27,4 +26,5 @@ function Logout(props)
         </div>
         );
 }
+
 export default Logout;
