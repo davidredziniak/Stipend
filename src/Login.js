@@ -10,24 +10,14 @@ const clientId = process.env.REACT_APP_CLIENT_ID;
 
 function Login(props)
 {
-    //const [email,setEmail] = useState('');
-    //const [name,setName] = useState('');
-    //const [tokenId, setTokenId] = useState('');
-    //const [givenName,setGivenName] = useState('');
     const [logStatus,setLogStatus] = useState(false);
     
     const onSuccess= (res)=>
     {
         console.log('[Login Success] currentUser:',res.tokenId);
-        loginApi(res.tokenId).then(data => console.log('Verified API login:', data));
-        //setTokenId(res.tokenId);
-        //setEmail(res.profileObj['email']);
-        //setName(res.profileObj['name']);
-        //setGivenName(res.profileObj['givenName']);
+        loginApi(res.tokenId).then(data => console.log('Verified API login:', data)).then(result => props.login(res.tokenId));
         setLogStatus(true);
         refreshTokenSetup(res);
-        props.authHandler(true);
-        props.tokenHandler(res.tokenId);
     };
     const onFailure = (res)=> 
     {

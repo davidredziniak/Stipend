@@ -6,21 +6,20 @@ import Logout from'./Logout.js';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
-class Nav extends React.Component {
-    render(){
-        return(
+function Nav(props) {
+    
+    return(
     <nav className='navStyle'>
         <h1>Stipend</h1>
         <ul className="nav-links">
             <Link className='navStyle'to="/">
               <li>Home</li>
             </Link>
-            { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
-            { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }
+            { !props.isAuth && <Login login={props.login}/> }
+            { props.isAuth && <Logout logout={props.logout} token={props.token}/> }
         </ul>
     </nav>
     );
-    }
 }
 
 export default Nav;

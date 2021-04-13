@@ -67,10 +67,12 @@ def handle_user_api():
         if 'Bearer ' in request.headers['Authorization']:
             token_id = request.headers['Authorization'].split(' ')[1]
             email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
-            
+        
             # Token ID matches a session
             if len(email) != 0 and email[0] != "":
-                return {'success': True }, 200
+                current_user = models.User.query.filter_by(email=email[0]).first()
+                if current_user != None:
+                    return {'success': True, 'email': current_user.email, 'firstName': current_user.first_name, 'lastName': current_user.last_name }, 200
         return {'success': False, 'error': 'Invalid token ID. Please relogin.'}, 401
     else:
         return {'success': False, 'error': 'Missing Authorization header.'}, 401
