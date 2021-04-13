@@ -1,4 +1,8 @@
-from app import DB
+''' Models for the database '''
+from flask_sqlalchemy import SQLAlchemy
+
+DB = SQLAlchemy()
+
 
 class User(DB.Model):
     ''' User model '''
@@ -14,6 +18,7 @@ class User(DB.Model):
     def __repr__(self):
         return '<User %r>' % self.id
 
+
 class Trip(DB.Model):
     ''' Trip model '''
     id = DB.Column(DB.Integer, primary_key=True)
@@ -26,6 +31,7 @@ class Trip(DB.Model):
     def __repr__(self):
         return '<Trip %r>' % self.id
 
+
 class TripUser(DB.Model):
     ''' TripUser model '''
     id = DB.Column(DB.Integer, primary_key=True)
@@ -34,6 +40,7 @@ class TripUser(DB.Model):
 
     def __repr__(self):
         return '<TripUser %r>' % self.id
+
 
 class Activity(DB.Model):
     ''' Activity model '''
@@ -47,10 +54,13 @@ class Activity(DB.Model):
     def __repr__(self):
         return '<Activity %r>' % self.id
 
+
 class ActivityUser(DB.Model):
     ''' ActivityUser model '''
     id = DB.Column(DB.Integer, primary_key=True)
-    activity_id = DB.Column(DB.Integer, DB.ForeignKey('activity.id'), nullable=False)
+    activity_id = DB.Column(DB.Integer,
+                            DB.ForeignKey('activity.id'),
+                            nullable=False)
     user_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

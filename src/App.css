@@ -43,3 +43,25 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+.navStyle
+{
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  min-height:10vh;
+  background:rgb(66, 135, 245);
+  color:white;
+}
+
+.nav-links
+{
+  width:40%;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  list-style:none;
+}
+.navStyle
+{
+  color:white;
+}
