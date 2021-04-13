@@ -5,9 +5,8 @@
 import os
 from flask import Flask, send_from_directory, request
 from dotenv import load_dotenv, find_dotenv
-from flask_sqlalchemy import SQLAlchemy
 from google_auth import verify_user_token
-import models
+from models import DB, User, Trip, TripUser, Activity, ActivityUser
 
 load_dotenv(find_dotenv())  # This is to load your env variables from .env
 
@@ -18,8 +17,7 @@ APP.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 # Gets rid of a warning
 APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-DB = SQLAlchemy(APP)
-
+DB.init_app(APP)
 
 CURRENT_SESSIONS = {}
 
@@ -51,12 +49,12 @@ def authenticate_user():
         # Valid token ID from Google, send success
         if is_valid_user:
             # Check if user exists in database
-            user = models.User.query.filter_by(email=email).first()
+            user = User.query.filter_by(email=email).first()
             # User doesn't exist, create new user
             if user is None:
-                new_user = models.User(email=email,
-                                       first_name=first_name,
-                                       last_name=last_name)
+                new_user = User(email=email,
+                                first_name=first_name,
+                                last_name=last_name)
                 DB.session.add(new_user)
                 DB.session.commit()
             # Add to token id to session list, for future API calls
@@ -93,8 +91,7 @@ def handle_user_api():
 
             # Token ID matches a session
             if len(email) != 0 and email[0] != "":
-                current_user = models.User.query.filter_by(
-                    email=email[0]).first()
+                current_user = User.query.filter_by(email=email[0]).first()
                 if current_user is not None:
                     return {
                         'success': True,
@@ -106,10 +103,7 @@ def handle_user_api():
             'success': False,
             'error': 'Invalid token ID. Please relogin.'
         }, 401
-    return {
-        'success': False,
-        'error': 'Missing Authorization header.'
-    }, 401
+    return {'success': False, 'error': 'Missing Authorization header.'}, 401
 
 
 # Note we need to add this line so we can import app in the python shell
