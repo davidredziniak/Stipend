@@ -47,7 +47,7 @@ function App(props) {
     <div className="App">
         <Nav login={loginHandler} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId}/>
         <Switch>
-          <Route exact path="/" render={(props) => ( <HomePage isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/" render={(props) => ( <HomePage isAuth={isAuthenticated} logout={logoutHandler} token={tokenId} /> )}/>
         </Switch>
       </div>
     </Router>);

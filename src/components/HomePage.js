@@ -11,9 +11,17 @@ function HomePage(props){
     const [lastName, setLastName] = useState("");
     
     function updateData(data){
-      setEmail(data.email);
-      setLastName(data.lastName);
-      setFirstName(data.firstName);
+      // If the user data API call fails, log the user out.
+      if(data.hasOwnProperty('success')){
+        if(data.success == false){
+          props.logout();
+        }
+        else{
+          setEmail(data.email);
+          setLastName(data.lastName);
+          setFirstName(data.firstName);
+        }
+      }
     }
     
     //Rerender component when token ID and isAuth updates.
