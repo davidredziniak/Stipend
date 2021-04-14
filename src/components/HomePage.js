@@ -15,7 +15,13 @@ function HomePage(props){
 
             <div className="activity">
              {props.isAuth && <Login tokenHandler={props.token} 
-             authHandler={props.auth}/>?(<h3>Welcome to your Home Page</h3>):null}
+             authHandler={props.auth}/>?(
+             <div>
+             <h3>Welcome to your Home Page</h3>
+              <p>{userApi}</p>
+             </div>
+             )
+             :null}
         </div>
   )
 }
