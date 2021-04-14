@@ -21,14 +21,17 @@ import models
 
 CURRENT_SESSIONS = {}
 
+# ACCESSING THE EMAILS USING CURRENT_SESSION AND TOKEN_ID
 def get_email_from_token_id(sessions,token_id):
      return [key for key in sessions if (sessions[key] == token_id)]
+
 
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
 def index(filename):
     return send_from_directory('./build', filename)
 
+# ENDPOINT FOR LOGIN, IT ALSO POPULATES DB WITH USER
 @APP.route('/api/auth/login', methods=['POST'])
 def authenticate_user():
     token_id = request.get_json()['token_id']
@@ -48,7 +51,7 @@ def authenticate_user():
             return {'success': True}, 200
     return {'success': False}, 401
 
-
+# ENDPOINT FOR LOGOUT
 @APP.route('/api/auth/logout', methods=['POST'])
 def authenticate_user_logout():
     token_id = request.get_json()['token_id']
@@ -61,7 +64,7 @@ def authenticate_user_logout():
             return {'success': True}, 200
     return {'success': False}, 401
 
-
+# VARIFYING USER'S TOKEN
 @APP.route('/api/user', methods=['GET'])
 def handle_user_api():
     if 'Authorization' in request.headers:
@@ -75,35 +78,6 @@ def handle_user_api():
         return {'success': False, 'error': 'Invalid token ID. Please relogin.'}, 401
     else:
         return {'success': False, 'error': 'Missing Authorization header.'}, 401
-
-@APP.route('/api/database', methods=['GET'])
-def add_user(data):
-    token_id = request.get_json()['token_id']
-    if token_id != "" and token_id is not None:
-        first_name, last_name, email, is_valid_user = verify_user_token(token_id)
-    #NEED TO POPULATE THE REMAINING MODEL ELEMENTS WITH RELATIONSHIP
-    new_user = models.User(email=email, first_name=first_name, last_name=last_name)
-    DB.session.add(new_user)
-    DB.session.commit()
-    all_people = models.User.query.all()
-    # print('HAVE A LOOOOK ',request.get_json()['token_id'])
-    users = []
-    # scoreboard = []
-    for person in all_people:
-        users.append(person.username)
-    return users
-
-def add_trip():
-    return ''
-
-def trip_user():
-    return ''
-    
-def activity():
-    return ''
-    
-def activity_user():
-    return ''
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":
