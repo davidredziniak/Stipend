@@ -34,6 +34,22 @@ class Nav extends React.Component {
             )
             :null}
         </div>
+        <div>
+            {this.props.isAuth && <Login tokenHandler={this.props.token} 
+            authHandler={this.props.auth}/>?
+            (
+            <Link className='navStyle'to='/JoinTrip'><li><button>JoinTrip</button></li></Link>
+            )
+            :null}
+        </div>
+        <div>
+            {this.props.isAuth && <Login tokenHandler={this.props.token} 
+            authHandler={this.props.auth}/>?
+            (
+            <Link className='navStyle'to='/CreateTrip'><li><button>CreateTrip</button></li></Link>
+            )
+            :null}
+        </div>
 
 
             { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }

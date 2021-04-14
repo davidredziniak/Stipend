@@ -20,6 +20,7 @@ DB = SQLAlchemy(APP)
 
 import models
 
+
 CURRENT_SESSIONS = {}
 
 def get_email_from_token_id(sessions,token_id):
