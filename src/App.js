@@ -6,6 +6,8 @@ import Logout from'./Logout.js';
 import HomePage from './components/HomePage';
 import Nav from './Nav';
 import Activity from './Activity';
+import JoinTrip from './JoinTrip';
+import CreateTrip from './CreateTrip';
 
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
@@ -57,7 +59,8 @@ class App extends React.Component {
         <Switch>
           <Route exact path="/Home" render={(props) => ( <HomePage auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
           <Route exact path="/Activity" render={(props) => ( <Activity auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
-
+          <Route exact path="/JoinTrip" render={(props) => ( <JoinTrip auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
+          <Route exact path="/CreateTrip" render={(props) => ( <CreateTrip auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
         </Switch>
       </div>
     </Router>);

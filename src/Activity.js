@@ -13,12 +13,17 @@ import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
 // split money equally within the activity by TOTAL_MONEY_SPENT/total_number_of_users
 
 function Activity(props){
+    const activity= ()=>
+    {
+        <div><h3>Welcome to your Activity Page!</h3></div>
+    }
     return(
         <div className="activity">
-             {props.isAuth && <Login tokenHandler={props.token} 
-             authHandler={props.auth}/>?(<ul>Welcome to your Activity Page!</ul>):null}
+             {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?
+             (<div><h3>Welcome to your Activity Page!</h3></div>):<h3>Please Login!!!</h3>}
         </div>
         );
 }
 
 export default Activity;
+
