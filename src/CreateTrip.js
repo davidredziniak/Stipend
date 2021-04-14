@@ -19,18 +19,19 @@ function CreateTrip(props){
              <h3>Welcome to your Create Trip!</h3>
              <div>
               <input ref={user} type="Text" />
-              <button onClick={()=>user.current.value} type="submit">Enter Trip Name</button>
+              <button onClick={()=>user.current.value} type="submit" required>Enter Trip Name</button>
               </div>
               <div>
               <input ref={numberOfUser} type="Number" />
-              <button onClick={()=>numberOfUser.current.value} type="submit">Number of User</button>
+              <button onClick={()=>numberOfUser.current.value} type="submit" required>Number of User</button>
               </div>
               <div>
-                <label>
-                    Start Date:
-                     <input type="date" id="start" name="trip-start"/>
+                <label className="date">
+                    <label for="Start">Start Date:</label>
+                     <input type="date" id="start" name="trip-start" required/>
+                     <button onClick={()=>numberOfUser.current.value} type="submit" required>Enter</button>
                      End Date:
-                     <input type="date" id="start" name="trip-end"/>
+                     <input type="date" id="start" name="trip-end" required/>
                  </label>
               
               </div>
