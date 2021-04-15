@@ -5,6 +5,7 @@
 2. `pip install -r requirements.txt`
 3. `npm i react-google-login`
 4. `npm i node-fetch`
+5. `npm install react-hook-form`
 5. `npm install ract-router-dom`
 
 ## Setup
