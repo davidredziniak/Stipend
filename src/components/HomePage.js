@@ -7,15 +7,19 @@ import {loginApi, userApi} from '../api/api.js';
 function HomePage(props){
     
   function onClickButton() {
-    userApi(props.currentToken).then(data => console.log('Verified Status:', data));
+    userApi(props.currentToken).then(data => console.log('Verified Status:', props));
   }
   //<button onClick={onClickButton} type="button">Test API</button>
   // { props.isAuth && 'Token ID: ' && props.currentToken }
   return (
-
             <div className="activity">
              {props.isAuth && <Login tokenHandler={props.token} 
-             authHandler={props.auth}/>?(<h3>Welcome to your Home Page</h3>):null}
+             authHandler={props.auth}/>?(
+             <div>
+                 <h3>Welcome to your Home Page</h3>
+                 <button onClick={onClickButton} type="button">Test API</button> 
+             </div>
+             ):null}
         </div>
   )
 }

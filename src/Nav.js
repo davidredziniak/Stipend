@@ -3,12 +3,18 @@ import React, { useState, Component } from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
-
-import Test from './Test.js';
-
 import Activity from './Activity';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
+
+// <div>
+//     {this.props.isAuth && <Login tokenHandler={this.props.token} 
+//     authHandler={this.props.auth}/>?
+//     (
+//     <Link className='navStyle'to='/Activity'><li><button>Activity</button></li></Link>
+//     )
+//     :null}
+// </div>
 
 class Nav extends React.Component {
     render(){
@@ -17,15 +23,6 @@ class Nav extends React.Component {
        <h1 className='topic'>STIPEND</h1>
 
         <ul className="nav-links">
-
-        <div>
-            {this.props.isAuth && <Login tokenHandler={this.props.token} 
-            authHandler={this.props.auth}/>?
-            (
-            <Link className='navStyle'to='/Activity'><li><button>Activity</button></li></Link>
-            )
-            :null}
-        </div>
         <div>
             {this.props.isAuth && <Login tokenHandler={this.props.token} 
             authHandler={this.props.auth}/>?
@@ -50,8 +47,6 @@ class Nav extends React.Component {
             )
             :null}
         </div>
-
-
             { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
             { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }
         </ul>
