@@ -1,10 +1,11 @@
 import React from 'react';
-
-function TripHome()
+import Login from './Login.js';
+function TripHome(props)
 {
     return (
-        <div>
-        <p>The home page of trip</p>
+        <div className="activity">
+             {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?
+             (<div><h3>Welcome to your TripHome!</h3></div>):<h3>Please Login!!!</h3>}
         </div>
         );
 }

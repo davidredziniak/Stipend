@@ -1,6 +1,4 @@
-import logo from './logo.svg';
 import Login from './Login.js';
-import Logout from './Logout.js';
 import TripHome from './TripHome';
 import React, { useState,useRef } from 'react';
 import { useForm } from "react-hook-form";
@@ -28,11 +26,19 @@ function CreateTrip(props){
                       <div><input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} required/></div>
                       <div><input type="date" placeholder="Start Date" {...register("Start Date", {required: true})} required/></div>
                       <div><input type="date" placeholder="End Date" {...register("End Date", {required: true})} required/></div>
-                      <div><input type="submit" /></div>
+
+                      <div><Link to ="/Home"><input type="submit" /></Link></div>
+                     
                 </form>
+            <Router>
+                <div>
+                    <ul to='/TripHome'></ul>
+                    <Route path="/TripHome" component={TripHome} />
+                </div>
+            </Router>
              </div>)
              :null}
-             <TripHome/>
+             
         </div>
         );
 }
