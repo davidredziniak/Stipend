@@ -13,7 +13,7 @@ function JoinTrip(props){
              {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?
              (<div><h3>Welcome to your Join Page!</h3>
               <input ref={user} type="Number" />
-              <button onClick={()=>alert(user.current.value)} type="submit">Enter</button>
+              <button onClick={()=>alert(user.current.value)} type="submit" required>Enter</button>
              </div>)
              :null}
         </div>

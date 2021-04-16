@@ -4,6 +4,7 @@ import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
 import Activity from './Activity';
+import CreateTrip from './CreateTrip';
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
