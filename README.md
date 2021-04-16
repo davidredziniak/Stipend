@@ -5,7 +5,7 @@
 2. `pip install -r requirements.txt`
 3. `npm i react-google-login`
 4. `npm i node-fetch`
-5. `npm install ract-router-dom`
+5. `npm install react-router-dom`
 
 ## Setup
 1. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
