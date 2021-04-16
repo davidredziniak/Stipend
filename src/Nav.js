@@ -1,12 +1,11 @@
-import logo from './logo.svg';
-import React, { useState, Component } from 'react';
+
+import React from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
-import Activity from './Activity';
-import CreateTrip from './CreateTrip';
 
-import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
+
+import {Link} from "react-router-dom";
 
 // <div>
 //     {this.props.isAuth && <Login tokenHandler={this.props.token} 
@@ -48,6 +47,7 @@ class Nav extends React.Component {
             )
             :null}
         </div>
+
             { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
             { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }
         </ul>
@@ -57,5 +57,6 @@ class Nav extends React.Component {
 }
 
 export default Nav;
+
 
 //<button type="submit" onClick={()=>{<Router><Switch><Route path="/Activity" exact component={Test}/></Switch></Router>}}>Activity</button>

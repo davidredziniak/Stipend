@@ -1,8 +1,8 @@
-import logo from './logo.svg';
-import React, { useState, Component } from 'react';
+
+import React from 'react';
 import './App.css';
-import Login from'./Login.js';
-import Logout from'./Logout.js';
+//import Login from'./Login';
+//import Logout from'./Logout';
 import HomePage from './components/HomePage';
 import Nav from './Nav';
 import Activity from './Activity';
@@ -11,7 +11,7 @@ import CreateTrip from './CreateTrip';
 import TripHome from './TripHome';
 
 
-import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
+import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
 
 class App extends React.Component {
   
@@ -29,9 +29,9 @@ class App extends React.Component {
       let storedTokenId = localStorage.getItem('tokenId');
       let newAuth = this.state.isAuthenticated;
       let newToken = this.state.tokenId;
-      if(storedAuth != undefined)
+      if(storedAuth !== undefined)
         newAuth = storedAuth;
-      if(storedTokenId != undefined)
+      if(storedTokenId !== undefined)
         newToken = storedTokenId;
       this.setState({ isAuthenticated: newAuth, tokenId: newToken });
     }

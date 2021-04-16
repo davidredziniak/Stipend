@@ -1,6 +1,4 @@
 import React from 'react';
-import dotenv from 'dotenv'
-import Login from'./Login.js';
 import { GoogleLogout } from 'react-google-login';
 import {logoutApi} from './api/api.js';
 const clientId = process.env.REACT_APP_CLIENT_ID;
