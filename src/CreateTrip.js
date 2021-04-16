@@ -3,6 +3,7 @@ import TripHome from './TripHome';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
+import InputEmails from './InputEmails';
 import { BrowserRouter as Router,Route, Link} from "react-router-dom";
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
@@ -23,23 +24,25 @@ function CreateTrip(props){
   
   
   console.log(errors);
-
+// <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
     return(
         <div className="activity">
-             {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?(
-             <div>
+            {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?(
+            <div>
                 <h3>Welcome to your Create Trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
-
-                      <div><input type="text"  placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
-                      <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
-                      <div><input type="date"  placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
-                      <div><input type="date"  placeholder="End Date" {...register("End Date", {required: true})} /></div>
-                      <div><Link to="/TripHome"><input type="submit" /></Link></div>
-
+                        <div><input type="text" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
+                        <div className="lines">____________________________________________________________________________________</div>
+                        <div><input type="date" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
+                        <div className="lines">____________________________________________________________________________________</div>
+                        <div><input type="date" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})} /></div>
+                        <div className="lines">____________________________________________________________________________________</div>
+                        <InputEmails/>
+                        <div className="lines">____________________________________________________________________________________</div>
+                        <div><Link to="/TripHome"><input className="tripSubmit" type="submit" /></Link></div>
                 </form>
-             </div>)
-             :null}
+            </div>)
+            :null}
 
             {dataa?(
                 <Router>
@@ -53,6 +56,3 @@ function CreateTrip(props){
 }
 
 export default CreateTrip;
-
-
-
