@@ -1,13 +1,11 @@
-import logo from './logo.svg';
-import React, { useState, Component } from 'react';
+
+import React from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
-import Activity from './Activity';
-import CreateTrip from './CreateTrip';
-import TripHome from './TripHome.js';
 
-import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
+
+import {Link} from "react-router-dom";
 
 // <div>
 //     {this.props.isAuth && <Login tokenHandler={this.props.token} 

@@ -1,6 +1,7 @@
-
+'''
+Server
+'''
 import os
-import json
 #from html import escape
 from flask import Flask, send_from_directory, request
 from dotenv import load_dotenv, find_dotenv
@@ -24,10 +25,8 @@ import models
 CURRENT_SESSIONS = {}
 
 # ACCESSING THE EMAILS USING CURRENT_SESSION AND TOKEN_ID
-def get_email_from_token_id(sessions,token_id):
-     return [key for key in sessions if (sessions[key] == token_id)]
-
-
+def get_email_from_token_id(sessions, token_id):
+    return [key for key in sessions if (sessions[key] == token_id)]
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
 def index(filename):
@@ -59,7 +58,6 @@ def authenticate_user_logout():
     token_id = request.get_json()['token_id']
     if token_id != "" and token_id is not None:
         email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
-            
         # Token ID matches a session
         if len(email) != 0 and email[0] != "":
             CURRENT_SESSIONS.pop(email[0], None)
@@ -73,10 +71,9 @@ def handle_user_api():
         if 'Bearer ' in request.headers['Authorization']:
             token_id = request.headers['Authorization'].split(' ')[1]
             email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
-            
             # Token ID matches a session
             if len(email) != 0 and email[0] != "":
-                return {'success': True }, 200
+                return {'success': True}, 200
         return {'success': False, 'error': 'Invalid token ID. Please relogin.'}, 401
     else:
         return {'success': False, 'error': 'Missing Authorization header.'}, 401
@@ -94,10 +91,12 @@ def join_trip_api():
             # User doesn't exist, create new user
             if user is None:
                 #THE JOIN_CODE IS DEFINED TO BE A STRING TYPE
-                new_user = models.Trip(trip_name='someSTRING', join_code='someSTRING', owner_id='someINT')
+                new_user = models.Trip(trip_name='someSTRING', 
+                    join_code='someSTRING', owner_id='someINT')
                 DB.session.add(new_user)
                 DB.session.commit()
-    # Add to token id to session list, for future API calls
+    # Add to token id to session list,
+    # for future API calls
             CURRENT_SESSIONS[email] = token_id
             return {'success': True}, 200
     return {'success': False}, 401
@@ -121,7 +120,6 @@ def trip_id_api():
             CURRENT_SESSIONS[email] = token_id
             return {'success': True}, 200
     return {'success': False}, 401
-
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":

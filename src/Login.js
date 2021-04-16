@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import dotenv from 'dotenv';
+import React from 'react';
+
 import {GoogleLogin} from 'react-google-login';
 
 import {refreshTokenSetup} from './refreshToken.js';
 import {loginApi} from './api/api.js';
-import Dashboard from './Dashboard';
+
 
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
@@ -14,7 +14,7 @@ function Login(props)
     //const [name,setName] = useState('');
     //const [tokenId, setTokenId] = useState('');
     //const [givenName,setGivenName] = useState('');
-    const [logStatus,setLogStatus] = useState(false);
+   // const [logStatus,setLogStatus] = useState(false);
     
     const onSuccess= (res)=>
     {
@@ -24,7 +24,7 @@ function Login(props)
         //setEmail(res.profileObj['email']);
         //setName(res.profileObj['name']);
         //setGivenName(res.profileObj['givenName']);
-        setLogStatus(true);
+       // setLogStatus(true);
         refreshTokenSetup(res);
         props.authHandler(true);
         props.tokenHandler(res.tokenId);

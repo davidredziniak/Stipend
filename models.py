@@ -1,19 +1,7 @@
-# pylint: disable=no-member
-# pylint: disable=too-few-public-methods
-import os
-from app import DB
-from flask import Flask, request, send_from_directory
+''' Models for the database '''
 from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv, find_dotenv
-load_dotenv(find_dotenv())
 
-APP = Flask(__name__, static_folder='./build/static')
-
-APP.config["SQLALCHEMY_DATABASE_URI"] = os.getenv("DATABASE_URL")
-
-APP.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-
-DB = SQLAlchemy(APP)
+DB = SQLAlchemy()
 
 class User(DB.Model):
     ''' User model '''

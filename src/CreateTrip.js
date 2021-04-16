@@ -1,17 +1,17 @@
 import Login from './Login.js';
 import TripHome from './TripHome';
-import React, { useState,useRef } from 'react';
+import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
-import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
+import { BrowserRouter as Router,Route, Link} from "react-router-dom";
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
 
-    const user = useState('');
+    //const user = useState('');
     const [dataa,setDataa]=useState(false);
-    const numberOfUser = useState(0);
-    const [date,setDate] = useState([]);
-    const [email,setEmail]=useState([]);
+    //const numberOfUser = useState(0);
+   // const [date,setDate] = useState([]);
+    //const [email,setEmail]=useState([]);
     const { register, handleSubmit, formState: { errors } } = useForm();
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
