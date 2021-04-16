@@ -59,12 +59,13 @@
 .navStyle
 {
   color:white;
+  background-color: #000000;
 }
 
 .topic{
   font-style: italic;
   background-color: #f3ec78;
-  background-image: linear-gradient(45deg, #334d50, #000000);
+  background-image: linear-gradient(45deg, #ffcc00, #00ccff);
   background-size: 100%;
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -80,13 +81,46 @@
   font-size:50px;
 
 }
-.date
-{
-  font-size:17px;
-  color:black;
+
+.createTrip{
+  background-color: coral;
+  border-radius: 25px;
+  border: none;
+  color: black;
+  padding: 12px 29px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  margin-right:15px;
+  cursor: pointer;
 }
-.labelText
-{
-  font-size:17px;
-  color:black;
+.joinTripbtn{
+  background-color: #00ccff;
+  border-radius: 25px;
+  border: none;
+  color: black;
+  padding: 12px 29px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  margin-right:15px;
+  cursor: pointer;
+}
+.home{
+  background-color: #33cc33;
+  border-radius: 25px;
+  border: none;
+  color: black;
+  padding: 12px 29px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  margin-right:15px;
+  cursor: pointer;
 }

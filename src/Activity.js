@@ -5,6 +5,13 @@ import React, { useState } from 'react';
 import './App.css';
 import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
 
+
+// get all the users in the trip from the database
+
+// allow any user to create an activity in the form of a dictionary {USERNAME: amount_spent}
+
+// split money equally within the activity by TOTAL_MONEY_SPENT/total_number_of_users
+
 function Activity(props){
     const activity= ()=>
     {

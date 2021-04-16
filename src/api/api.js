@@ -1,4 +1,5 @@
 const fetch = require("node-fetch");
+
 const loginApi = (tokenId) => {
     //console.log('token id is', tokenId);
     const data = {'token_id': tokenId};
@@ -33,6 +34,26 @@ const userApi = (tokenId) => {
     }).then(response => response.json());
 };
 
+
+const joinTripApi = (tokenId) => {
+    return fetch('/api/joinTrip', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        }
+    }).then(response => response.json());
+};
+
+const tripIdApi = (tokenId) => {
+    return fetch('/api/trip/trip_id={id}', {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        }
+    }).then(response => response.json());
+};
 export {
     loginApi,
     logoutApi,

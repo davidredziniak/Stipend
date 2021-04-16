@@ -21,7 +21,7 @@ function CreateTrip(props){
              <div>
                  <h3>Welcome to your Create Trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                      <div><input type="text" placeholder="Trip Name" {...register("Trip Name", {required: true, maxLength: 17})} required/></div>
+                      <div><input type="text" required placeholder="Trip Name" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
                       <div><input type="text" placeholder="Full Name" {...register("Full name", {required: true, maxLength: 80})} required/></div>
                       <div><input type="text" placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} required/></div>
                       <div><input type="date" placeholder="Start Date" {...register("Start Date", {required: true})} required/></div>
