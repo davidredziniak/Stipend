@@ -34,15 +34,15 @@ function CreateTrip(props){
                       <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
                       <div><input type="date"  placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
                       <div><input type="date"  placeholder="End Date" {...register("End Date", {required: true})} /></div>
-                      <div><input type="submit" /></div>
+                      <div><Link to="/TripHome"><input type="submit" /></Link></div>
                 </form>
 
              </div>)
              :null}
+            
 {dataa?(    <Router>
                 
                 <div>
-                    <ul to='/TripHome'></ul>
                     <Route path="/TripHome" component={TripHome} />
                 </div>
             </Router>):null}

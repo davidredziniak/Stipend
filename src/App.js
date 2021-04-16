@@ -5,10 +5,10 @@ import Login from'./Login.js';
 import Logout from'./Logout.js';
 import HomePage from './components/HomePage';
 import Nav from './Nav';
-import Activity from './Activity';
-import JoinTrip from './JoinTrip';
-import CreateTrip from './CreateTrip';
-import TripHome from './TripHome';
+import Activity from './Activity.js';
+import JoinTrip from './JoinTrip.js';
+import CreateTrip from './CreateTrip.js';
+import TripHome from './TripHome.js';
 
 
 import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
