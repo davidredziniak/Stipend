@@ -13,7 +13,6 @@ function CreateTrip(props){
    // const [date,setDate] = useState([]);
     //const [email,setEmail]=useState([]);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {check,setCheck}=useState(false);
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
       console.log(data);
@@ -29,13 +28,13 @@ function CreateTrip(props){
              <div>
                  <h3>Welcome to your Create Trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                      <div><input type="text"  placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
-                      <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
-                      <div><input type="date"  placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
-                      <div><input type="date"  placeholder="End Date" {...register("End Date", {required: true})} /></div>
-                      <div><Link to="/TripHome"><input type="submit" /></Link></div>
+                      <div><label className="StartDate">Enter the Trip Name: </label><input type="text"  placeholder="Trip Name" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
+                      <div><label className="StartDate">Enter Email to Invite: </label><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
+                      <div><label className="StartDate">Start Date: </label><input type="date"  placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
+                      <div><label className="StartDate">End Date: </label><input type="date"  placeholder="End Date" {...register("End Date", {required: true})} /></div>
+                       {dataa?(<div><Link to="/TripHome"><input type="submit" /></Link></div>):<div><input type="submit"/></div>}
                 </form>
-
+                   
              </div>)
              :null}
             
@@ -51,6 +50,3 @@ function CreateTrip(props){
 }
 
 export default CreateTrip;
-
-
-
