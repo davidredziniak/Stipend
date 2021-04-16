@@ -15,10 +15,11 @@ function CreateTrip(props){
     const { register, handleSubmit, formState: { errors } } = useForm();
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
-      console.log(data);
+      //console.log(data);
       setDataa(true);
-      console.log(dataa)
+      console.log(dataa);
   }
+  
   
   console.log(errors);
 
@@ -27,26 +28,25 @@ function CreateTrip(props){
             
              {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?(
              <div>
-                 <h3>Welcome to your Create Trip!</h3>
+                <h3>Welcome to your Create Trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                      <div><input type="text"  placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
-                      <div><input type="text"  placeholder="Full Name" {...register("Full name", {required: true, maxLength: 80})} /></div>
-                      <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
-                      <div><input type="date"  placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
-                      <div><input type="date"  placeholder="End Date" {...register("End Date", {required: true})} /></div>
-                      <div><input type="submit" /></div>
+                        <div><input type="text"  placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
+                        <div><input type="text"  placeholder="Full Name" {...register("Full name", {required: true, maxLength: 80})} /></div>
+                        <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
+                        <div><input type="date"  placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
+                        <div><input type="date"  placeholder="End Date" {...register("End Date", {required: true})} /></div>
+                        <div><Link to='./TripHome'><input type="submit"/></Link></div>
                 </form>
-
              </div>)
              :null}
-{dataa?(    <Router>
-                
-                <div>
-                    <ul to='/TripHome'></ul>
-                    <Route path="/TripHome" component={TripHome} />
-                </div>
-            </Router>):null}
-             
+            
+            {dataa?(
+                <Router>
+                    <div>
+                        <Route path="/TripHome" component={TripHome}/>
+                    </div>
+                </Router>):null}
+
         </div>
         );
 }

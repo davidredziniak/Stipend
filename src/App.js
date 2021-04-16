@@ -63,6 +63,7 @@ class App extends React.Component {
           <Route exact path="/JoinTrip" render={(props) => ( <JoinTrip auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
           <Route exact path="/CreateTrip" render={(props) => ( <CreateTrip auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
           <Route exact path="/TripHome" render={(props) => ( <TripHome auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
+
         </Switch>
       </div>
     </Router>);
