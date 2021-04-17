@@ -14,7 +14,6 @@ function CreateTrip(props){
    // const [date,setDate] = useState([]);
     //const [email,setEmail]=useState([]);
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {check,setCheck}=useState(false);
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
       //console.log(data);
@@ -31,6 +30,7 @@ function CreateTrip(props){
             <div>
                 <h3>Welcome to your Create Trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
+
                         <div><input type="text" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
                         <div className="lines">____________________________________________________________________________________</div>
                         <div><input type="date" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
@@ -50,7 +50,6 @@ function CreateTrip(props){
                         <Route path="/TripHome" component={TripHome}/>
                     </div>
                 </Router>):null}
-
         </div>
         );
 }
