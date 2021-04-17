@@ -5,33 +5,32 @@ import { useForm } from "react-hook-form";
 import './App.css';
 
 function InputEmails() {
-  const [fields, setFields] = useState([{ value: null }]);
-
+  // email consists of the list of all emails
+  const [email, setEmail] = useState([{ value: null }]);
+ 
   function handleChange(i, event) {
-    const values = [...fields];
+    const values = [...email];
     values[i].value = event.target.value;
-    setFields(values);
+    setEmail(values);
   }
+  console.log(email)
 
   function handleAdd() {
-    const values = [...fields];
+    const values = [...email];
     values.push({ value: null });
-    setFields(values);
+    setEmail(values);
   }
 
   function handleRemove(i) {
-    const values = [...fields];
+    const values = [...email];
     values.splice(i, 1);
-    setFields(values);
+    setEmail(values);
   }
 
   return (
     <div className="inputEmail">
-      <button type="button" onClick={() => handleAdd()}>
-        Add Participant
-      </button>
 
-      {fields.map((field, idx) => {
+      {email.map((field, idx) => {
         return (
           <div key={`${field}-${idx}`}>
             <input
@@ -46,6 +45,11 @@ function InputEmails() {
           </div>
         );
       })}
+
+      <button type="button" onClick={() => handleAdd()}>
+        Add Participant
+      </button>
+      
     </div>
   );
 }
