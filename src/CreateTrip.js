@@ -14,6 +14,7 @@ function CreateTrip(props){
    // const [date,setDate] = useState([]);
     //const [email,setEmail]=useState([]);
     const { register, handleSubmit, formState: { errors } } = useForm();
+    var result = '';
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
       //console.log(data);
@@ -21,9 +22,17 @@ function CreateTrip(props){
       console.log(dataa);
   }
   
+  function invitationCode(){
+    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    for (var i = 7; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
+    // result is the random Code that must be emailed to the participants
+    return result;
+  }
+
   
-  console.log(errors);
+// console.log(errors);
 // <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
+// <div>{invitationCode()}</div>
     return(
         <div className="activity">
             {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?(
@@ -31,15 +40,26 @@ function CreateTrip(props){
                 <h3>Welcome to your Create Trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <div><input type="text" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
+                        <div><label for="Name" className="labels">Trip Name:</label>
+                        <input type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
+                        
                         <div className="lines">____________________________________________________________________________________</div>
-                        <div><input type="date" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
+                        
+                        <div><label for="tripStart" className="labels">Trip's Start Date:</label>
+                        <input type="date" id="tripStart" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
+                        
                         <div className="lines">____________________________________________________________________________________</div>
-                        <div><input type="date" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})} /></div>
+                        
+                        <div><label for="tripEnd" className="labels">Trip's End Date:</label>
+                        <input type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})} /></div>
+                        
                         <div className="lines">____________________________________________________________________________________</div>
-                        <InputEmails/>
+                        
+                        <div><label className="labels">Enter Participant's Gmail Accounts:</label>
+                        <InputEmails/></div>
                         <div className="lines">____________________________________________________________________________________</div>
                         <div><Link to="/TripHome"><input className="tripSubmit" type="submit" /></Link></div>
+                        <div>{invitationCode()}</div>
                 </form>
             </div>)
             :null}

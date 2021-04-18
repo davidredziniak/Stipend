@@ -46,6 +46,7 @@
   min-height:10vh;
   background:rgb(66, 135, 245);
   color:white;
+  
 }
 
 .tripSubmit{
@@ -75,6 +76,14 @@
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
+}
+
+
+.labels{
+  color:black;
+  font-size:20px;
+  padding-right:20px;
+  font-style: italic;
 }
 
 .nav-links
