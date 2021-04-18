@@ -59,7 +59,7 @@ function CreateTrip(props){
                         <div><label className="labels">Enter Participant's Gmail Accounts:</label>
                         <InputEmails/></div>
                         <div className="lines">____________________________________________________________________________________</div>
-                        <div><Link to="/TripHome"><input className="tripSubmit" type="submit" /></Link></div>
+                        {dataa?(<div><Link to="/TripHome"><input type="submit" /></Link></div>):<div><input type="submit"/></div>}
                         <div>{invitationCode()}</div>
                 </form>
             </div>)
