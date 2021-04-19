@@ -13,8 +13,7 @@ function HomePage(props){
   // { props.isAuth && 'Token ID: ' && props.currentToken }
   return (
             <div className="activity">
-             {props.isAuth && <Login tokenHandler={props.token} 
-             authHandler={props.auth}/>?(
+             {props.isAuth ?(
              <div>
 
              <h3>Welcome to your Home Page</h3>
