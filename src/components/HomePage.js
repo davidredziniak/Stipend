@@ -44,7 +44,7 @@ function HomePage(props){
   if(isViewable){
     return (
       <div>
-        <h2>Hello, {firstName}</h2>
+        <h2 >Hello, {firstName}</h2>
         <h5>Email: {email}</h5>
         <h5>Last Name: {lastName}</h5>
         {trips.map((trip, index) => {
