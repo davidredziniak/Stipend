@@ -110,9 +110,9 @@ def handle_user_api():
                     }, 200
         return {
             'success': False,
-            'error': 'Invalid token ID. Please relogin.'
+            'message': 'Invalid token ID. Please relogin.'
         }, 401
-    return {'success': False, 'error': 'Missing Authorization header.'}, 401
+    return {'success': False, 'message': 'Missing Authorization header.'}, 401
 
 @APP.route('/api/joinTrip', methods=['POST'])
 def handle_join_trip():
@@ -145,16 +145,59 @@ def handle_join_trip():
                                     user_id=current_user.id)
                                 DB.session.add(new_trip_user)
                                 DB.session.commit()
-                                return {'success': True, 'error': 'Successfully joined.'}, 200
+                                return {'success': True, 'message': 'Successfully joined.'}, 200
                             else:
-                                return {'success': False, 'error': 'You have already joined this trip.'}, 401
+                                return {'success': False, 'message': 'You have already joined this trip.'}, 401
                         else:
-                            return {'success': False, 'error': 'Invalid join code.'}, 401
+                            return {'success': False, 'message': 'Invalid join code.'}, 401
         return {
             'success': False,
-            'error': 'Invalid token ID. Please relogin.'
+            'message': 'Invalid token ID. Please relogin.'
         }, 401
-    return {'success': False, 'error': 'An error has occured.'}, 401
+    return {'success': False, 'message': 'An error has occured.'}, 401
+
+@APP.route('/api/trip', methods=['GET'])
+def handle_trip_info():
+    '''
+        Given a token ID and trip ID, retrieves trip info
+    '''
+    if 'Authorization' in request.headers:
+        if 'Bearer ' in request.headers['Authorization']:
+            token_id = request.headers['Authorization'].split(' ')[1]
+            
+            # Check for valid query param
+            query_parameters = request.args
+            trip_id = int(query_parameters.get('tripId'))
+            email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
+
+            # Token ID matches a session
+            if len(email) != 0 and email[0] != "":
+                current_user = User.query.filter_by(email=email[0]).first()
+                if current_user is not None:
+                    
+                    # Check if trip exists
+                    trip = Trip.query.filter_by(id=trip_id).first()
+                    if trip is not None:
+                        # Check if user is already in the trip
+                        trip_user = TripUser.query.filter_by(trip_id=trip.id, user_id=current_user.id).first()
+                        
+                        # User is in trip
+                        if trip_user is not None:
+                            users = []
+                            for user in trip.users:
+                                current_user = User.query.filter_by(id=user.user_id).first()
+                                if current_user is not None:
+                                    users.append(current_user.to_json())
+                            return {'success': True, 'tripName': trip.trip_name, 'tripOwner': trip.owner_id, 'participants': users}, 200
+                        else:
+                            return {'success': False, 'message': 'You are not authorized to view this trip.'}, 401
+                    else:
+                        return {'success': False, 'message': 'Invalid trip id.'}, 401
+        return {
+            'success': False,
+            'message': 'Invalid token ID. Please relogin.'
+        }, 401
+    return {'success': False, 'message': 'Missing Authorization header.'}, 401
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":

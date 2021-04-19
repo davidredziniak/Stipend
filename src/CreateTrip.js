@@ -1,5 +1,5 @@
 import Login from './Login.js';
-import TripHome from './TripHome';
+import Trip from './Trip';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
@@ -19,7 +19,7 @@ function CreateTrip(props){
   function onSubmit(data){
       console.log(data);
       // doesnt redirect till all fields are filled up
-      history.push("/TripHome");
+      history.push("/trip");
   }
   
   function invitationCode(){
@@ -63,7 +63,7 @@ function CreateTrip(props){
 
             <Router>
                 <div>
-                    <Route path="/TripHome" component={TripHome}/>
+                    <Route path="/trip" component={Trip}/>
                 </div>
             </Router>
 

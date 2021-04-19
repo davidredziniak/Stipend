@@ -45,8 +45,8 @@ const joinTripApi = (tokenId, joinCode) => {
     }).then(response => response.json());
 };
 
-const tripIdApi = (tokenId) => {
-    return fetch('/api/trip/trip_id={id}', {
+const tripIdApi = (tokenId, tripId) => {
+    return fetch('/api/trip?tripId=' + tripId, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
@@ -58,5 +58,6 @@ export {
     loginApi,
     logoutApi,
     joinTripApi,
+    tripIdApi,
     userApi
 }

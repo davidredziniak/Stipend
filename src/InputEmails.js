@@ -1,5 +1,5 @@
 import Login from './Login.js';
-import TripHome from './TripHome';
+import Trip from './Trip';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
