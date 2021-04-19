@@ -33,18 +33,20 @@ const userApi = (tokenId) => {
 };
 
 
-const joinTripApi = (tokenId) => {
+const joinTripApi = (tokenId, joinCode) => {
+    const data = {'join_code': joinCode};
     return fetch('/api/joinTrip', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
             'Content-Type': 'application/json',
-        }
+        },
+        body: JSON.stringify(data),
     }).then(response => response.json());
 };
 
-const tripIdApi = (tokenId) => {
-    return fetch('/api/trip/trip_id={id}', {
+const tripIdApi = (tokenId, tripId) => {
+    return fetch('/api/trip?tripId=' + tripId, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
@@ -55,5 +57,7 @@ const tripIdApi = (tokenId) => {
 export {
     loginApi,
     logoutApi,
+    joinTripApi,
+    tripIdApi,
     userApi
 }
