@@ -6,7 +6,9 @@
 3. `npm i react-google-login`
 4. `npm i node-fetch`
 5. `npm install react-hook-form`
-5. `npm install ract-router-dom`
+6. `npm install --save moment react-moment`
+7. `npm install ract-router-dom`
+8. `npm install --save moment-timezone`
 
 ## Setup
 1. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
