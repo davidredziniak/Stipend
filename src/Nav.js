@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
@@ -8,53 +8,54 @@ import Logout from'./Logout.js';
 import {Link} from "react-router-dom";
 
 // <div>
-//     {this.props.isAuth && <Login tokenHandler={this.props.token} 
-//     authHandler={this.props.auth}/>?
+//     {props.isAuth && <Login tokenHandler={props.token} 
+//     authHandler={props.auth}/>?
 //     (
 //     <Link className='navStyle'to='/Activity'><li><button>Activity</button></li></Link>
 //     )
 //     :null}
 // </div>
 
-class Nav extends React.Component {
-    render(){
-        return(
+function Nav(props) {
+    
+    useEffect(() => {
+        console.log("");
+    }, [props.isAuth, props.token]);
+    
+    return(
     <nav className='navStyle'>
        <h1 className='topic'>STIPEND ...</h1>
 
         <ul className="nav-links">
         <div>
+
             {this.props.isAuth && <Login tokenHandler={this.props.token} 
             authHandler={this.props.auth}/>?
-            
             (
             <Link className='navStyle'to='/Home'><li><button className="home">Home</button></li></Link>
             )
             :null}
         </div>
         <div>
-            {this.props.isAuth && <Login tokenHandler={this.props.token} 
-            authHandler={this.props.auth}/>?
+            {props.isAuth?
             (
             <Link className='navStyle'to='/JoinTrip'><li><button className="joinTripbtn">JoinTrip</button></li></Link>
             )
             :null}
         </div>
         <div>
-            {this.props.isAuth && <Login tokenHandler={this.props.token} 
-            authHandler={this.props.auth}/>?
+            {props.isAuth?
             (
             <Link className='navStyle'to='/CreateTrip'><li><button className="createTrip">CreateTrip</button></li></Link>
             )
             :null}
         </div>
 
-            { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
-            { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }
+            { !props.isAuth && <Login login={props.login}/> }
+            { props.isAuth && <Logout logout={props.logout} token={props.token} /> }
         </ul>
     </nav>
     );
-    }
 }
 
 export default Nav;
