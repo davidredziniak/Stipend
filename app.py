@@ -114,6 +114,47 @@ def handle_user_api():
         }, 401
     return {'success': False, 'error': 'Missing Authorization header.'}, 401
 
+@APP.route('/api/joinTrip', methods=['POST'])
+def handle_join_trip():
+    '''
+        Given a token ID and join code, user can join trip
+    '''
+    if 'Authorization' in request.headers:
+        if 'Bearer ' in request.headers['Authorization']:
+            token_id = request.headers['Authorization'].split(' ')[1]
+            join_code = request.get_json()['join_code']
+            
+            # Valid join code
+            if join_code != "":
+                email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
+            
+                # Token ID matches a session
+                if len(email) != 0 and email[0] != "":
+                    current_user = User.query.filter_by(email=email[0]).first()
+                    if current_user is not None:
+                        # Valid user
+                        
+                        # Check if join code is real
+                        trip = Trip.query.filter_by(join_code=join_code).first()
+                        if trip is not None:
+                            # Check if user is already in the trip
+                            trip_user = TripUser.query.filter_by(trip_id=trip.id, user_id=current_user.id).first()
+                            if trip_user is None:
+                                new_trip_user = TripUser(
+                                    trip_id=trip.id,
+                                    user_id=current_user.id)
+                                DB.session.add(new_trip_user)
+                                DB.session.commit()
+                                return {'success': True, 'error': 'Successfully joined.'}, 200
+                            else:
+                                return {'success': False, 'error': 'You have already joined this trip.'}, 401
+                        else:
+                            return {'success': False, 'error': 'Invalid join code.'}, 401
+        return {
+            'success': False,
+            'error': 'Invalid token ID. Please relogin.'
+        }, 401
+    return {'success': False, 'error': 'An error has occured.'}, 401
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":
