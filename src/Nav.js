@@ -26,6 +26,7 @@ class Nav extends React.Component {
         <div>
             {this.props.isAuth && <Login tokenHandler={this.props.token} 
             authHandler={this.props.auth}/>?
+            
             (
             <Link className='navStyle'to='/Home'><li><button className="home">Home</button></li></Link>
             )

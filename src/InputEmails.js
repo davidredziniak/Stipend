@@ -33,7 +33,7 @@ function InputEmails() {
       {email.map((field, idx) => {
         return (
           <div key={`${field}-${idx}`}>
-            <input
+            <input required
               className="createTripInputs"
               type="text"
               placeholder="Participant's Gmail*"

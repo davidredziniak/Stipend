@@ -17,16 +17,9 @@ function CreateTrip(props){
     
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
-<<<<<<< HEAD
-      //console.log(data);
-      setDataa(true);
-      console.log(data)
-      console.log(dataa);
-=======
       console.log(data);
       // doesnt redirect till all fields are filled up
       history.push("/TripHome");
->>>>>>> 616a73b8c7d03095c4d25ebdd920605a7bb7d532
   }
   
   function invitationCode(){
@@ -45,10 +38,7 @@ function CreateTrip(props){
 
                         <div><label for="Name" className="labels">Trip Name:</label>
                         <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
-<<<<<<< HEAD
-                        
-=======
->>>>>>> 616a73b8c7d03095c4d25ebdd920605a7bb7d532
+
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="tripStart" className="labels">Trip's Start Date:</label>
@@ -65,11 +55,7 @@ function CreateTrip(props){
                         <InputEmails/></div>
                         
                         <div className="lines">____________________________________________________________________________________</div>
-<<<<<<< HEAD
-                        <div><Link to={dataa?("/TripHome"):"/CreateTrip"}><input type="submit" /></Link></div>
-=======
                         <div><button type="submit">Submit</button></div>
->>>>>>> 616a73b8c7d03095c4d25ebdd920605a7bb7d532
                         <div>{invitationCode()}</div>
                 </form>
             </div>)
