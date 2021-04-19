@@ -4,13 +4,12 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
 import InputEmails from './InputEmails';
-import { BrowserRouter as Router,Route, Link} from "react-router-dom";
+import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
 //import 'react-datetime/css/react-datetime.css';
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
-
+    const history = useHistory();
     //const user = useState('');
-    const [dataa,setDataa]=useState(false);
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     // Random invitation code
@@ -18,12 +17,9 @@ function CreateTrip(props){
     
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
-      //console.log(data);
-      setDataa(true);
-    //   console.log(dataa);
       console.log(data);
-    //   console.log(handleSubmit);
-    return <Link to='/TripHome'></Link>;
+      // doesnt redirect till all fields are filled up
+      history.push("/TripHome");
   }
   
   function invitationCode(){
@@ -33,10 +29,6 @@ function CreateTrip(props){
     return result;
   }
 
-  
-// console.log(errors);
-// <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
-// <div>{invitationCode()}</div>
     return(
         <div className="activity">
             {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?(
@@ -60,19 +52,21 @@ function CreateTrip(props){
                         
                         <div><label className="labels">Enter Participant's Gmail Accounts:</label>
                         <InputEmails/></div>
+                        
                         <div className="lines">____________________________________________________________________________________</div>
-                        <div><input required type="submit" /></div>
+                        <div><button type="submit">Submit</button></div>
                         <div>{invitationCode()}</div>
                 </form>
             </div>)
             :null}
 
-            {dataa?(
-                <Router>
-                    <div>
-                        <Route path="/TripHome" component={TripHome}/>
-                    </div>
-                </Router>):null}
+            <Router>
+                <div>
+                    <Route path="/TripHome" component={TripHome}/>
+                </div>
+            </Router>
+
+                
         </div>
         );
 }
