@@ -46,7 +46,7 @@ function CreateTrip(props){
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="JoinCode" className="labels">Create Join Code:</label></div>
-                        <div><input required type="text" id="JoinCode" className="createTripInputs" placeholder="Join Code" maxLength="7" {...register("Join Code", {required: true, maxLength: 7})} /></div>
+                        <div><input required type="text" id="JoinCode" className="createTripInputs" placeholder="Join Code" pattern="^[a-zA-Z0-9]*$" maxLength="7" {...register("Join Code", {required: true, maxLength: 7})} /></div>
                         <div className="lines">____________________________________________________________________________________</div>
 
                         <div><button type="submit">Submit</button></div>
