@@ -21,6 +21,7 @@ DB.init_app(APP)
 
 CURRENT_SESSIONS = {}
 
+
 def get_email_from_token_id(sessions, token_id):
     '''
         Returns a list of emails from a dictionary if the token ID matches
@@ -94,8 +95,12 @@ def handle_user_api():
                 if current_user is not None:
                     trips = []
                     for trip in current_user.trips:
-                        current_trip = Trip.query.filter_by(id=trip.trip_id).first()
-                        trips.append({ 'trip_id': trip.trip_id, 'name': current_trip.trip_name })
+                        current_trip = Trip.query.filter_by(
+                            id=trip.trip_id).first()
+                        trips.append({
+                            'trip_id': trip.trip_id,
+                            'name': current_trip.trip_name
+                        })
                     return {
                         'success': True,
                         'email': current_user.email,
