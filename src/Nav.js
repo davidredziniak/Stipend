@@ -28,7 +28,6 @@ function Nav(props) {
 
         <ul className="nav-links">
         <div>
-
             {this.props.isAuth && <Login tokenHandler={this.props.token} 
             authHandler={this.props.auth}/>?
             (
@@ -37,22 +36,25 @@ function Nav(props) {
             :null}
         </div>
         <div>
-            {props.isAuth?
+             {this.props.isAuth && <Login tokenHandler={this.props.token} 
+            authHandler={this.props.auth}/>?
             (
             <Link className='navStyle'to='/JoinTrip'><li><button className="joinTripbtn">JoinTrip</button></li></Link>
             )
             :null}
         </div>
         <div>
-            {props.isAuth?
+             {this.props.isAuth && <Login tokenHandler={this.props.token} 
+            authHandler={this.props.auth}/>?
             (
             <Link className='navStyle'to='/CreateTrip'><li><button className="createTrip">CreateTrip</button></li></Link>
             )
             :null}
         </div>
 
-            { !props.isAuth && <Login login={props.login}/> }
-            { props.isAuth && <Logout logout={props.logout} token={props.token} /> }
+
+            { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
+            { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }
         </ul>
     </nav>
     );
