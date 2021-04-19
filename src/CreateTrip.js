@@ -4,24 +4,29 @@ import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
 import InputEmails from './InputEmails';
-import { BrowserRouter as Router,Route, Link} from "react-router-dom";
+import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
 //import 'react-datetime/css/react-datetime.css';
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
-
+    const history = useHistory();
     //const user = useState('');
-    const [dataa,setDataa]=useState(false);
-    //const numberOfUser = useState(0);
-   // const [date,setDate] = useState([]);
-    //const [email,setEmail]=useState([]);
+
     const { register, handleSubmit, formState: { errors } } = useForm();
+    // Random invitation code
     var result = '';
+    
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
+<<<<<<< HEAD
       //console.log(data);
       setDataa(true);
       console.log(data)
       console.log(dataa);
+=======
+      console.log(data);
+      // doesnt redirect till all fields are filled up
+      history.push("/TripHome");
+>>>>>>> 616a73b8c7d03095c4d25ebdd920605a7bb7d532
   }
   
   function invitationCode(){
@@ -31,10 +36,6 @@ function CreateTrip(props){
     return result;
   }
 
-  
-// console.log(errors);
-// <div><input type="text"  placeholder="Email" {...register("Email", {required: true, pattern: /^\S+@\S+$/i})} /></div>
-// <div>{invitationCode()}</div>
     return(
         <div className="activity">
             {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?(
@@ -44,7 +45,10 @@ function CreateTrip(props){
 
                         <div><label for="Name" className="labels">Trip Name:</label>
                         <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
+<<<<<<< HEAD
                         
+=======
+>>>>>>> 616a73b8c7d03095c4d25ebdd920605a7bb7d532
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="tripStart" className="labels">Trip's Start Date:</label>
@@ -59,19 +63,25 @@ function CreateTrip(props){
                         
                         <div><label className="labels">Enter Participant's Gmail Accounts:</label>
                         <InputEmails/></div>
+                        
                         <div className="lines">____________________________________________________________________________________</div>
+<<<<<<< HEAD
                         <div><Link to={dataa?("/TripHome"):"/CreateTrip"}><input type="submit" /></Link></div>
+=======
+                        <div><button type="submit">Submit</button></div>
+>>>>>>> 616a73b8c7d03095c4d25ebdd920605a7bb7d532
                         <div>{invitationCode()}</div>
                 </form>
             </div>)
             :null}
 
-            {dataa?(
-                <Router>
-                    <div>
-                        <Route path="/TripHome" component={TripHome}/>
-                    </div>
-                </Router>):null}
+            <Router>
+                <div>
+                    <Route path="/TripHome" component={TripHome}/>
+                </div>
+            </Router>
+
+                
         </div>
         );
 }

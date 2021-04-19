@@ -22,7 +22,6 @@ DB.init_app(APP)
 
 CURRENT_SESSIONS = {}
 
-
 def get_email_from_token_id(sessions, token_id):
     '''
         Returns a list of emails from a dictionary if the token ID matches
