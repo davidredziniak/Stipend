@@ -3,8 +3,9 @@ import TripHome from './TripHome';
 import React, { useState } from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
+import CreateTrip from './CreateTrip';
 
-function InputEmails() {
+function InputEmails(props) {
   // email consists of the list of all emails
   const [email, setEmail] = useState([{ value: null }]);
  
@@ -36,8 +37,9 @@ function InputEmails() {
             <input
               className="createTripInputs"
               type="text"
-              placeholder="Participant's Gmail*"
+              placeholder="Email"
               onChange={e => handleChange(idx, e)}
+              {...props.register("Email", {required: true})}
             />
             <button type="button" className="removeParticipants" onClick={() => handleRemove(idx)}>
               Remove
