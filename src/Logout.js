@@ -7,9 +7,7 @@ function Logout(props)
 {
     const onSuccess=()=>
     {
-        logoutApi(props.currentToken).then(data => console.log('Verified API logout:', data));
-        props.authHandler(false);
-        props.tokenHandler("");
+        logoutApi(props.token).then(data => console.log('Verified API logout:', data)).then(result => props.logout());
         console.log('Logout made successfully');
     };
     

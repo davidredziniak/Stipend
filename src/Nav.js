@@ -16,13 +16,14 @@ import {Link} from "react-router-dom";
 //     :null}
 // </div>
 
-class Nav extends React.Component {
-    render(){
-        return(
+function Nav(props) {
+    
+    return(
     <nav className='navStyle'>
        <h1 className='topic'>STIPEND ...</h1>
 
         <ul className="nav-links">
+<<<<<<< HEAD
         <div>
             {this.props.isAuth && <Login tokenHandler={this.props.token} 
             authHandler={this.props.auth}/>?
@@ -50,10 +51,16 @@ class Nav extends React.Component {
 
             { !this.props.isAuth && <Login tokenHandler={this.props.token} authHandler={this.props.auth}/> }
             { this.props.isAuth && <Logout tokenHandler={this.props.token} authHandler={this.props.auth} currentToken={this.props.currentToken} /> }
+=======
+            <Link className='navStyle'to="/">
+              <li>Home</li>
+            </Link>
+            { !props.isAuth && <Login login={props.login}/> }
+            { props.isAuth && <Logout logout={props.logout} token={props.token}/> }
+>>>>>>> 46df577eb280fb2a6b81f36338fbea67fd463f3b
         </ul>
     </nav>
     );
-    }
 }
 
 export default Nav;
