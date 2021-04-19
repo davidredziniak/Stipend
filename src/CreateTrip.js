@@ -10,23 +10,13 @@ import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom
 function CreateTrip(props){
     const history = useHistory();
     //const user = useState('');
-
     const { register, handleSubmit, formState: { errors } } = useForm();
-    // Random invitation code
-    var result = '';
-    
+
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
       console.log(data);
       // doesnt redirect till all fields are filled up
       history.push("/TripHome");
-  }
-  
-  function invitationCode(){
-    var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    for (var i = 7; i > 0; --i) result += chars[Math.floor(Math.random() * chars.length)];
-    // result is the random Code that must be emailed to the participants
-    return result;
   }
 
     return(
@@ -46,17 +36,20 @@ function CreateTrip(props){
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="tripEnd" className="labels">Trip's End Date:</label>
-                        <input required type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})} /></div>
+                        <input required type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})}/></div>
                         
                         <div className="lines">____________________________________________________________________________________</div>
                         
-                        
-                        <div><label className="labels">Enter Participant's Gmail Accounts:</label>
-                        <InputEmails register={register}/></div>
+                        <div><label className="labels">Enter Participant's Gmail Accounts: </label>
+                        <InputEmails/></div>
                         
                         <div className="lines">____________________________________________________________________________________</div>
+                        
+                        <div><label for="JoinCode" className="labels">Create Join Code:</label></div>
+                        <div><input required type="text" id="JoinCode" className="createTripInputs" placeholder="Join Code" maxLength="7" {...register("Join Code", {required: true, maxLength: 7})} /></div>
+                        <div className="lines">____________________________________________________________________________________</div>
+
                         <div><button type="submit">Submit</button></div>
-                        <div>{invitationCode()}</div>
                 </form>
             </div>)
             :null}
