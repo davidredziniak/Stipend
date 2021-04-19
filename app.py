@@ -2,7 +2,6 @@
     Stipend
     Flask Web server that handles REST API endpoints
 '''
-
 import os
 from flask import Flask, send_from_directory, request
 from dotenv import load_dotenv, find_dotenv
@@ -93,11 +92,16 @@ def handle_user_api():
             if len(email) != 0 and email[0] != "":
                 current_user = User.query.filter_by(email=email[0]).first()
                 if current_user is not None:
+                    trips = []
+                    for trip in current_user.trips:
+                        current_trip = Trip.query.filter_by(id=trip.trip_id).first()
+                        trips.append({ 'trip_id': trip.trip_id, 'name': current_trip.trip_name })
                     return {
                         'success': True,
                         'email': current_user.email,
                         'firstName': current_user.first_name,
-                        'lastName': current_user.last_name
+                        'lastName': current_user.last_name,
+                        'trips': trips
                     }, 200
         return {
             'success': False,
@@ -112,4 +116,3 @@ if __name__ == "__main__":
         host=os.getenv('IP', '0.0.0.0'),
         port=8081 if os.getenv('C9_PORT') else int(os.getenv('PORT', "8081")),
     )
-    

@@ -1,5 +1,5 @@
-
-import React from 'react';
+import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 //import Login from'./Login';
 //import Logout from'./Logout';
@@ -13,61 +13,53 @@ import TripHome from './TripHome';
 
 import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
 
-class App extends React.Component {
-  
-    constructor(props) {
-      super(props);
-      this.state = {
-        isAuthenticated: false,
-        tokenId: ''
-      }
-    }
-  
-      // When components gets added to the DOM tree, state is loaded from localStorage (if available)
-    componentDidMount() {
+function App(props) {
+    const [isAuthenticated, setAuth] = useState(false);
+    const [tokenId, setTokenId] = useState('');
+    
+    // When components gets added to the DOM tree, state is loaded from localStorage (if available)
+    useEffect(() => {
       let storedAuth = localStorage.getItem('isAuth') === 'true';
       let storedTokenId = localStorage.getItem('tokenId');
-      let newAuth = this.state.isAuthenticated;
-      let newToken = this.state.tokenId;
-      if(storedAuth !== undefined)
+      let newAuth = isAuthenticated;
+      let newToken = tokenId;
+      if(storedAuth != undefined)
         newAuth = storedAuth;
       if(storedTokenId !== undefined)
         newToken = storedTokenId;
-      this.setState({ isAuthenticated: newAuth, tokenId: newToken });
-    }
+      setAuth(newAuth);
+      setTokenId(newToken);
+    }, []);
   
-    // Allows children of components to update the global 'logged in' state.
-    authHandler = (auth) => {
-      let data = this.state;
-      data['isAuthenticated'] = auth;
-      this.setState(data);
-      localStorage.setItem("isAuth", auth);
+    // Update the authenticated state and token ID
+    function loginHandler(tokenId){
+      setAuth(true);
+      setTokenId(tokenId);
+      localStorage.setItem("isAuth", true);
+      localStorage.setItem('tokenId', tokenId );
     }
     
-    // Allows children of components to update the global 'token ID' state.
-    tokenHandler = (tokenId) => {
-        const data = this.state;
-        data['tokenId'] = tokenId;
-        this.setState(data);
-        localStorage.setItem('tokenId', tokenId );
+    // Clear the authenticated state and token ID
+    function logoutHandler(){
+      setAuth(false);
+      setTokenId("");
+      localStorage.setItem("isAuth", false);
+      localStorage.setItem('tokenId', "" );
     }
-
-  render() {
+    
     return (
     <Router>
     <div className="App">
-        <Nav auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId}/>
+        <Nav login={loginHandler} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId}/>
         <Switch>
-          <Route exact path="/Home" render={(props) => ( <HomePage auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
-          <Route exact path="/Activity" render={(props) => ( <Activity auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
-          <Route exact path="/JoinTrip" render={(props) => ( <JoinTrip auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
-          <Route exact path="/CreateTrip" render={(props) => ( <CreateTrip auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
-          <Route exact path="/TripHome" render={(props) => ( <TripHome auth={this.authHandler} token={this.tokenHandler} isAuth={this.state.isAuthenticated} currentToken={this.state.tokenId} /> )}/>
-
+          <Route exact path="/Home" render={(props) => ( <HomePage logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/Activity" render={(props) => ( <Activity logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/JoinTrip" render={(props) => ( <JoinTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/CreateTrip" render={(props) => ( <CreateTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/TripHome" render={(props) => ( <TripHome logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
         </Switch>
       </div>
     </Router>);
-  }
 };
 
 export default App;
