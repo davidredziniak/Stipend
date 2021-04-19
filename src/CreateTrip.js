@@ -20,6 +20,7 @@ function CreateTrip(props){
   function onSubmit(data){
       //console.log(data);
       setDataa(true);
+      console.log(data)
       console.log(dataa);
   }
   
@@ -42,24 +43,24 @@ function CreateTrip(props){
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                         <div><label for="Name" className="labels">Trip Name:</label>
-                        <input type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
+                        <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
                         
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="tripStart" className="labels">Trip's Start Date:</label>
-                        <input type="date" id="tripStart" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
+                        <input required type="date" id="tripStart" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
                         
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="tripEnd" className="labels">Trip's End Date:</label>
-                        <input type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})} /></div>
+                        <input required type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})} /></div>
                         
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label className="labels">Enter Participant's Gmail Accounts:</label>
                         <InputEmails/></div>
                         <div className="lines">____________________________________________________________________________________</div>
-                        {dataa?(<div><Link to="/TripHome"><input type="submit" /></Link></div>):<div><input type="submit"/></div>}
+                        <div><Link to={dataa?("/TripHome"):"/CreateTrip"}><input type="submit" /></Link></div>
                         <div>{invitationCode()}</div>
                 </form>
             </div>)
