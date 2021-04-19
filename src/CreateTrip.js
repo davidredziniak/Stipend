@@ -31,7 +31,7 @@ function CreateTrip(props){
 
     return(
         <div className="activity">
-            {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?(
+            {props.isAuth?(
             <div>
                 <h3>Welcome to your Create Trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>

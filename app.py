@@ -94,7 +94,8 @@ def handle_user_api():
                 if current_user is not None:
                     trips = []
                     for trip in current_user.trips:
-                        trips.append(trip.trip_id)
+                        current_trip = Trip.query.filter_by(id=trip.trip_id).first()
+                        trips.append({ 'trip_id': trip.trip_id, 'name': current_trip.trip_name })
                     return {
                         'success': True,
                         'email': current_user.email,

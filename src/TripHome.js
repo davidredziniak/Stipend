@@ -4,7 +4,7 @@ function TripHome(props)
 {console.log(props.name)
     return (
         <div className="activity">
-             {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?
+             {props.isAuth?
              (
              <div>
              <div><h3>Welcome to your TripHome!</h3></div>
