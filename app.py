@@ -176,7 +176,7 @@ def verify_token_id(token_id):
                 'message': 'Could not find user matching token ID. Please relogin.'}
     return {'success': True, 'user': current_user}
 
-@APP.route('api/trips/invite', methods=['POST'])
+@APP.route('/api/trips/invite', methods=['POST'])
 def invite_to_trip():
     '''
         Given a token ID, list of emails, and join code, will invite all emails
@@ -191,7 +191,7 @@ def invite_to_trip():
     current_user = token_status['user']
     invited_emails = request.get_json()['invited_emails']
     join_code = request.get_json()['join_code']
-    send_invites(current_user.firstName + ' ' + current_user.lastName,
+    send_invites(current_user.first_name + ' ' + current_user.last_name,
                  invited_emails,
                  join_code)
     return {'success': True, 'message': 'Successfully invited.'}

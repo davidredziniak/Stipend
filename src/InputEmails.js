@@ -5,6 +5,12 @@ import { useForm } from "react-hook-form";
 import './App.css';
 import CreateTrip from './CreateTrip';
 
+var invitedEmails = [];
+
+const getInvitedEmails = () => {
+  return invitedEmails;
+};
+
 function InputEmails() {
   // email consists of the list of all emails
   const [email, setEmail] = useState([{ value: null }]);
@@ -13,19 +19,22 @@ function InputEmails() {
     const values = [...email];
     values[i].value = event.target.value;
     setEmail(values);
+    invitedEmails = values;
   }
-  console.log(email)
+  console.log(email);
 
   function handleAdd() {
     const values = [...email];
     values.push({ value: null });
     setEmail(values);
+    invitedEmails = values;
   }
 
   function handleRemove(i) {
     const values = [...email];
     values.splice(i, 1);
     setEmail(values);
+    invitedEmails = values;
   }
 
 
@@ -55,4 +64,7 @@ function InputEmails() {
     </div>
   );
 }
-export default InputEmails;
+export {
+  getInvitedEmails,
+  InputEmails
+};

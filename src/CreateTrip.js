@@ -1,10 +1,10 @@
 import Login from './Login.js';
 import Trip from './Trip';
 import React, { useState } from 'react';
-import { createTripApi } from './api/api.js';
+import { createTripApi, inviteToTripApi } from './api/api.js';
 import { useForm } from "react-hook-form";
 import './App.css';
-import InputEmails from './InputEmails';
+import { getInvitedEmails, InputEmails } from './InputEmails';
 import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
 //import 'react-datetime/css/react-datetime.css';
 /* eslint-disable react/jsx-props-no-spreading */
@@ -19,6 +19,11 @@ function CreateTrip(props){
       // doesnt redirect till all fields are filled up
       if(props.token != ""){
             createTripApi(props.token, data).then(data => console.log('Was the trip made?', data));
+      }
+      const emails = getInvitedEmails().map(email => email['value'])
+      console.log(emails);
+      if(emails !== []){
+          inviteToTripApi(props.token, emails, data['join_code'])
       }
       history.push("/trip");
   }

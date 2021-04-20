@@ -44,7 +44,7 @@ const createTripApi = (tokenId, tripData) => {
     }).then(response => response.json());
 };
 
-const inviteToTrip = (tokenId, emails, joinCode) => {
+const inviteToTripApi = (tokenId, emails, joinCode) => {
     const data = {'invited_emails': emails,
                   'join_code': joinCode};
     return fetch('/api/trips/invite', {
@@ -83,7 +83,8 @@ export {
     loginApi,
     logoutApi,
     createTripApi,
+    inviteToTripApi,
     joinTripApi,
     tripIdApi,
     userApi
-}
+};
