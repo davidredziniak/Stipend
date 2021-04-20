@@ -5,7 +5,7 @@ node_modules/
 # testing
 /coverage
 __pycache__/
-.pylintrc
+
 # production
 /build
 
