@@ -7,6 +7,7 @@ from flask import Flask, send_from_directory, request
 from dotenv import load_dotenv, find_dotenv
 from google_auth import verify_user_token
 from models import DB, User, Trip, TripUser, Activity, ActivityUser
+from sqlalchemy import func
 
 load_dotenv(find_dotenv())  # This is to load your env variables from .env
 
@@ -105,6 +106,35 @@ def handle_user_api():
         }, 401
     return {'success': False, 'error': 'Missing Authorization header.'}, 401
 
+@APP.route('/api/createTrip', methods=['POST'])
+def create_trip():
+    '''
+        Given a token ID and tripData, will create a trip connected to the user creating the trip
+    '''
+    if 'Authorization' in request.headers:
+        if 'Bearer ' in request.headers['Authorization']:
+            trip_data = request.get_json()['trip_data']
+            token_id = request.headers['Authorization'].split(' ')[1]
+            email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
+            
+            if len(email) != 0 and email[0] != "":
+                current_user = User.query.filter_by(email=email[0]).first()
+                if current_user is not None:
+                    # Create Trip
+                    new_trip = Trip(trip_name=trip_data['trip_name'],
+                                    join_code=trip_data['join_code'],
+                                    owner_id=current_user.id)
+                    DB.session.add(new_trip)
+                    # Create TripUser
+                    new_trip_user = TripUser(trip_id= DB.session.query(func.max(Trip.id)),
+                                             user_id=current_user.id)
+                    DB.session.add(new_trip_user)
+                    DB.session.commit()
+        return {
+            'success': False,
+            'error': 'Invalid token ID. Please relogin.'
+        }, 401
+    return {'success': False, 'error': 'Missing Authorization header.'}, 401
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":
