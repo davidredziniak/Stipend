@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 //import Login from'./Login';
 //import Logout from'./Logout';
@@ -12,8 +11,8 @@ import Trip from './Trip';
 
 
 import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
-
-function App(props) {
+// removed props from App()
+function App() {
     const [isAuthenticated, setAuth] = useState(false);
     const [tokenId, setTokenId] = useState('');
     
@@ -46,7 +45,7 @@ function App(props) {
       localStorage.setItem("isAuth", false);
       localStorage.setItem('tokenId', "" );
     }
-    
+    //<Route path="/trip" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
     return (
     <Router>
     <div className="App">

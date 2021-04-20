@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { joinTripApi } from './api/api.js';
 import './App.css';
 

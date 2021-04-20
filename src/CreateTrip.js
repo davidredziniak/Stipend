@@ -1,12 +1,14 @@
-
 import Trip from './Trip';
 import React, { useState } from 'react';
+<<<<<<< HEAD
 import { createTripApi } from './api/api.js';
+=======
+import { createTripApi, inviteToTripApi } from './api/api.js';
+>>>>>>> 7b362cf9e59fa7aa75e8a15b3e1f793daf99dda7
 import { useForm } from "react-hook-form";
 import './App.css';
-import InputEmails from './InputEmails';
-import { useHistory, BrowserRouter as Router,Route} from "react-router-dom";
-//import 'react-datetime/css/react-datetime.css';
+import { getInvitedEmails, InputEmails } from './InputEmails';
+import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
     const history = useHistory();
@@ -17,8 +19,13 @@ function CreateTrip(props){
   function onSubmit(data){
       console.log(data);
       // doesnt redirect till all fields are filled up
-      if(props.token != ""){
+      if(props.token !== ""){
             createTripApi(props.token, data).then(data => console.log('Was the trip made?', data));
+      }
+      const emails = getInvitedEmails().map(email => email['value'])
+      console.log(emails);
+      if(emails !== []){
+          inviteToTripApi(props.token, emails, data['join_code'])
       }
       history.push("/trip");
   }
@@ -32,6 +39,7 @@ function CreateTrip(props){
 
                         <div><label for="Name" className="labels">Trip Name:</label>
                         <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("trip_name", {required: true, maxLength: 17})} /></div>
+
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="tripStart" className="labels">Trip's Start Date:</label>
@@ -48,9 +56,10 @@ function CreateTrip(props){
                         <InputEmails/></div>
                         
                         <div className="lines">____________________________________________________________________________________</div>
-                        
+
                         <div><label for="JoinCode" className="labels">Create Join Code:</label></div>
                         <div><input required type="text" id="JoinCode" className="createTripInputs" placeholder="Join Code" pattern="^[a-zA-Z0-9]*$" maxLength="7" {...register("join_code", {required: true, maxLength: 7})} /></div>
+
                         <div className="lines">____________________________________________________________________________________</div>
 
                         <div><button type="submit">Submit</button></div>
