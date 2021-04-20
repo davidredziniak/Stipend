@@ -1,9 +1,9 @@
-import Login from './Login.js';
-import Trip from './Trip';
-import React, { useState } from 'react';
-import { useForm } from "react-hook-form";
+import { useState } from 'react';
 import './App.css';
-import CreateTrip from './CreateTrip';
+
+// import Login from './Login.js';
+// import Trip from './Trip';
+//import { useForm } from "react-hook-form";
 
 var invitedEmails = [];
 
@@ -44,7 +44,7 @@ function InputEmails() {
       {email.map((field, idx) => {
         return (
           <div key={`${field}-${idx}`}>
-            <input
+            <input required
               className="createTripInputs"
               type="text"
               placeholder="Email"

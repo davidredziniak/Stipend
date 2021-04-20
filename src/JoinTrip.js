@@ -1,5 +1,4 @@
-import Login from './Login.js';
-import React, { useRef } from 'react';
+import { useRef } from 'react';
 import { joinTripApi } from './api/api.js';
 import './App.css';
 
@@ -7,7 +6,7 @@ function JoinTrip(props){
     const user = useRef('');
    
     function joinTrip(joinCode){
-        if(props.token != ""){
+        if(props.token !== ""){
             joinTripApi(props.token, joinCode).then(data => console.log('Tried joining code' + joinCode, data));
         }
     }

@@ -24,6 +24,7 @@ DB.init_app(APP)
 CURRENT_SESSIONS = {}
 
 
+
 def get_email_from_token_id(sessions, token_id):
     '''
         Returns a list of emails from a dictionary if the token ID matches
@@ -31,11 +32,13 @@ def get_email_from_token_id(sessions, token_id):
     return [key for key in sessions if sessions[key] == token_id]
 
 
+
 @APP.route('/', defaults={"filename": "index.html"})
 @APP.route('/<path:filename>')
 def index(filename):
     ''' Route user to view webpage '''
     return send_from_directory('./build', filename)
+
 
 
 @APP.route('/api/auth/login', methods=['POST'])
@@ -81,6 +84,7 @@ def authenticate_user_logout():
     return {'success': False}, 401
 
 
+
 @APP.route('/api/user', methods=['GET'])
 def handle_user_api():
     '''
@@ -115,6 +119,8 @@ def handle_user_api():
             'message': 'Invalid token ID. Please relogin.'
         }, 401
     return {'success': False, 'message': 'Missing Authorization header.'}, 401
+
+
 
 @APP.route('/api/createTrip', methods=['POST'])
 def create_trip():
@@ -196,6 +202,7 @@ def invite_to_trip():
                  join_code)
     return {'success': True, 'message': 'Successfully invited.'}
 
+
 @APP.route('/api/joinTrip', methods=['POST'])
 def handle_join_trip():
     '''
@@ -229,16 +236,15 @@ def handle_join_trip():
                                 DB.session.add(new_trip_user)
                                 DB.session.commit()
                                 return {'success': True, 'message': 'Successfully joined.'}, 200
-                            else:
-                                return {'success': False,
-                                        'message': 'You have already joined this trip.'}, 401
-                        else:
-                            return {'success': False, 'message': 'Invalid join code.'}, 401
+                            return {'success': False,
+                                    'message': 'You have already joined this trip.'}, 401
+                        return {'success': False, 'message': 'Invalid join code.'}, 401
         return {
             'success': False,
             'message': 'Invalid token ID. Please relogin.'
         }, 401
     return {'success': False, 'message': 'An error has occured.'}, 401
+
 
 @APP.route('/api/trip', methods=['GET'])
 def handle_trip_info():
@@ -276,16 +282,16 @@ def handle_trip_info():
                             return {'success': True,
                                     'tripName': trip.trip_name,
                                     'tripOwner': trip.owner_id, 'participants': users}, 200
-                        else:
-                            return {'success': False,
-                                    'message': 'You are not authorized to view this trip.'}, 401
-                    else:
-                        return {'success': False, 'message': 'Invalid trip id.'}, 401
+                        return {'success': False,
+                                'message': 'You are not authorized to view this trip.'}, 401
+                    return {'success': False, 'message': 'Invalid trip id.'}, 401
         return {
             'success': False,
             'message': 'Invalid token ID. Please relogin.'
         }, 401
     return {'success': False, 'message': 'Missing Authorization header.'}, 401
+
+
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":
