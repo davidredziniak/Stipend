@@ -1,6 +1,4 @@
-import React, {useState, useEffect} from 'react';
-
-//import ReactDOM from "react-dom";
+import {useEffect} from 'react';
 import {
   useParams
 } from "react-router-dom";
@@ -8,7 +6,7 @@ import { tripIdApi } from './api/api.js';
 
 function Trip(props)
 {
-     let { tripId } = useParams();
+    let { tripId } = useParams();
     // const [tripName, setTripName] = useState("");
     // const [tripOwner, setTripOwner] = useState("");
     // const [tripUsers, setTripUsers] = useState([]);
