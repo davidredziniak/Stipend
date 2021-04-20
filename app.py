@@ -5,9 +5,9 @@
 import os
 from flask import Flask, send_from_directory, request
 from dotenv import load_dotenv, find_dotenv
+from sqlalchemy import func
 from google_auth import verify_user_token
 from models import DB, User, Trip, TripUser, Activity, ActivityUser
-from sqlalchemy import func
 
 load_dotenv(find_dotenv())  # This is to load your env variables from .env
 
@@ -116,7 +116,7 @@ def create_trip():
             trip_data = request.get_json()['trip_data']
             token_id = request.headers['Authorization'].split(' ')[1]
             email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
-            
+
             if len(email) != 0 and email[0] != "":
                 current_user = User.query.filter_by(email=email[0]).first()
                 if current_user is not None:
@@ -126,7 +126,7 @@ def create_trip():
                                     owner_id=current_user.id)
                     DB.session.add(new_trip)
                     # Create TripUser
-                    new_trip_user = TripUser(trip_id= DB.session.query(func.max(Trip.id)),
+                    new_trip_user = TripUser(trip_id=DB.session.query(func.max(Trip.id)),
                                              user_id=current_user.id)
                     DB.session.add(new_trip_user)
                     DB.session.commit()
