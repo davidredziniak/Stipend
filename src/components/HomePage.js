@@ -22,6 +22,7 @@ function HomePage(props){
           setLastName(data.lastName);
           setFirstName(data.firstName);
           setTrips(data.trips);
+          console.log(data.trips);
         }
       }
     }

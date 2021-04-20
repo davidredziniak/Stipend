@@ -39,7 +39,22 @@ def index(filename):
     ''' Route user to view webpage '''
     return send_from_directory('./build', filename)
 
+def add_user_to_database(email, first_name, last_name):
+    '''
+        This function adds
+        a new user to the database
+    '''
+    new_user = User(email=email,
+                    first_name=first_name,
+                    last_name=last_name)
+    DB.session.add(new_user)
+    DB.session.commit()
 
+    all_users = User.query.all()
+    users = []
+    for user in all_users:
+        users.append(user.email)
+    return users
 
 @APP.route('/api/auth/login', methods=['POST'])
 def authenticate_user():
@@ -57,11 +72,7 @@ def authenticate_user():
             user = User.query.filter_by(email=email).first()
             # User doesn't exist, create new user
             if user is None:
-                new_user = User(email=email,
-                                first_name=first_name,
-                                last_name=last_name)
-                DB.session.add(new_user)
-                DB.session.commit()
+                add_user_to_database(email, first_name, last_name)
             # Add to token id to session list, for future API calls
             CURRENT_SESSIONS[email] = token_id
             return {'success': True}, 200
@@ -82,6 +93,7 @@ def authenticate_user_logout():
             CURRENT_SESSIONS.pop(email[0], None)
             return {'success': True}, 200
     return {'success': False}, 401
+
 
 
 
@@ -122,8 +134,26 @@ def handle_user_api():
 
 
 
+    
+def add_trip_to_database(trip_name, join_code, owner_id):
+    '''
+        This function adds
+        a new trip to the database
+    '''
+    new_trip = Trip(trip_name=trip_name,
+                    join_code=join_code,
+                    owner_id=owner_id)
+    DB.session.add(new_trip)
+    DB.session.commit()
+
+    all_trips = Trip.query.all()
+    trips = []
+    for trip in all_trips:
+        trips.append(trip.trip_name)
+    return trips
+
 @APP.route('/api/createTrip', methods=['POST'])
-def create_trip():
+def handle_create_trip():
     '''
         Given a token ID and tripData, will create a trip connected to the user creating the trip
     '''
@@ -137,10 +167,7 @@ def create_trip():
     current_user = token_status['user']
     trip_data = request.get_json()['trip_data']
     # Create Trip
-    new_trip = Trip(trip_name=trip_data['trip_name'],
-                    join_code=trip_data['join_code'],
-                    owner_id=current_user.id)
-    DB.session.add(new_trip)
+    add_trip_to_database(trip_data['trip_name'], trip_data['join_code'], current_user.id)
     # Create TripUser
     new_trip_user = TripUser(trip_id=DB.session.query(func.max(Trip.id)),
                              user_id=current_user.id)
