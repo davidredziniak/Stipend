@@ -1,14 +1,9 @@
 import Trip from './Trip';
 import React, { useState } from 'react';
-<<<<<<< HEAD
-<<<<<<< HEAD
-import { createTripApi } from './api/api.js';
-=======
+
+
 import { createTripApi, inviteToTripApi } from './api/api.js';
->>>>>>> 7b362cf9e59fa7aa75e8a15b3e1f793daf99dda7
-=======
-import { createTripApi, inviteToTripApi } from './api/api.js';
->>>>>>> 46c53d5882ab51a5de59f8d10d5ee99e3ee8b854
+
 import { useForm } from "react-hook-form";
 import './App.css';
 import { getInvitedEmails, InputEmails } from './InputEmails';
