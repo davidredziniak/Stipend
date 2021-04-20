@@ -1,11 +1,10 @@
-import Login from './Login.js';
 import Trip from './Trip';
-import React, { useState } from 'react';
+import React from 'react';
 import { createTripApi } from './api/api.js';
 import { useForm } from "react-hook-form";
 import './App.css';
 import InputEmails from './InputEmails';
-import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
+import { useHistory, BrowserRouter as Router,Route} from "react-router-dom";
 //import 'react-datetime/css/react-datetime.css';
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
@@ -17,7 +16,7 @@ function CreateTrip(props){
   function onSubmit(data){
       console.log(data);
       // doesnt redirect till all fields are filled up
-      if(props.token != ""){
+      if(props.token !== ""){
             createTripApi(props.token, data).then(data => console.log('Was the trip made?', data));
       }
       history.push("/trip");
@@ -48,14 +47,10 @@ function CreateTrip(props){
                         <InputEmails/></div>
                         
                         <div className="lines">____________________________________________________________________________________</div>
-                        
-<<<<<<< HEAD
-                        <div><label for="JoinCode" className="labels">Create an Alphanumeric Join Code:</label></div>
-                        <div><input required type="text" id="JoinCode" className="createTripInputs" placeholder="Join Code" pattern="^[a-zA-Z0-9]*$" maxLength="7" {...register("Join Code", {required: true, maxLength: 7})} /></div>
-=======
+
                         <div><label for="JoinCode" className="labels">Create Join Code:</label></div>
                         <div><input required type="text" id="JoinCode" className="createTripInputs" placeholder="Join Code" pattern="^[a-zA-Z0-9]*$" maxLength="7" {...register("join_code", {required: true, maxLength: 7})} /></div>
->>>>>>> 6c08c8466e12041cafd4eab0ec772e621102cefb
+
                         <div className="lines">____________________________________________________________________________________</div>
 
                         <div><button type="submit">Submit</button></div>

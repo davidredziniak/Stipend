@@ -1,5 +1,4 @@
-import logo from './logo.svg';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 //import Login from'./Login';
 //import Logout from'./Logout';
@@ -23,7 +22,7 @@ function App(props) {
       let storedTokenId = localStorage.getItem('tokenId');
       let newAuth = isAuthenticated;
       let newToken = tokenId;
-      if(storedAuth != undefined)
+      if(storedAuth !== undefined)
         newAuth = storedAuth;
       if(storedTokenId !== undefined)
         newToken = storedTokenId;

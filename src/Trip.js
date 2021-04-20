@@ -1,6 +1,4 @@
-import React, {useState, useEffect} from 'react';
-import Login from './Login.js';
-import ReactDOM from "react-dom";
+import {useEffect} from 'react';
 import {
   useParams
 } from "react-router-dom";
@@ -9,13 +7,13 @@ import { tripIdApi } from './api/api.js';
 function Trip(props)
 {
     let { tripId } = useParams();
-    const [tripName, setTripName] = useState("");
-    const [tripOwner, setTripOwner] = useState("");
-    const [tripUsers, setTripUsers] = useState([]);
+    // const [tripName, setTripName] = useState("");
+    // const [tripOwner, setTripOwner] = useState("");
+    // const [tripUsers, setTripUsers] = useState([]);
     
     // Load all trip data
     useEffect(() => {
-      if(props.isAuth && props.token != ""){
+      if(props.isAuth && props.token !== ""){
         tripIdApi(props.token, tripId).then(data => console.log('Received data: ', data));
       }
     });

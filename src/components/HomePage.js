@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import Login from'../Login.js';
-import Logout from'../Logout.js';
-import {loginApi, userApi} from '../api/api.js';
+import { useState, useEffect } from 'react';
+import {userApi} from '../api/api.js';
 
 function HomePage(props){
     
@@ -14,7 +12,7 @@ function HomePage(props){
     function updateData(data){
       // If the user data API call fails, log the user out.
       if(data.hasOwnProperty('success')){
-        if(data.success == false){
+        if(data.success === false){
           props.logout();
         }
         else{
@@ -29,7 +27,7 @@ function HomePage(props){
     //Rerender component when token ID and isAuth updates.
     useEffect(() => {
       //If user is logged in and the token ID is valid, update home page
-      if(props.token != "" && props.isAuth)
+      if(props.token !== "" && props.isAuth)
         userApi(props.token).then(data => updateData(data)).then(data => setViewable(true));
   
       //Upon user logout, clear all user data

@@ -17,7 +17,6 @@ class User(DB.Model):
 
     def __repr__(self):
         return '<User %r>' % self.id
-    
     def to_json(self):
         """
         Get a json serializable version of the object
