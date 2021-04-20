@@ -1,6 +1,6 @@
   
 import React from 'react';
-import Login from './Login.js';
+
 function TripHome(props)
 {console.log(props.name)
     return (

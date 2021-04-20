@@ -1,16 +1,16 @@
-import Login from './Login.js';
+
 import Trip from './Trip';
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from "react-hook-form";
 import './App.css';
 import InputEmails from './InputEmails';
-import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
+import { useHistory, BrowserRouter as Router,Route} from "react-router-dom";
 //import 'react-datetime/css/react-datetime.css';
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
     const history = useHistory();
     //const user = useState('');
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
  // const onSubmit = data => console.log(data);
   function onSubmit(data){

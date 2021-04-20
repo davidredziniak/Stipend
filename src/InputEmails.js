@@ -1,9 +1,9 @@
-import Login from './Login.js';
-import Trip from './Trip';
+// import Login from './Login.js';
+// import Trip from './Trip';
 import React, { useState } from 'react';
-import { useForm } from "react-hook-form";
+//import { useForm } from "react-hook-form";
 import './App.css';
-import CreateTrip from './CreateTrip';
+//import CreateTrip from './CreateTrip';
 
 function InputEmails() {
   // email consists of the list of all emails
