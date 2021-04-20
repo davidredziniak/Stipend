@@ -11,8 +11,8 @@ import Trip from './Trip';
 
 
 import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
-
-function App(props) {
+// removed props from App()
+function App() {
     const [isAuthenticated, setAuth] = useState(false);
     const [tokenId, setTokenId] = useState('');
     
