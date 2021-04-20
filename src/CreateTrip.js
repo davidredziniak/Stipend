@@ -1,6 +1,7 @@
 import Login from './Login.js';
 import Trip from './Trip';
 import React, { useState } from 'react';
+import { createTripApi } from './api/api.js';
 import { useForm } from "react-hook-form";
 import './App.css';
 import InputEmails from './InputEmails';
@@ -16,6 +17,9 @@ function CreateTrip(props){
   function onSubmit(data){
       console.log(data);
       // doesnt redirect till all fields are filled up
+      if(props.token != ""){
+            createTripApi(props.token, data).then(data => console.log('Was the trip made?', data));
+      }
       history.push("/trip");
   }
 
@@ -27,7 +31,7 @@ function CreateTrip(props){
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                         <div><label for="Name" className="labels">Trip Name:</label>
-                        <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("Trip Name", {required: true, maxLength: 17})} /></div>
+                        <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("trip_name", {required: true, maxLength: 17})} /></div>
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="tripStart" className="labels">Trip's Start Date:</label>
@@ -46,7 +50,7 @@ function CreateTrip(props){
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="JoinCode" className="labels">Create Join Code:</label></div>
-                        <div><input required type="text" id="JoinCode" className="createTripInputs" placeholder="Join Code" pattern="^[a-zA-Z0-9]*$" maxLength="7" {...register("Join Code", {required: true, maxLength: 7})} /></div>
+                        <div><input required type="text" id="JoinCode" className="createTripInputs" placeholder="Join Code" pattern="^[a-zA-Z0-9]*$" maxLength="7" {...register("join_code", {required: true, maxLength: 7})} /></div>
                         <div className="lines">____________________________________________________________________________________</div>
 
                         <div><button type="submit">Submit</button></div>
