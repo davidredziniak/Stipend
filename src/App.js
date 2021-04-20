@@ -1,14 +1,18 @@
-import logo from './logo.svg';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
-import Login from'./Login.js';
-import Logout from'./Logout.js';
+//import Login from'./Login';
+//import Logout from'./Logout';
 import HomePage from './components/HomePage';
 import Nav from './Nav';
+import Activity from './Activity';
+import JoinTrip from './JoinTrip';
+import CreateTrip from './CreateTrip';
+import Trip from './Trip';
 
-import {BrowserRouter as Router, Switch,Route,Link} from "react-router-dom";
 
-function App(props) {
+import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
+// removed props from App()
+function App() {
     const [isAuthenticated, setAuth] = useState(false);
     const [tokenId, setTokenId] = useState('');
     
@@ -18,9 +22,9 @@ function App(props) {
       let storedTokenId = localStorage.getItem('tokenId');
       let newAuth = isAuthenticated;
       let newToken = tokenId;
-      if(storedAuth != undefined)
+      if(storedAuth !== undefined)
         newAuth = storedAuth;
-      if(storedTokenId != undefined)
+      if(storedTokenId !== undefined)
         newToken = storedTokenId;
       setAuth(newAuth);
       setTokenId(newToken);
@@ -41,13 +45,17 @@ function App(props) {
       localStorage.setItem("isAuth", false);
       localStorage.setItem('tokenId', "" );
     }
-    
+    //<Route path="/trip" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
     return (
     <Router>
     <div className="App">
         <Nav login={loginHandler} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId}/>
         <Switch>
-          <Route exact path="/" render={(props) => ( <HomePage isAuth={isAuthenticated} logout={logoutHandler} token={tokenId} /> )}/>
+          <Route exact path="/home" render={(props) => ( <HomePage logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/activity" render={(props) => ( <Activity logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/jointrip" render={(props) => ( <JoinTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/createtrip" render={(props) => ( <CreateTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route path="/trip" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
         </Switch>
       </div>
     </Router>);
