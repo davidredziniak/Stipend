@@ -120,31 +120,60 @@ def create_trip():
     '''
         Given a token ID and tripData, will create a trip connected to the user creating the trip
     '''
-    if 'Authorization' in request.headers:
-        if 'Bearer ' in request.headers['Authorization']:
-            trip_data = request.get_json()['trip_data']
-            token_id = request.headers['Authorization'].split(' ')[1]
-            email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
 
-            if len(email) != 0 and email[0] != "":
-                current_user = User.query.filter_by(email=email[0]).first()
-                if current_user is not None:
-                    # Create Trip
-                    new_trip = Trip(trip_name=trip_data['trip_name'],
-                                    join_code=trip_data['join_code'],
-                                    owner_id=current_user.id)
-                    DB.session.add(new_trip)
-                    # Create TripUser
-                    new_trip_user = TripUser(trip_id=DB.session.query(func.max(Trip.id)),
-                                             user_id=current_user.id)
-                    DB.session.add(new_trip_user)
-                    DB.session.commit()
-                    return {'success': True}, 200
-        return {
-            'success': False,
-            'error': 'Invalid token ID. Please relogin.'
-        }, 401
-    return {'success': False, 'error': 'Missing Authorization header.'}, 401
+    current_user = token_status['user']
+    trip_data = request.get_json()['trip_data']
+    # Create Trip
+    new_trip = Trip(trip_name=trip_data['trip_name'],
+                    join_code=trip_data['join_code'],
+                    owner_id=current_user.id)
+    DB.session.add(new_trip)
+    # Create TripUser
+    new_trip_user = TripUser(trip_id=DB.session.query(func.max(Trip.id)),
+                             user_id=current_user.id)
+    DB.session.add(new_trip_user)
+    DB.session.commit()
+    return {'success': True}, 200
+
+def verify_headers(headers):
+    '''
+        Helper method to check the headers of a request to determine if the
+        api request is valid. Returns a dictionary.
+        Format for dictionary:
+            success: True/False; status of the header, required
+            message: String; if success was false, is the reason for failing, required for
+                     when success is false.
+    '''
+    if 'Authorization' not in headers:
+        return {'success': False, 'message': 'Missing Authorization header.'}
+    if 'Bearer' not in headers['Authorization']:
+        return {'success': False, 'message': 'Missing Bearer in Authorization header.'}
+    return {'success': True}
+
+def verify_token_id(token_id):
+    '''
+        Helper method to check a token id and determine if it's associated with a user.
+        Returns a dictionary.
+        Format for dictionary:
+            success: True/False; status of the token id, required
+            message: String; if success was false, is the failing message
+            user: User; if success was true, is the current user associated with
+                  the token id
+    '''
+    email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
+    if len(email) == 0 or email[0] == "":
+        return {'success': False, 'message': 'Invalid token ID. Please relogin.'}
+    current_user = User.query.filter_by(email=email[0]).first()
+    if current_user is None:
+        return {'success': False,
+                'message': 'Could not find user matching token ID. Please relogin.'}
+    return {'success': True, 'user': current_user}
 
 @APP.route('/api/joinTrip', methods=['POST'])
 def handle_join_trip():
