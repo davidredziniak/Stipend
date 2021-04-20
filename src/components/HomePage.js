@@ -44,12 +44,12 @@ function HomePage(props){
   if(isViewable){
     return (
       <div>
-        <h2>Hello, {firstName}</h2>
+        <h2 >Hello, {firstName}</h2>
         <h5>Email: {email}</h5>
         <h5>Last Name: {lastName}</h5>
         {trips.map((trip, index) => {
         return (
-          <p key={`${trip}-${index}`}>Id: {trip.trip_id} - Name: {trip.name}</p>
+          <a href={`/trip/${trip.trip_id}`}><p key={`${trip}-${index}`}>Id: {trip.trip_id} - Name: {trip.name}</p></a>
         );
       })}
       </div>
