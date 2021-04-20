@@ -1,8 +1,14 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen, fireEvent } from '@testing-library/react';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+import App from './App';
+import JoinTrip from './JoinTrip';
+
+test('click on the Home button', () => {
+  const result = render(<JoinTrip isAuth={true}/>);
+  const joinButtonElement = screen.getByText('Enter');
+  expect(joinButtonElement).toBeInTheDocument();
+  const joinButtonElement2 = screen.getByText('Enter');
+  fireEvent.click(joinButtonElement);
+  expect(joinButtonElement2).toBeInTheDocument();
 });
+

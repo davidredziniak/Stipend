@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import './App.css';
 
+// import Login from './Login.js';
+// import Trip from './Trip';
+//import { useForm } from "react-hook-form";
+
 function InputEmails() {
   // email consists of the list of all emails
   const [email, setEmail] = useState([{ value: null }]);
@@ -10,7 +14,7 @@ function InputEmails() {
     values[i].value = event.target.value;
     setEmail(values);
   }
-  console.log(email)
+  console.log(email);
 
   function handleAdd() {
     const values = [...email];
@@ -31,7 +35,7 @@ function InputEmails() {
       {email.map((field, idx) => {
         return (
           <div key={`${field}-${idx}`}>
-            <input
+            <input required
               className="createTripInputs"
               type="text"
               placeholder="Email"

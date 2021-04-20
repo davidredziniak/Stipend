@@ -10,7 +10,7 @@ import { useHistory, BrowserRouter as Router,Route} from "react-router-dom";
 function CreateTrip(props){
     const history = useHistory();
     //const user = useState('');
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit } = useForm();
 
  // const onSubmit = data => console.log(data);
   function onSubmit(data){
@@ -30,7 +30,9 @@ function CreateTrip(props){
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                         <div><label for="Name" className="labels">Trip Name:</label>
+
                         <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("trip_name", {required: true, maxLength: 17})} /></div>
+
                         <div className="lines">____________________________________________________________________________________</div>
                         
                         <div><label for="tripStart" className="labels">Trip's Start Date:</label>

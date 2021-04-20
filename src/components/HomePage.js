@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
-import {userApi} from '../api/api.js';
-
+// import Login from'../Login.js';
+// import Logout from'../Logout.js';
+//import {loginApi, userApi} from '../api/api.js';
+import { userApi} from '../api/api.js';
 function HomePage(props){
     
     const [isViewable, setViewable] = useState(false);
@@ -42,7 +44,7 @@ function HomePage(props){
   if(isViewable){
     return (
       <div>
-        <h2 >Hello, {firstName}</h2>
+        <h2>Hello, {firstName}</h2>
         <h5>Email: {email}</h5>
         <h5>Last Name: {lastName}</h5>
         {trips.map((trip, index) => {

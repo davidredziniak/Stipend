@@ -1,4 +1,3 @@
-
 import React, {useEffect} from 'react';
 import './App.css';
 import Login from'./Login.js';
@@ -7,14 +6,7 @@ import Logout from'./Logout.js';
 
 import {Link} from "react-router-dom";
 
-// <div>
-//     {props.isAuth && <Login tokenHandler={props.token} 
-//     authHandler={props.auth}/>?
-//     (
-//     <Link className='navStyle'to='/Activity'><li><button>Activity</button></li></Link>
-//     )
-//     :null}
-// </div>
+
 
 function Nav(props) {
     
@@ -57,6 +49,3 @@ function Nav(props) {
 }
 
 export default Nav;
-
-
-//<button type="submit" onClick={()=>{<Router><Switch><Route path="/Activity" exact component={Test}/></Switch></Router>}}>Activity</button>

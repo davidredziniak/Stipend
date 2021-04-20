@@ -3,7 +3,6 @@ import {refreshTokenSetup} from './refreshToken.js';
 import {loginApi} from './api/api.js';
 import { useHistory} from "react-router-dom";
 
-
 const clientId = process.env.REACT_APP_CLIENT_ID;
 
 function Login(props)
