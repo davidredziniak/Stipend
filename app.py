@@ -139,6 +139,7 @@ def create_trip():
                                              user_id=current_user.id)
                     DB.session.add(new_trip_user)
                     DB.session.commit()
+                    return {'success': True}, 200
         return {
             'success': False,
             'error': 'Invalid token ID. Please relogin.'

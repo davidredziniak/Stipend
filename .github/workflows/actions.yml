@@ -24,7 +24,11 @@ jobs:
           python3 -m pip install --requirement requirements.txt
       - name: Fixing Python file with Pylint
         run: |
+<<<<<<< HEAD
           python3 -m pylint -d E1101,C0413,W1508,R0903,W0603,W0611,R1705,R1702 $(find ./ -type f | grep '.py$' | xargs)
+=======
+          python3 -m pylint -d E1101,C0413,W1508,R0903,W0603,W0611,R1702,R1705 $(find ./ -type f | grep '.py$' | xargs)
+>>>>>>> cfee379e11a67cbea2e42deaa5420e5d79260567
   eslint:
     runs-on: ubuntu-latest
     steps:
