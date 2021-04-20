@@ -46,7 +46,7 @@ function App(props) {
       localStorage.setItem("isAuth", false);
       localStorage.setItem('tokenId', "" );
     }
-    
+    //<Route path="/trip" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
     return (
     <Router>
     <div className="App">
