@@ -49,7 +49,10 @@ function HomePage(props){
         <h5>Last Name: {lastName}</h5>
         {trips.map((trip, index) => {
         return (
+        <div>
           <a href={`/trip/${trip.trip_id}`}><p key={`${trip}-${index}`}>Id: {trip.trip_id} - Name: {trip.name}</p></a>
+          <button>{trip.name}</button>
+        </div>
         );
       })}
       </div>
