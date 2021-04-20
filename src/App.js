@@ -55,7 +55,7 @@ function App() {
           <Route exact path="/activity" render={(props) => ( <Activity logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
           <Route exact path="/jointrip" render={(props) => ( <JoinTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
           <Route exact path="/createtrip" render={(props) => ( <CreateTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route path="/trip" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route path="/trip/:tripId" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
         </Switch>
       </div>
     </Router>);
