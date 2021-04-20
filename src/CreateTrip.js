@@ -1,6 +1,9 @@
 import Trip from './Trip';
 import React, { useState } from 'react';
+
+
 import { createTripApi, inviteToTripApi } from './api/api.js';
+
 import { useForm } from "react-hook-form";
 import './App.css';
 import { getInvitedEmails, InputEmails } from './InputEmails';
@@ -34,7 +37,6 @@ function CreateTrip(props){
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                         <div><label for="Name" className="labels">Trip Name:</label>
-
                         <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("trip_name", {required: true, maxLength: 17})} /></div>
 
                         <div className="lines">____________________________________________________________________________________</div>
