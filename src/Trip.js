@@ -1,11 +1,10 @@
-<<<<<<< HEAD
+
 import React, {useState, useEffect} from 'react';
 
 
 //import ReactDOM from "react-dom";
-=======
-import {useEffect} from 'react';
->>>>>>> 7b362cf9e59fa7aa75e8a15b3e1f793daf99dda7
+
+
 import {
   useParams
 } from "react-router-dom";
