@@ -1,20 +1,25 @@
-import logo from './logo.svg';
-import React, { useState } from 'react';
+import React from 'react';
 import './App.css';
-import Login from'./Login.js';
-import Logout from'./Logout.js';
 
+import Logout from'./Logout.js';
+import {BrowserRouter as Router,Route} from "react-router-dom";
 
 function Dashboard(props){
-
     return(
         <div>
             <ul>GIVEN NAME: {(props.givenName).charAt(0).toUpperCase() + (props.givenName).slice(1)}</ul>
             <ul>FULLNAME: {props.name}</ul>
             <ul>EMAIL: {props.email}</ul>
-           
+            <Logout/>
+            <Router>
+                <div>
+                    <ul to='/logout'></ul>
+                    <Route path="/logout" component={Logout} />
+                </div>
+            </Router>
+            
         </div>
         );
 }
-//<button onClick={props.setLogStatus(false)}>BUTTTTTTON</button>
+
 export default Dashboard;

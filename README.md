@@ -5,7 +5,14 @@
 2. `pip install -r requirements.txt`
 3. `npm i react-google-login`
 4. `npm i node-fetch`
-5. `npm install ract-router-dom`
+<<<<<<< HEAD
+5. `npm install react-hook-form`
+6. `npm install --save moment react-moment`
+7. `npm install ract-router-dom`
+8. `npm install --save moment-timezone`
+=======
+5. `npm install react-router-dom`
+>>>>>>> 46df577eb280fb2a6b81f36338fbea67fd463f3b
 
 ## Setup
 1. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
@@ -20,3 +27,7 @@
 1. Create a Heroku app: `heroku create --buildpack heroku/python`
 2. Add nodejs buildpack: `heroku buildpacks:add --index 1 heroku/nodejs`
 3. Push to Heroku: `git push heroku main`
+
+## Dependencies
+1. npm i node-fetch
+2. npm install react-router-dom
