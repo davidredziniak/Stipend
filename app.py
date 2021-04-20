@@ -7,6 +7,7 @@ from flask import Flask, send_from_directory, request
 from dotenv import load_dotenv, find_dotenv
 from sqlalchemy import func
 from google_auth import verify_user_token
+from invite_users import send_invites
 from models import DB, User, Trip, TripUser, Activity, ActivityUser
 
 load_dotenv(find_dotenv())  # This is to load your env variables from .env
@@ -174,6 +175,26 @@ def verify_token_id(token_id):
         return {'success': False,
                 'message': 'Could not find user matching token ID. Please relogin.'}
     return {'success': True, 'user': current_user}
+
+@APP.route('api/trips/invite', methods=['POST'])
+def invite_to_trip():
+    '''
+        Given a token ID, list of emails, and join code, will invite all emails
+        to the trip associated with the join code
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+    current_user = token_status['user']
+    invited_emails = request.get_json()['invited_emails']
+    join_code = request.get_json()['join_code']
+    send_invites(current_user.firstName + ' ' + current_user.lastName,
+                 invited_emails,
+                 join_code)
+    return {'success': True, 'message': 'Successfully invited.'}
 
 @APP.route('/api/joinTrip', methods=['POST'])
 def handle_join_trip():
