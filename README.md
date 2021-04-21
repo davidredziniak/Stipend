@@ -8,7 +8,7 @@
 
 ## Setup
 1. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
-2. In the .env file, have REACT_APP_CLIENT_ID=<YOUR CLIENT ID> saved.
+2. In the .env file, have REACT_APP_CLIENT_ID=<user's google client-id> saved which can be found from https://cloud.google.com/.
 3. In the .env file, have DATABASE_URL='<your heroku config link>' saved.
 
 ## Run Application
