@@ -5,7 +5,7 @@
 # testing
 /coverage
 __pycache__/
-.pylintrc
+
 # production
 /build
 

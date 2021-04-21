@@ -1,7 +1,5 @@
 ''' Models for the database '''
-from flask_sqlalchemy import SQLAlchemy
-
-DB = SQLAlchemy()
+from app import DB
 
 
 class User(DB.Model):
