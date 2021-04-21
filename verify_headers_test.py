@@ -14,8 +14,8 @@ class VerifyHeadersTestCase(unittest.TestCase):
                 'Content-Type': 'application/json',
             },
             KEY_EXPECTED: {
-                'success': True
-            }
+                'success': True,
+            },
         }, {
             KEY_HEADERS: {
                 'Authorization': TOKEN_ID,
@@ -23,8 +23,8 @@ class VerifyHeadersTestCase(unittest.TestCase):
             },
             KEY_EXPECTED: {
                 'success': False,
-                'message': 'Missing Bearer in Authorization header.'
-            }
+                'message': 'Missing Bearer in Authorization header.',
+            },
         }]
         self.failure_test_params = [{
             KEY_HEADERS: {
@@ -32,32 +32,32 @@ class VerifyHeadersTestCase(unittest.TestCase):
                 'Content-Type': 'application/json',
             },
             KEY_EXPECTED: {
-                'success': True
-            }
+                'success': True,
+            },
         }, {
             KEY_HEADERS: {
                 'Content-Type': 'application/json',
             },
             KEY_EXPECTED: {
                 'success': False,
-                'message': 'Missing Bearer in Authorization header.'
-            }
+                'message': 'Missing Bearer in Authorization header.',
+            },
         }]
     def test_success(self):
         for test in self.success_test_params:
             headers = test[KEY_HEADERS]
-            
+
             actual_result = verify_headers(headers)
             expected_result = test[KEY_EXPECTED]
-            
+
             self.assertEqual(actual_result, expected_result)
     def test_failure(self):
         for test in self.failure_test_params:
             headers = test[KEY_HEADERS]
-            
+
             actual_result = verify_headers(headers)
             expected_result = test[KEY_EXPECTED]
-            
+
             self.assertNotEqual(actual_result, expected_result)
 
 if __name__ == '__main__':
