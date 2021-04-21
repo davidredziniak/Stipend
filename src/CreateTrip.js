@@ -19,15 +19,14 @@ function CreateTrip(props){
       console.log(data);
       // doesnt redirect till all fields are filled up
       if(props.token !== ""){
-            createTripApi(props.token, data).then(data => console.log('Was the trip made?', data));
+            createTripApi(props.token, data).then(data => history.push(/trip/ + data.tripId));
       }
       const emails = getInvitedEmails().map(email => email['value'])
       console.log(emails);
       if(emails !== []){
           inviteToTripApi(props.token, emails, data['join_code'])
       }
-      history.push("/trip");
-  }
+    }
 
     return(
         <div className="activity">

@@ -167,6 +167,11 @@ def handle_create_trip():
 
     current_user = token_status['user']
     trip_data = request.get_json()['trip_data']
+    
+    # Check if join code exists
+    valid_trip = models.Trip.query.filter_by(join_code=trip_data['join_code']).first()
+    if valid_trip is not None:
+        return {'success': False, 'message': 'Join code already exists.'}, 200
     # Create Trip
     add_trip_to_database(trip_data['trip_name'], trip_data['join_code'],
                          current_user.id)
@@ -176,7 +181,8 @@ def handle_create_trip():
                                     user_id=current_user.id)
     DB.session.add(new_trip_user)
     DB.session.commit()
-    return {'success': True}, 200
+    trip_id = models.Trip.query.filter_by(join_code=trip_data['join_code']).first().id
+    return {'success': True, 'tripId': trip_id}, 200
 
 
 def verify_headers(headers):
@@ -272,7 +278,7 @@ def handle_join_trip():
                                             user_id=current_user.id)
             DB.session.add(new_trip_user)
             DB.session.commit()
-            return {'success': True, 'message': 'Successfully joined.'}, 200
+            return {'success': True, 'tripId': trip.id, 'message': 'Successfully joined.'}, 200
         return {
             'success': False,
             'message': 'You have already joined this trip.'
