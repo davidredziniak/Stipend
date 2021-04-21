@@ -1,3 +1,6 @@
+'''
+    unmocked unittest for the method get_email_from_token_id
+'''
 import unittest
 from app import get_email_from_token_id
 
@@ -11,7 +14,13 @@ TOKEN_ID_1 = 'sfsdfsf3afda2'
 TOKEN_ID_2 = 'cxii53dfsad52'
 
 class GetEmailFromTokenTestCase(unittest.TestCase):
+    '''
+        Class for testing get_email_from_token_id which extends unittest.TestCase
+    '''
     def setUp(self):
+        '''
+            Sets up the success and failure test params
+        '''
         self.success_test_params = [{
             KEY_SESSIONS: {
                 EMAIL_1: TOKEN_ID_1,
@@ -40,6 +49,10 @@ class GetEmailFromTokenTestCase(unittest.TestCase):
             KEY_EXPECTED: [],
         }]
     def test_success(self):
+        '''
+            Tests the success test params and verifies that their
+            result is equal to the actual result.
+        '''
         for test in self.success_test_params:
             sessions = test[KEY_SESSIONS]
             token_id = test[KEY_TOKEN_ID]
@@ -50,6 +63,10 @@ class GetEmailFromTokenTestCase(unittest.TestCase):
             self.assertEqual(len(actual_result), len(expected_result))
             self.assertEqual(actual_result, expected_result)
     def test_failure(self):
+        '''
+            Tests the failure test params and verifies that their
+            result is not equal to the actual result.
+        '''
         for test in self.failure_test_params:
             sessions = test[KEY_SESSIONS]
             token_id = test[KEY_TOKEN_ID]
