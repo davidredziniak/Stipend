@@ -10,7 +10,7 @@ import CreateTrip from './CreateTrip';
 import Trip from './Trip';
 
 
-import {BrowserRouter as Router, Switch,Route} from "react-router-dom";
+import {BrowserRouter as Router, HashRouter, Switch,Route} from "react-router-dom";
 // removed props from App()
 function App() {
     const [isAuthenticated, setAuth] = useState(false);
@@ -47,7 +47,7 @@ function App() {
     }
     //<Route path="/trip" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
     return (
-    <Router>
+    <HashRouter>
     <div className="App">
         <Nav login={loginHandler} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId}/>
         <Switch>
@@ -58,7 +58,7 @@ function App() {
           <Route path="/trip/:tripId" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
         </Switch>
       </div>
-    </Router>);
+    </HashRouter>);
 };
 
 export default App;
