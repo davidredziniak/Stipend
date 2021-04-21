@@ -30,21 +30,21 @@ function Nav(props) {
         <div>
             {props.isAuth?
             (
-            <Link className='navStyle'to='/Home'><li><button className="home">Home</button></li></Link>
+            <Link className='navStyle'to='/home'><li><button className="home">Home</button></li></Link>
             )
             :null}
         </div>
         <div>
             {props.isAuth?
             (
-            <Link className='navStyle'to='/JoinTrip'><li><button className="joinTripbtn">JoinTrip</button></li></Link>
+            <Link className='navStyle'to='/jointrip'><li><button className="joinTripbtn">JoinTrip</button></li></Link>
             )
             :null}
         </div>
         <div>
             {props.isAuth?
             (
-            <Link className='navStyle'to='/CreateTrip'><li><button className="createTrip">CreateTrip</button></li></Link>
+            <Link className='navStyle'to='/createtrip'><li><button className="createTrip">CreateTrip</button></li></Link>
             )
             :null}
         </div>
