@@ -19,7 +19,7 @@ function Login(props)
         console.log('[Login Success] currentUser:',res.tokenId);
         loginApi(res.tokenId).then(data => console.log('Verified API login:', data)).then(result => props.login(res.tokenId));
         refreshTokenSetup(res);
-        history.push('/Home');
+        history.push('/home');
     };
     const onFailure = (res)=> 
     {

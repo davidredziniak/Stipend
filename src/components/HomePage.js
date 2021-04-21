@@ -51,7 +51,7 @@ function HomePage(props){
         {trips.map((trip, index) => {
         return (
         <div>
-          <a href={`/trip/${trip.trip_id}`}><button>{trip.name}</button></a>
+          <a href={`/#/trip/${trip.trip_id}`}><button>{trip.name}</button></a>
         </div>
         );
       })}
