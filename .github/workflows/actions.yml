@@ -4,9 +4,9 @@ name: CI
 
 on:
   push:
-    branches: [main,activity,srp93]
+    branches: [main,activity,srp93,unmocked_tests]
   pull_request:
-    branches: [main,activity,srp93] 
+    branches: [main,activity,srp93,unmocked_tests] 
 jobs:
   pylint:
     runs-on: ubuntu-latest
