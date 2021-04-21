@@ -34,7 +34,20 @@ const userApi = (tokenId) => {
 
 const createTripApi = (tokenId, tripData) => {
     const data = {'trip_data': tripData};
-    return fetch('api/createTrip', {
+    return fetch('/api/createTrip', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    }).then(response => response.json());
+};
+
+const inviteToTripApi = (tokenId, emails, joinCode) => {
+    const data = {'invited_emails': emails,
+                  'join_code': joinCode};
+    return fetch('/api/trips/invite', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
@@ -70,7 +83,8 @@ export {
     loginApi,
     logoutApi,
     createTripApi,
+    inviteToTripApi,
     joinTripApi,
     tripIdApi,
     userApi
-}
+};
