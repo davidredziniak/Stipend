@@ -140,8 +140,8 @@ def add_trip_to_database(trip_name, join_code, owner_id):
     '''
     if len(join_code) == 7:
         new_trip = models.Trip(trip_name=trip_name,
-                           join_code=join_code,
-                           owner_id=owner_id)
+                               join_code=join_code,
+                               owner_id=owner_id)
         DB.session.add(new_trip)
         DB.session.commit()
 
