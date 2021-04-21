@@ -167,7 +167,6 @@ def handle_create_trip():
 
     current_user = token_status['user']
     trip_data = request.get_json()['trip_data']
-    
     # Check if join code exists
     valid_trip = models.Trip.query.filter_by(join_code=trip_data['join_code']).first()
     if valid_trip is not None:
