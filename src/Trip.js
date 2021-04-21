@@ -41,12 +41,11 @@ function Trip(props)
              {props.isAuth?
              (
              <div>
-             <div><h3>Welcome to your Trip {tripId}!</h3></div>
+             <div><h3>Welcome to your trip!</h3></div>
              <div class="triptext">
                 <p>The trip name is : {tripName}</p>
                 <p>Trip owner is : {tripOwner}</p>
              </div>
-             <div><button>Click</button></div>
              </div>
              ):<h3>Please Login!!!</h3>}
         </div>

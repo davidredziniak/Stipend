@@ -1,13 +1,15 @@
 import { useRef } from 'react';
 import { joinTripApi } from './api/api.js';
+import { useHistory} from "react-router-dom";
 import './App.css';
 
 function JoinTrip(props){
     const user = useRef('');
-   
+    const history = useHistory();
+    
     function joinTrip(joinCode){
         if(props.token !== ""){
-            joinTripApi(props.token, joinCode).then(data => console.log('Tried joining code' + joinCode, data));
+            joinTripApi(props.token, joinCode).then(data => history.push('/trip/' + data.tripId));
         }
     }
     

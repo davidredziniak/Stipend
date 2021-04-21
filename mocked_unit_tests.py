@@ -7,7 +7,6 @@ import unittest.mock as mock
 from unittest.mock import patch
 import os
 import sys
-sys.path.append(os.path.abspath('../../'))
 import app
 from app import models, add_user_to_database, add_trip_to_database
 
