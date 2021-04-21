@@ -19,9 +19,8 @@ function Trip(props)
 
     function printData(data)
     {
-        console.log(data)
-        setTripName(data.trips[0].name)
-        setTripOwner(data.firstname)
+        setTripName(data.tripName)
+        setTripOwner(data.tripOwner)
     }
     // Load all trip data
     // useEffect(() => {
@@ -33,9 +32,9 @@ function Trip(props)
     useEffect(() => {
       //If user is logged in and the token ID is valid, update home page
       if(props.token !== "" && props.isAuth)
-        userApi(props.token).then(data => printData(data));
+        tripIdApi(props.token, tripId).then(data => printData(data));
   
-    }, [props.token, props.isAuth]);
+    });
     
     return (
         <div className="activity">
@@ -45,6 +44,7 @@ function Trip(props)
              <div><h3>Welcome to your Trip {tripId}!</h3></div>
              <div class="triptext">
                 <p>The trip name is : {tripName}</p>
+                <p>Trip owner is : {tripOwner}</p>
              </div>
              <div><button>Click</button></div>
              </div>
