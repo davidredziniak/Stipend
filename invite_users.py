@@ -13,7 +13,7 @@ load_dotenv(find_dotenv())  # This is to load your env variables from .env
 PORT = 465  # For SSL
 SMTP_SERVER = "smtp.gmail.com"
 SENDER = os.getenv('G_EMAIL')
-WEBSITE_LINK = "INSERT_LINK_HERE"
+WEBSITE_LINK = "https://stipend.herokuapp.com"
 
 def create_invite_message(inviter_name, join_code):
     '''
