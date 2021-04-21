@@ -24,7 +24,10 @@ jobs:
           python3 -m pip install --requirement requirements.txt
       - name: Fixing Python file with Pylint
         run: |
-          python3 -m pylint -d E1101,C0413,W1508,R0903,W0603,W0611,R1705,R1702 $(find ./ -type f | grep '.py$' | xargs)
+          python3 -m pylint -d W0611,C0413,E0401,E1101,R0401 $(find ./ -type f | grep '.py$' | xargs)
+      - name: Run unit tests
+        run: |
+          python3 -m python tests/mocked/unit_tests.py
   eslint:
     runs-on: ubuntu-latest
     steps:
