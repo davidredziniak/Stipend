@@ -19,8 +19,10 @@ function Trip(props)
 
     function printData(data)
     {
+        console.log(data)
         setTripName(data.tripName)
         setTripOwner(data.tripOwner)
+        setTripUsers(data.participants[0].firstName)
     }
     // Load all trip data
     // useEffect(() => {
@@ -45,6 +47,7 @@ function Trip(props)
              <div class="triptext">
                 <p>The trip name is : {tripName}</p>
                 <p>Trip owner is : {tripOwner}</p>
+                <p>Trip user is : {tripUsers}</p>
              </div>
              </div>
              ):<h3>Please Login!!!</h3>}
