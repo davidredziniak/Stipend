@@ -27,7 +27,7 @@ jobs:
           python3 -m pylint -d W0611,C0413,E0401,E1101,R0401,R0903,W1508,W0603 $(find ./ -type f | grep '.py$' | xargs)
       - name: Run unit tests
         run: |
-          python3 -m python tests/mocked/unit_tests.py
+          python tests/mocked/unit_tests.py
   eslint:
     runs-on: ubuntu-latest
     steps:
