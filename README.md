@@ -8,11 +8,20 @@
 
 ## Setup
 1. Run `echo "DANGEROUSLY_DISABLE_HOST_CHECK=true" > .env.development.local` in the project directory
+2. In the .env file, have REACT_APP_CLIENT_ID=<YOUR CLIENT ID> saved.
+3. In the .env file, have DATABASE_URL='<your heroku config link>' saved.
 
 ## Run Application
 1. Run command in terminal (in your project directory): `python app.py`
 2. Run command in another terminal, `cd` into the project directory, and run `npm run start`
 3. Preview web page in browser '/'
+
+## Setup google account for sending emails:
+    * https://www.google.com/settings/security/lesssecureapps
+    * Visit this link and press Enable
+    * In the main directory with app.py, add these these lines to .env
+    * G_EMAIL='(your gmail email address)'
+    * G_EMAIL_PASS='(Your gmail password)'
  
 ## Dependencies
 1. "@testing-library/jest-dom": "^5.11.9"
