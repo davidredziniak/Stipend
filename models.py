@@ -33,8 +33,9 @@ class Trip(DB.Model):
     trip_name = DB.Column(DB.String(100), unique=False, nullable=False)
     join_code = DB.Column(DB.String(7), unique=True, nullable=False)
     owner_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), nullable=False)
-    activities = DB.relationship('Activity', backref='trip', lazy=True)
     users = DB.relationship('TripUser', backref='trip', lazy=True)
+    activities = DB.relationship('Activity', backref='trip', lazy=True)
+ 
 
     def __repr__(self):
         return '<Trip %r>' % self.id
