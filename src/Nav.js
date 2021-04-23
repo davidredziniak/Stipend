@@ -7,19 +7,9 @@ import Logout from'./Logout.js';
 
 import {Link} from "react-router-dom";
 
-// <div>
-//     {props.isAuth && <Login tokenHandler={props.token} 
-//     authHandler={props.auth}/>?
-//     (
-//     <Link className='navStyle'to='/Activity'><li><button>Activity</button></li></Link>
-//     )
-//     :null}
-// </div>
-
 function Nav(props) {
     
     useEffect(() => {
-        console.log("");
     }, [props.isAuth, props.token]);
     
     return(

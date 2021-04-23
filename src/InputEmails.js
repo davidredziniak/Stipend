@@ -50,14 +50,14 @@ function InputEmails() {
               placeholder="Email"
               onChange={e => handleChange(idx, e)}
             />
-            <button type="button" className="removeParticipants" onClick={() => handleRemove(idx)}>
+            <button type="button" className="emails" onClick={() => handleRemove(idx)}>
               Remove
             </button>
           </div>
         );
       })}
 
-      <button type="button" onClick={() => handleAdd()}>
+      <button className="emails" type="button" onClick={() => handleAdd()}>
         Add Participant
       </button>
       
