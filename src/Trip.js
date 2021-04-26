@@ -51,14 +51,10 @@ function Trip(props)
              <div><h6>Trip users: {fullname.map(index=><h6>{index}</h6>)}</h6></div>
              
              <div class="triptext">
-<<<<<<< HEAD
-                <p>The trip name is : {tripName}</p>
-                <p>Trip owner is : {tripOwner}</p>
-                <p>Trip user is : {tripUsers}</p>
-=======
+
                 <h2>Trip creator: {tripOwner}</h2>
                 <Activity/>
->>>>>>> 41f3aeeb9fcd68f4ba917e60613421a27cac9b78
+
              </div>
              </div>
              ):<h3>Please Login!!!</h3>}
