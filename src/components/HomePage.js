@@ -10,6 +10,7 @@ function HomePage(props){
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [trips, setTrips] = useState([]);
+    const [hide, setHide]=useState(true)
     
     function updateData(data){
       // If the user data API call fails, log the user out.
@@ -25,6 +26,7 @@ function HomePage(props){
           //console.log(data.trips);
         }
       }
+
     }
     
     //Rerender component when token ID and isAuth updates.
@@ -41,6 +43,7 @@ function HomePage(props){
         setViewable(false);
       }
     }, [props.token, props.isAuth]);
+
   
   if(isViewable){
     return (
@@ -48,11 +51,19 @@ function HomePage(props){
         <h2>Hello, {firstName}</h2>
         <h5>Email: {email}</h5>
         <h5>Last Name: {lastName}</h5>
+        <div>
+          <button onClick={()=>{setHide(!hide)}} >Click to hide trips<br /></button>
+        </div>
         {trips.map((trip, index) => {
         return (
         <div>
-          <a href={`/trip/${trip.trip_id}`}><button>{trip.name}</button></a>
+        {!hide ? (
+          <div>
+            <a href={`/#/trip/${trip.trip_id}`}><button>{trip.name} <br/></button></a>
+          </div>
+          ):null}
         </div>
+        
         );
       })}
       </div>

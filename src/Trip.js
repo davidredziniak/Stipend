@@ -16,8 +16,10 @@ function Trip(props)
   
     function printData(data)
     {
+        console.log(data)
         setTripName(data.tripName)
         setTripOwner(data.tripOwner)
+        setTripUsers(data.participants[0].firstName)
     }
 
 // useEffect is running infinitely
@@ -51,8 +53,10 @@ function Trip(props)
              <div><h6>Trip users: {fullname.map(index=><h6>{index}</h6>)}</h6></div>
              
              <div class="triptext">
+
                 <h2>Trip creator: {tripOwner}</h2>
                 <Activity/>
+
              </div>
              </div>
              ):<h3>Please Login!!!</h3>}
