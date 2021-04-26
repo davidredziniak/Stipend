@@ -23,12 +23,14 @@ function Trip(props)
 // useEffect is running infinitely
     useEffect(() => {
         async function fetchData() {
+            console.log('look')
             setIsLoading(true);
             const fetcher = await tripIdApi(props.token, tripId);
             console.log("showing fetcher",fetcher)
             setTripName(fetcher.tripName)
             setTripOwner(fetcher.tripOwner)
             setFullname([]);
+            setEmails([]);
             //fetcher.participants.map((index)=>setEmails(prev=>[...prev,index.email]));
             fetcher.participants.map((index)=>setFullname(prev=>[...prev,index.firstName+index.lastName]));
             setIsLoading(false);
@@ -37,7 +39,7 @@ function Trip(props)
         //   //If user is logged in and the token ID is valid, update home page
         //   if(props.token !== "" && props.isAuth)
         //     tripIdApi(props.token, tripId).then(data => printData(data));
-    });
+    },[props.token]);
     
     return (
         <div className="activity">
