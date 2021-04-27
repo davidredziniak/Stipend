@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 // import Login from'../Login.js';
 // import Logout from'../Logout.js';
 //import {loginApi, userApi} from '../api/api.js';
-import { userApi} from '../api/api.js';
+import { userApi,deleteTripIdApi} from '../api/api.js';
+
 function HomePage(props){
     
     const [isViewable, setViewable] = useState(false);
@@ -38,6 +39,16 @@ function HomePage(props){
       }
 
     }
+    function deleteTrip(trip_id)
+    {
+      alert("Deleteing the Trip "+trip_id)
+      if(props.token !== "")
+        {
+          deleteTripIdApi(props.token, trip_id).then(data => console.log(data));
+        }
+      
+      
+    }
     
     //Rerender component when token ID and isAuth updates.
     useEffect(() => {
@@ -68,13 +79,19 @@ function HomePage(props){
         return (
         <div>
         {!hide ? (
-          <div class='container'>
-            <a href={`/#/trip/${trip.trip_id}`}>
-              <img className="images" src={randomImages()}/>
-              <div className="overlay">
-                <button className="btn">{trip.name} </button>
+        <div className="container">
+          <div className="row row-cols-3">
+            <div className="col">
+              <a href={`/#/trip/${trip.trip_id}`}>
+                <img className="images" src={randomImages()}/>
+                <span className="align-middle">{trip.name}</span>
+                <div>
+                  
+                </div>
+              </a>
+              <button type="submit" onClick={()=>deleteTrip(trip.trip_id)}>Delete</button>
               </div>
-            </a>
+            </div>
           </div>
           ):null}
         </div>

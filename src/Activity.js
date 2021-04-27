@@ -89,22 +89,14 @@ function Activity(){
             </div>
           );
         })}
+<<<<<<< HEAD
         {console.log(inputList)}
         <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
+=======
+        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList.activityName)}</div>
+>>>>>>> d99985120eaa30a67df67e52374af3c0680b040e
       </div>
     );
 }
 
 export default Activity;
-
-// {props.isAuth && <Login tokenHandler={props.token} authHandler={props.auth}/>?
-// (<div><h3>Welcome to your Activity Page!</h3></div>):<h3>Please Login!!!</h3>}
-
-    // return(
-    //     <div className="activity">
-    //          "HERES AN ACTIVITY"
-    //     </div>
-    //     );
-    
-    
-  

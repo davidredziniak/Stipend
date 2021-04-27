@@ -28,7 +28,7 @@ function Login(props)
 
     return (
             <div>
-                <div>
+                
                 <GoogleLogin
                     clientId={clientId}
                     buttonText="Login"
@@ -38,7 +38,7 @@ function Login(props)
                     style ={{marginTop: '100px'}}
                     isSignedIn={false}
                 />
-                </div>
+                
             </div>
             );
 }
