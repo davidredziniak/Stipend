@@ -330,6 +330,40 @@ def handle_trip_info():
         }, 401
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 
+@APP.route('/api/deletetrip', methods=['DELETE'])
+def handle_trip_delete():
+    '''
+        Given a token ID and trip ID, retrieves trip info
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+
+    current_user = token_status['user']
+    trip_id = request.get_json()['trip_id']
+    if trip_id == "" or trip_id is None:
+        return {'success': False, 'message': 'Invalid trip id.'}, 401
+        
+    print(trip_id)
+
+    # Check if trip exists
+    trip = models.Trip.query.filter_by(id=trip_id).first()
+    if trip is not None:
+        print("helllo there")
+        print(trip)
+        print(trip.trip_name)
+        current_DB_session=DB.session.object_session(trip)
+        current_DB_session.delete(trip)
+        DB.session.commit()   
+        return {
+                'success': True,
+            }, 200
+    return {'success': False, 'message': 'Invalid trip id.'}, 401
+
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":

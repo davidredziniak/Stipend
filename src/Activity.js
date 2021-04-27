@@ -70,7 +70,7 @@ function Activity(){
             </div>
           );
         })}
-        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
+        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList.activityName)}</div>
       </div>
     );
 }

@@ -79,12 +79,14 @@ const tripIdApi = (tokenId, tripId) => {
     }).then(response => response.json());
 };
 const deleteTripIdApi = (tokenId, tripId) => {
-    return fetch('/api/trip?deletetripId=' + tripId, {
-        method: 'GET',
+    const data = {"trip_id": tripId}
+    return fetch('/api/deletetrip', {
+        method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
             'Content-Type': 'application/json',
-        }
+        },
+        body: JSON.stringify(data),
     }).then(response => response.json());
 };
 export {
@@ -94,5 +96,6 @@ export {
     inviteToTripApi,
     joinTripApi,
     tripIdApi,
-    userApi
+    userApi,
+    deleteTripIdApi
 };
