@@ -35,7 +35,7 @@ function Activity(){
     };
     
     return (
-      <div className="App">
+      <div className="Activity">
       <h3>Your Activities for the trip:</h3>
         {inputList.map((x, i) => {
           return (

@@ -46,29 +46,22 @@ function CreateTrip(props){
         <div className="activity">
             {props.isAuth?(
             <div>
-                <h3>Welcome to your Create Trip!</h3>
+                <h3 className="headingClass">Create a new trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
                         <div><label for="Name" className="labels">Trip Name:</label>
                         <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("trip_name", {required: true, maxLength: 17})} /></div>
-
-                        <div className="lines">____________________________________________________________________________________</div>
-                        
+                        <hr/>
                         <div><label for="tripStart" className="labels">Trip's Start Date:</label>
                         <input required type="date" id="tripStart" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
-                        
-                        <div className="lines">____________________________________________________________________________________</div>
-                        
+                        <hr/>
                         <div><label for="tripEnd" className="labels">Trip's End Date:</label>
                         <input required type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})}/></div>
-                        
-                        <div className="lines">____________________________________________________________________________________</div>
-                        
-                        <div><label className="labels">Enter Participant's Gmail Accounts: </label>
+                        <hr/> 
+                        <div><label className="labels">Invite Participants: </label>
                         <InputEmails/></div>
-                        <div className="lines">____________________________________________________________________________________</div>
-
-                        <div><button type="submit" className="tripSubmit">Submit</button></div>
+                        <hr/>
+                        <div><button type="submit" className="tripSubmit">Create Trip</button></div>
                 </form>
             </div>)
             :null}
