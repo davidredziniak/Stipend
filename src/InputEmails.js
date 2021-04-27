@@ -53,6 +53,7 @@ function InputEmails() {
             <button type="button" className="emails" onClick={() => handleRemove(idx)}>
               Remove
             </button>
+            
           </div>
         );
       })}

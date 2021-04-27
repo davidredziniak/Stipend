@@ -12,6 +12,16 @@ function HomePage(props){
     const [trips, setTrips] = useState([]);
     const [hide, setHide]=useState(true)
     
+    function randomImages(){
+      var images = ["https://i.stack.imgur.com/CJT47.jpg","https://www.freegreatpicture.com/files/85/2994-man-and-nature.jpg"
+                    ,"https://www.freegreatpicture.com/files/31/10971-world-scenery.jpg"
+                    ,"https://media.cntraveler.com/photos/5949abf42bd0d42819c6065e/master/pass/Big-Bend-GettyImages-516259396.jpg"
+                    ,"https://media.timeout.com/images/105685502/image.jpg"];
+     var randomImage = images[Math.floor(Math.random()*images.length)];
+      return randomImage;
+    }
+    
+    
     function updateData(data){
       // If the user data API call fails, log the user out.
       if(data.hasOwnProperty('success')){
@@ -43,23 +53,28 @@ function HomePage(props){
         setViewable(false);
       }
     }, [props.token, props.isAuth]);
-
+// <button className="tripsButton">{trip.name} </button>
   
   if(isViewable){
     return (
-      <div>
-        <h2>Hello, {firstName}</h2>
+      <div className="homePage">
+        <h2>Hello, {firstName}!</h2>
         <h5>Email: {email}</h5>
         <h5>Last Name: {lastName}</h5>
         <div>
-          <button onClick={()=>{setHide(!hide)}} >Click to hide trips<br /></button>
+          <button className="hideButton" onClick={()=>{setHide(!hide)}} >Show / Hide Trips<br /></button>
         </div>
         {trips.map((trip, index) => {
         return (
         <div>
         {!hide ? (
-          <div>
-            <a href={`/#/trip/${trip.trip_id}`}><button>{trip.name} <br/></button></a>
+          <div class='container'>
+            <a href={`/#/trip/${trip.trip_id}`}>
+              <img className="images" src={randomImages()}/>
+              <div className="overlay">
+                <button className="btn">{trip.name} </button>
+              </div>
+            </a>
           </div>
           ):null}
         </div>

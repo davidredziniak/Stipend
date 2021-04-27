@@ -14,7 +14,7 @@ function Nav(props) {
     
     return(
     <nav className='navbar navbar-expand-md navStyle'>
-       <h1 className='topic'>STIPEND ...</h1>
+       <h1 className='topic'>STIPEND ... <h6 className="subheading"> Trips Made Easier</h6></h1>
         <button className="navbar-toggler" type="button" 
             data-toggle="collapse"
             data-target="#navbarSupportedContent" 

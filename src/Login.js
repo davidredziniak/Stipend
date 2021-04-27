@@ -28,7 +28,7 @@ function Login(props)
 
     return (
             <div>
-                <div>
+                <div className="createTrip">
                 <GoogleLogin
                     clientId={clientId}
                     buttonText="Login"
