@@ -35,43 +35,48 @@ function Activity(){
     };
     
     return (
-      <div className="App">
-      <h3>Your Activities for the trip:</h3>
-        {inputList.map((x, i) => {
-          return (
-            <div className="box">
-              <input
-                name="activityName"
-                className="ml10"
-                placeholder="Enter Activity Name"
-                value={x.activityName}
-                onChange={e => handleInputChange(e, i)}
-              />
-              <input
-                name="amount"
-                className="ml10"
-                placeholder="Enter Amount"
-                value={x.amount}
-                onChange={e => handleInputChange(e, i)}
-              />
-              <input
-                className="ml10"
-                name="participants"
-                placeholder="Enter Participants"
-                value={x.participants}
-                onChange={e => handleInputChange(e, i)}
-              />
-              <div className="btn-box">
-                {inputList.length !== 1 && <button
-                  className="mr10"
-                  onClick={() => handleRemoveClick(i)}>Remove</button>}
-                {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
+      <div>
+        <button type="submit" onClick={()=> alert('Hello')}>Delete</button>
+        <div className="App">
+  
+        <h3>Your Activities for the trip:</h3>
+          {inputList.map((x, i) => {
+            return (
+            
+              <div className="box">
+                <input
+                  name="activityName"
+                  className="ml10"
+                  placeholder="Enter Activity Name"
+                  value={x.activityName}
+                  onChange={e => handleInputChange(e, i)}
+                />
+                <input
+                  name="amount"
+                  className="ml10"
+                  placeholder="Enter Amount"
+                  value={x.amount}
+                  onChange={e => handleInputChange(e, i)}
+                />
+                <input
+                  className="ml10"
+                  name="participants"
+                  placeholder="Enter Participants"
+                  value={x.participants}
+                  onChange={e => handleInputChange(e, i)}
+                />
+                <div className="btn-box">
+                  {inputList.length !== 1 && <button
+                    className="mr10"
+                    onClick={() => handleRemoveClick(i)}>Remove</button>}
+                  {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
+                </div>
               </div>
-            </div>
-          );
-        })}
-        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
-      </div>
+            );
+          })}
+          <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
+        </div>
+    </div>
     );
 }
 
