@@ -45,13 +45,13 @@ function InputEmails() {
         return (
           <div key={`${field}-${idx}`}>
             <input required
-              className="createTripInputs"
+              className="createEmailInput"
               type="text"
               placeholder="Email"
               onChange={e => handleChange(idx, e)}
             />
-            <button type="button" className="emails" onClick={() => handleRemove(idx)}>
-              Remove
+            <button type="button" className="removeemails" onClick={() => handleRemove(idx)}>
+              –
             </button>
             
           </div>

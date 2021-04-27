@@ -34,7 +34,7 @@ function Trip(props)
             setFullname([]);
             setEmails([]);
             //fetcher.participants.map((index)=>setEmails(prev=>[...prev,index.email]));
-            fetcher.participants.map((index)=>setFullname(prev=>[...prev,index.firstName+index.lastName]));
+            fetcher.participants.map((index)=>setFullname(prev=>[...prev,index.firstName+" "+index.lastName]));
             setIsLoading(false);
         }
         fetchData();
@@ -50,7 +50,7 @@ function Trip(props)
              <div>
              <div><h3>Welcome to trip: {tripName}!</h3></div>
              
-             <div><h6>Trip users: {fullname.map(index=><h6>{index}</h6>)}</h6></div>
+             <div><h6><table><th>Trip users: </th>{fullname.map(index=><tr><td><h6>{index}</h6></td></tr>)}</table></h6></div>
              
              <div class="triptext">
 

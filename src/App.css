@@ -60,6 +60,20 @@
   min-height:10vh;
 }
 
+.removeemails{
+  border-radius: 20%;
+  padding-left: 20px;
+  border: none;
+  background-color: coral;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
 .emails{
   background-color: coral;
   border-radius: 5px;
@@ -136,7 +150,21 @@
   box-sizing: border-box;
 }
 
+.createTripInputs1{
+  padding-left:3px;
+  font-size: 20px;
+  height: 60px;
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+}
+
 .createTripInputs{
+  color:grey;
   font-size: 20px;
   height: 60px;
   width: 50%;
@@ -148,6 +176,18 @@
   box-sizing: border-box;
 }
 
+.createEmailInput{
+  color:grey;
+  font-size: 20px;
+  height: 60px;
+  width: 39.6%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
 
 .container {
   margin-top: 50px;
@@ -192,15 +232,6 @@
     height:auto;
 }
 
-
-
-
-
-
-
-
-
-
 .overlay {
   position: absolute;
   top: 0;
@@ -227,28 +258,6 @@
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .labels{
   color:black;
@@ -377,4 +386,21 @@
 
 .activity{
   margin-top:30px;
+}
+
+.box{
+  padding:20px;
+  background:#D8F4D1;
+  width:50%;
+  margin:auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom:30px;
+}
+
+table, th, td {
+  color:black;
+  padding:5px;
+  margin:auto;
+  background:#ffffff;
+  border: 1px solid black;
 }
