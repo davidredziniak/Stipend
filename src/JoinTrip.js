@@ -16,9 +16,10 @@ function JoinTrip(props){
     return(
         <div className="activity">
              {props.isAuth ?
-             (<div><h3 className="headingClass">Join a trip!</h3>
-              <input placeholder="Enter Invitation Code"  className = "joinTrip" ref={user} type="text" />
-              <div ><button className = "joinSubmit" onClick={()=>joinTrip(user.current.value)} type="submit" required>Enter</button></div>
+             (<div>
+                <h3 className="headingClass">Join a trip!</h3>
+               <input  placeholder="Enter Invitation Code"   className = "joinTrip" ref={user} type="text" required/>
+               <div ><button  className = "joinSubmit" onClick={()=>joinTrip(user.current.value)} type="submit">Enter</button></div>
              </div>)
              :null}
         </div>
@@ -26,3 +27,4 @@ function JoinTrip(props){
 }
 
 export default JoinTrip;
+

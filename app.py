@@ -358,9 +358,9 @@ def handle_trip_delete():
         print(trip.trip_name)
         current_DB_session=DB.session.object_session(trip)
         current_DB_session.delete(trip)
-        DB.session.commit()   
+        current_DB_session.commit()   
         return {
-                'success': True,
+                'success': True
             }, 200
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 

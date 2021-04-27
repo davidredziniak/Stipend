@@ -49,16 +49,16 @@ function CreateTrip(props){
                 <h3 className="headingClass">Create a new trip!</h3>
                 <form onSubmit={handleSubmit(onSubmit)}>
 
-                        <div><label for="Name" className="labels">Trip Name:</label>
+                        <div><label for="Name" className="input-group labels">Trip Name:</label>
                         <input required type="text" id="Name" className="createTripInputs" placeholder="Trip Name*" {...register("trip_name", {required: true, maxLength: 17})} /></div>
                         <hr/>
-                        <div><label for="tripStart" className="labels">Trip's Start Date:</label>
+                        <div><label for="tripStart" className=" input-group labels">Trip's Start Date:</label>
                         <input required type="date" id="tripStart" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
                         <hr/>
-                        <div><label for="tripEnd" className="labels">Trip's End Date:</label>
+                        <div><label for="tripEnd" className="input-group labels">Trip's End Date:</label>
                         <input required type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})}/></div>
                         <hr/> 
-                        <div><label className="labels">Invite Participants: </label>
+                        <div><label className="input-group labels">Invite Participants: </label>
                         <InputEmails/></div>
                         <hr/>
                         <div><button type="submit" className="tripSubmit">Create Trip</button></div>
