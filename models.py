@@ -35,7 +35,7 @@ class Trip(DB.Model):
     owner_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), nullable=False)
     users = DB.relationship('TripUser', backref='trip', lazy=True)
     activities = DB.relationship('Activity', backref='trip', lazy=True)
- 
+
 
     def __repr__(self):
         return '<Trip %r>' % self.id
@@ -71,6 +71,5 @@ class ActivityUser(DB.Model):
                             DB.ForeignKey('activity.id'),
                             nullable=False)
     user_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), nullable=False)
-
     def __repr__(self):
         return '<ActivityUser %r>' % self.id

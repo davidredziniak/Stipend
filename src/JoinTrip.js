@@ -26,3 +26,4 @@ function JoinTrip(props){
 }
 
 export default JoinTrip;
+

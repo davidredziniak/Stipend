@@ -34,7 +34,7 @@ const userApi = (tokenId) => {
 
 const createTripApi = (tokenId, tripData) => {
     const data = {'trip_data': tripData};
-    return fetch('/api/createTrip', {
+    return fetch('/api/trip/create', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
@@ -47,7 +47,7 @@ const createTripApi = (tokenId, tripData) => {
 const inviteToTripApi = (tokenId, emails, joinCode) => {
     const data = {'invited_emails': emails,
                   'join_code': joinCode};
-    return fetch('/api/trips/invite', {
+    return fetch('/api/trip/invite', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
@@ -59,7 +59,7 @@ const inviteToTripApi = (tokenId, emails, joinCode) => {
 
 const joinTripApi = (tokenId, joinCode) => {
     const data = {'join_code': joinCode};
-    return fetch('/api/joinTrip', {
+    return fetch('/api/trip/join', {
         method: 'POST',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
@@ -80,7 +80,7 @@ const tripIdApi = (tokenId, tripId) => {
 };
 const deleteTripIdApi = (tokenId, tripId) => {
     const data = {"trip_id": tripId}
-    return fetch('/api/deletetrip', {
+    return fetch('/api/trip/delete', {
         method: 'DELETE',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
