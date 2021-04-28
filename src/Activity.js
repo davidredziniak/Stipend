@@ -6,8 +6,12 @@ import './App.css';
 
 function Activity(){
   
-  // get all the users in the trip from the database
-  function splitMoney(){
+    const [inputList, setInputList] = useState([{ activityName: "", amount: "", participants: ""  }]);
+    const [showbtn, setShowBtn] = useState(true);
+    
+          // get all the users in the trip from the database
+  function splitMoney(inputList){
+    console.log('heres the inputlist passed',inputList)
     // var mtLst;
     // for (const [index, value] of inputList[index].participants.entries()) {
     //   console.log('trying for loop ',value);
@@ -19,29 +23,13 @@ function Activity(){
       if(inputList[0].amount !== ""){
         var splitAmount = (inputList[0].amount)/lst.length;
         console.log("split amount is ",splitAmount);
+        return(
+          <div>Money split per person is {splitAmount}</div>
+          );
       }
     }
   }
-  
-  
-  //   function splitMoney(){
-  //   if (inputList[0].participants !== ""){
-  //     var lst = (inputList[0].participants.split(/[ ,]+/));
-  //     console.log(lst)
-  //     if(inputList[0].amount !== ""){
-  //       var splitAmount = (inputList[0].amount)/lst.length;
-  //       console.log("split amount is ",splitAmount);
-  //     }
-  //   }
-  // }
-  // allow any user to create an activity in the form of a dictionary {USERNAME: amount_spent}
-
-  // split money equally within the activity by TOTAL_MONEY_SPENT/total_number_of_users
-  
-  
     
-    const [inputList, setInputList] = useState([{ activityName: "", amount: "", participants: ""  }]);
-    const [showbtn, setShowBtn] = useState(true);
     // handle input change
     const handleInputChange = (e, index) => {
       const { name, value } = e.target;
@@ -102,9 +90,9 @@ function Activity(){
               <input
                 required
                 type="text"
-                className="ml10"
+                className="ml101"
                 name="participants"
-                placeholder="Enter Participants"
+                placeholder="Participant Email#1, Email#2,.."
                 value={x.participants}
                 onChange={e => handleInputChange(e, i)}
               />
@@ -116,11 +104,15 @@ function Activity(){
                 {inputList.length - 1 === i && <button onClick={handleAddClick} disabled={showbtn} >Add</button>}
                 
               </div>
+             
             </div>
+            
           );
         })}
+        
         {console.log(inputList)}
         <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
+        
       </div>
     );
 }
