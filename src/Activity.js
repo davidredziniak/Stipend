@@ -4,22 +4,62 @@ import './App.css';
 
 //import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
 
-// get all the users in the trip from the database
-
-// allow any user to create an activity in the form of a dictionary {USERNAME: amount_spent}
-
-// split money equally within the activity by TOTAL_MONEY_SPENT/total_number_of_users
-
 function Activity(){
+  
+  // get all the users in the trip from the database
+  function splitMoney(){
+    // var mtLst;
+    // for (const [index, value] of inputList[index].participants.entries()) {
+    //   console.log('trying for loop ',value);
+    // }
+    // console.log('mtlst here ',mtLst)
+    if (inputList[0].participants !== ""){
+      var lst = (inputList[0].participants.split(/[ ,]+/));
+      console.log(lst)
+      if(inputList[0].amount !== ""){
+        var splitAmount = (inputList[0].amount)/lst.length;
+        console.log("split amount is ",splitAmount);
+      }
+    }
+  }
+  
+  
+  //   function splitMoney(){
+  //   if (inputList[0].participants !== ""){
+  //     var lst = (inputList[0].participants.split(/[ ,]+/));
+  //     console.log(lst)
+  //     if(inputList[0].amount !== ""){
+  //       var splitAmount = (inputList[0].amount)/lst.length;
+  //       console.log("split amount is ",splitAmount);
+  //     }
+  //   }
+  // }
+  // allow any user to create an activity in the form of a dictionary {USERNAME: amount_spent}
+
+  // split money equally within the activity by TOTAL_MONEY_SPENT/total_number_of_users
+  
+  
     
     const [inputList, setInputList] = useState([{ activityName: "", amount: "", participants: ""  }]);
-     
+    const [showbtn, setShowBtn] = useState(true);
     // handle input change
     const handleInputChange = (e, index) => {
       const { name, value } = e.target;
       const list = [...inputList];
       list[index][name] = value;
       setInputList(list);
+      console.log(list)
+      console.log(list[index])
+    
+      if (list[index].activityName !== "" && list[index].amount !== "" && list[index].participants !== "")
+        {setShowBtn(false);}
+        
+      splitMoney();
+      // list.map((list,index)=>{ 
+      //   if (list[index].activityName !== "" && list[index].amount !== "" && list[index].participants !== "")
+      //   {setShowBtn(false);}
+      // });
+      
     };
      
     // handle click event of the Remove button
@@ -41,6 +81,9 @@ function Activity(){
           return (
             <div className="box">
               <input
+                required
+                type="text"
+                
                 name="activityName"
                 className="ml10"
                 placeholder="Enter Activity Name"
@@ -48,6 +91,8 @@ function Activity(){
                 onChange={e => handleInputChange(e, i)}
               />
               <input
+                required
+                type="text"
                 name="amount"
                 className="ml10"
                 placeholder="Enter Amount"
@@ -55,6 +100,8 @@ function Activity(){
                 onChange={e => handleInputChange(e, i)}
               />
               <input
+                required
+                type="text"
                 className="ml10"
                 name="participants"
                 placeholder="Enter Participants"
@@ -64,13 +111,16 @@ function Activity(){
               <div className="btn-box">
                 {inputList.length !== 1 && <button
                   className="mr10"
+                  
                   onClick={() => handleRemoveClick(i)}>Remove</button>}
-                {inputList.length - 1 === i && <button onClick={handleAddClick}>Add</button>}
+                {inputList.length - 1 === i && <button onClick={handleAddClick} disabled={showbtn} >Add</button>}
+                
               </div>
             </div>
           );
         })}
-        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList.activityName)}</div>
+        {console.log(inputList)}
+        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
       </div>
     );
 }

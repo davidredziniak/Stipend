@@ -25,6 +25,55 @@ import models
 CURRENT_SESSIONS = {}
 
 
+def verify_headers(headers):
+    '''
+        Helper method to check the headers of a request to determine if the
+        api request is valid. Returns a dictionary.
+        Format for dictionary:
+            success: True/False; status of the header, required
+            message: String; if success was false, is the reason for failing, required for
+                     when success is false.
+    '''
+    if 'Authorization' not in headers:
+        return {'success': False, 'message': 'Missing Authorization header.'}
+    if 'Bearer' not in headers['Authorization']:
+        return {
+            'success': False,
+            'message': 'Missing Bearer in Authorization header.'
+        }
+    if len(headers['Authorization'].split(' ')) != 2:
+        return {
+            'success': False,
+            'message': 'Missing token in Authorization header.'
+        }
+    return {'success': True}
+
+
+def verify_token_id(token_id):
+    '''
+        Helper method to check a token id and determine if it's associated with a user.
+        Returns a dictionary.
+        Format for dictionary:
+            success: True/False; status of the token id, required
+            message: String; if success was false, is the failing message
+            user: User; if success was true, is the current user associated with
+                  the token id
+    '''
+    email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
+    if len(email) == 0 or email[0] == "":
+        return {
+            'success': False,
+            'message': 'Invalid token ID. Please relogin.'
+        }
+    current_user = models.User.query.filter_by(email=email[0]).first()
+    if current_user is None:
+        return {
+            'success': False,
+            'message': 'Could not find user matching token ID. Please relogin.'
+        }
+    return {'success': True, 'user': current_user}
+
+
 def get_email_from_token_id(sessions, token_id):
     '''
         Returns a list of emails from a dictionary if the token ID matches
@@ -152,139 +201,6 @@ def add_trip_to_database(trip_name, join_code, owner_id):
     return trips
 
 
-@APP.route('/api/createTrip', methods=['POST'])
-def handle_create_trip():
-    '''
-        Given a token ID and tripData, will create a trip connected to the user creating the trip
-    '''
-    headers_status = verify_headers(request.headers)
-    if not headers_status['success']:
-        return headers_status, 401
-    token_status = verify_token_id(
-        request.headers['Authorization'].split(' ')[1])
-    if not token_status['success']:
-        return token_status, 401
-
-    current_user = token_status['user']
-    trip_data = request.get_json()['trip_data']
-    # Check if join code exists
-    valid_trip = models.Trip.query.filter_by(join_code=trip_data['join_code']).first()
-    if valid_trip is not None:
-        return {'success': False, 'message': 'Join code already exists.'}, 200
-    # Create Trip
-    add_trip_to_database(trip_data['trip_name'], trip_data['join_code'],
-                         current_user.id)
-    # Create TripUser
-    new_trip_user = models.TripUser(trip_id=DB.session.query(
-        func.max(models.Trip.id)),
-                                    user_id=current_user.id)
-    DB.session.add(new_trip_user)
-    DB.session.commit()
-    trip_id = models.Trip.query.filter_by(join_code=trip_data['join_code']).first().id
-    return {'success': True, 'tripId': trip_id}, 200
-
-
-def verify_headers(headers):
-    '''
-        Helper method to check the headers of a request to determine if the
-        api request is valid. Returns a dictionary.
-        Format for dictionary:
-            success: True/False; status of the header, required
-            message: String; if success was false, is the reason for failing, required for
-                     when success is false.
-    '''
-    if 'Authorization' not in headers:
-        return {'success': False, 'message': 'Missing Authorization header.'}
-    if 'Bearer' not in headers['Authorization']:
-        return {
-            'success': False,
-            'message': 'Missing Bearer in Authorization header.'
-        }
-    return {'success': True}
-
-
-def verify_token_id(token_id):
-    '''
-        Helper method to check a token id and determine if it's associated with a user.
-        Returns a dictionary.
-        Format for dictionary:
-            success: True/False; status of the token id, required
-            message: String; if success was false, is the failing message
-            user: User; if success was true, is the current user associated with
-                  the token id
-    '''
-    email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
-    if len(email) == 0 or email[0] == "":
-        return {
-            'success': False,
-            'message': 'Invalid token ID. Please relogin.'
-        }
-    current_user = models.User.query.filter_by(email=email[0]).first()
-    if current_user is None:
-        return {
-            'success': False,
-            'message': 'Could not find user matching token ID. Please relogin.'
-        }
-    return {'success': True, 'user': current_user}
-
-
-@APP.route('/api/trips/invite', methods=['POST'])
-def invite_to_trip():
-    '''
-        Given a token ID, list of emails, and join code, will invite all emails
-        to the trip associated with the join code
-    '''
-    headers_status = verify_headers(request.headers)
-    if not headers_status['success']:
-        return headers_status, 401
-    token_status = verify_token_id(
-        request.headers['Authorization'].split(' ')[1])
-    if not token_status['success']:
-        return token_status, 401
-    current_user = token_status['user']
-    invited_emails = request.get_json()['invited_emails']
-    join_code = request.get_json()['join_code']
-    send_invites(current_user.first_name + ' ' + current_user.last_name,
-                 invited_emails, join_code)
-    return {'success': True, 'message': 'Successfully invited.'}
-
-
-@APP.route('/api/joinTrip', methods=['POST'])
-def handle_join_trip():
-    '''
-        Given a token ID and join code, user can join trip
-    '''
-    headers_status = verify_headers(request.headers)
-    if not headers_status['success']:
-        return headers_status, 401
-    token_status = verify_token_id(
-        request.headers['Authorization'].split(' ')[1])
-    if not token_status['success']:
-        return token_status, 401
-
-    current_user = token_status['user']
-    join_code = request.get_json()['join_code']
-    if join_code == "" or join_code is None:
-        return {'success': False, 'message': 'Invalid join code.'}, 401
-    # Check if join code is real
-    trip = models.Trip.query.filter_by(join_code=join_code).first()
-    if trip is not None:
-        # Check if user is already in the trip
-        trip_user = models.TripUser.query.filter_by(
-            trip_id=trip.id, user_id=current_user.id).first()
-        if trip_user is None:
-            new_trip_user = models.TripUser(trip_id=trip.id,
-                                            user_id=current_user.id)
-            DB.session.add(new_trip_user)
-            DB.session.commit()
-            return {'success': True, 'tripId': trip.id, 'message': 'Successfully joined.'}, 200
-        return {
-            'success': False,
-            'message': 'You have already joined this trip.'
-        }, 401
-    return {'success': False, 'message': 'An error has occured.'}, 401
-
-
 @APP.route('/api/trip', methods=['GET'])
 def handle_trip_info():
     '''
@@ -330,7 +246,103 @@ def handle_trip_info():
         }, 401
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 
-@APP.route('/api/deletetrip', methods=['DELETE'])
+
+@APP.route('/api/trip/create', methods=['POST'])
+def handle_create_trip():
+    '''
+        Given a token ID and tripData, will create a trip connected to the user creating the trip
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+
+    current_user = token_status['user']
+    trip_data = request.get_json()['trip_data']
+    # Check if join code exists
+    valid_trip = models.Trip.query.filter_by(
+        join_code=trip_data['join_code']).first()
+    if valid_trip is not None:
+        return {'success': False, 'message': 'Join code already exists.'}, 200
+    # Create Trip
+    add_trip_to_database(trip_data['trip_name'], trip_data['join_code'],
+                         current_user.id)
+    # Create TripUser
+    new_trip_user = models.TripUser(trip_id=DB.session.query(
+        func.max(models.Trip.id)),
+                                    user_id=current_user.id)
+    DB.session.add(new_trip_user)
+    DB.session.commit()
+    trip_id = models.Trip.query.filter_by(
+        join_code=trip_data['join_code']).first().id
+    return {'success': True, 'tripId': trip_id}, 200
+
+
+@APP.route('/api/trip/invite', methods=['POST'])
+def invite_to_trip():
+    '''
+        Given a token ID, list of emails, and join code, will invite all emails
+        to the trip associated with the join code
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+    current_user = token_status['user']
+    invited_emails = request.get_json()['invited_emails']
+    join_code = request.get_json()['join_code']
+    send_invites(current_user.first_name + ' ' + current_user.last_name,
+                 invited_emails, join_code)
+    return {'success': True, 'message': 'Successfully invited.'}
+
+
+@APP.route('/api/trip/join', methods=['POST'])
+def handle_join_trip():
+    '''
+        Given a token ID and join code, user can join trip
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+
+    current_user = token_status['user']
+    join_code = request.get_json()['join_code']
+    if join_code == "" or join_code is None:
+        return {'success': False, 'message': 'Invalid join code.'}, 401
+    # Check if join code is real
+    trip = models.Trip.query.filter_by(join_code=join_code).first()
+    if trip is not None:
+        # Check if user is already in the trip
+        trip_user = models.TripUser.query.filter_by(
+            trip_id=trip.id, user_id=current_user.id).first()
+        if trip_user is None:
+            new_trip_user = models.TripUser(trip_id=trip.id,
+                                            user_id=current_user.id)
+            DB.session.add(new_trip_user)
+            DB.session.commit()
+            return {
+                'success': True,
+                'tripId': trip.id,
+                'message': 'Successfully joined.'
+            }, 200
+        return {
+            'success': False,
+            'message': 'You have already joined this trip.'
+        }, 401
+    return {'success': False, 'message': 'An error has occured.'}, 401
+
+
+@APP.route('/api/trip/delete', methods=['DELETE'])
 def handle_trip_delete():
     '''
         Given a token ID and trip ID, retrieves trip info
@@ -347,21 +359,128 @@ def handle_trip_delete():
     trip_id = request.get_json()['trip_id']
     if trip_id == "" or trip_id is None:
         return {'success': False, 'message': 'Invalid trip id.'}, 401
-        
-    print(trip_id)
 
     # Check if trip exists
     trip = models.Trip.query.filter_by(id=trip_id).first()
     if trip is not None:
-        print("helllo there")
-        print(trip)
-        print(trip.trip_name)
-        current_DB_session=DB.session.object_session(trip)
-        current_DB_session.delete(trip)
-        current_DB_session.commit()   
+        # Check if user is authorized to delete trip
+        if current_user.id == trip.owner_id:
+            for user in trip.users:
+                current_session = DB.session.object_session(user)
+                current_session.delete(user)
+                current_session.commit()
+            current_session = DB.session.object_session(trip)
+            current_session.delete(trip)
+            current_session.commit()
+            return {'success': True}, 200
         return {
-                'success': True
-            }, 200
+            'success': False,
+            'message': 'You are not authorized to delete this trip.'
+        }, 401
+    return {'success': False, 'message': 'Invalid trip id.'}, 401
+
+
+def add_activity_to_database(trip_id, activity_name, cost, num_participants,
+                             owner_id):
+    '''
+        This function adds
+        a new activity to the database
+    '''
+    new_activity = models.Trip(trip_id=trip_id,
+                               activity_name=activity_name,
+                               total_sum=cost,
+                               total_users=num_participants,
+                               owner_id=owner_id)
+    DB.session.add(new_activity)
+    DB.session.commit()
+    return new_activity.id
+
+
+def add_user_to_activity(activity_id, user_id):
+    '''
+        This function adds
+        a new user to an activity
+    '''
+    new_activity_user = models.ActivityUser(activity_id=activity_id,
+                                            user_id=user_id)
+    DB.session.add(new_activity_user)
+    DB.session.commit()
+    return new_activity_user
+
+
+@APP.route('/api/activity/create', methods=['POST'])
+def handle_create_activity():
+    '''
+        Given a token ID, trip ID, and activity data, creates activity
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+
+    current_user = token_status['user']
+    trip_id = request.get_json()['trip_id']
+    if trip_id == "" or trip_id is None:
+        return {'success': False, 'message': 'Invalid trip id.'}, 401
+
+    # Check for valid name and cost
+    activity_name = request.get_json()['activity_name']
+    cost = request.get_json()['activity_cost']
+    if activity_name == "" or activity_name is None or cost is None:
+        return {'success': False, 'message': 'Invalid details of trip.'}, 401
+
+    participants = request.get_json()['participants']
+    if participants is None:
+        return {
+            'success': False,
+            'message': 'Invalid list of participants.'
+        }, 401
+
+    # Check if trip exists
+    trip = models.Trip.query.filter_by(id=trip_id).first()
+    if trip is not None:
+        # Check if user is in the trip
+        trip_user = models.TripUser.query.filter_by(
+            trip_id=trip.id, user_id=current_user.id).first()
+        if trip_user is not None:
+            valid_participants = []
+            # Check if participant list is valid
+            for participant in participants:
+                # Check if participant is a valid user
+                current_participant = models.User.query.filter_by(
+                    email=str(participant)).first()
+                if current_participant:
+                    valid_participants.append(current_participant)
+                return {
+                    'success': False,
+                    'message': 'Email of a participant is invalid.'
+                }, 401
+
+            # Create Activity using provided details
+            result = add_activity_to_database(trip.id, activity_name, cost,
+                                              len(valid_participants),
+                                              current_user.id)
+
+            # Create database objects to link user to activity
+            if result:
+                for user in valid_participants:
+                    add_user_to_activity(result, user.id)
+                return {
+                    'success': True,
+                    'message': 'Successfully created the activity.'
+                }, 401
+            return {
+                'success': False,
+                'message': 'Error creating the activity.'
+            }, 401
+        return {
+            'success': False,
+            'message':
+            'You are not authorized to create an activity on this trip.'
+        }, 401
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 
 

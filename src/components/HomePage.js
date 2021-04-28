@@ -11,7 +11,7 @@ function HomePage(props){
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [trips, setTrips] = useState([]);
-    const [hide, setHide]=useState(true)
+    const [hide, setHide]=useState(false);
     
     function randomImages(){
       var images = ["https://i.stack.imgur.com/CJT47.jpg","https://www.freegreatpicture.com/files/85/2994-man-and-nature.jpg"
@@ -80,7 +80,7 @@ function HomePage(props){
         <div>
         {!hide ? (
         <div className="container">
-          <div className="row row-cols-3">
+        
             <div className="col">
               <a href={`/#/trip/${trip.trip_id}`}>
                 <img className="images" src={randomImages()}/>
@@ -92,7 +92,7 @@ function HomePage(props){
               <button type="submit" onClick={()=>deleteTrip(trip.trip_id)}>Delete</button>
               </div>
             </div>
-          </div>
+       
           ):null}
         </div>
         
