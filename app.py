@@ -234,11 +234,16 @@ def handle_trip_info():
                     id=user.user_id).first()
                 if current_user is not None:
                     users.append(current_user.to_json())
+            activities = []
+            for activity in trip.activities:
+                if activity is not None:
+                    activities.append(activity.id)
             return {
                 'success': True,
                 'tripName': trip.trip_name,
                 'tripOwner': trip_owner.first_name,
-                'participants': users
+                'participants': users,
+                'activities': activities
             }, 200
         return {
             'success': False,
