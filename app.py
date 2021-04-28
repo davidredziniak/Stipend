@@ -502,9 +502,9 @@ def handle_get_activity():
     if not token_status['success']:
         return token_status, 401
 
-    activity_id = request.get_json()['activity_id']
+    activity_id = int(request.args.get('tripId'))
 
-    if activity_id == "" or activity_id is None:
+    if activity_id is None:
         return {'success': False, 'message': 'Missing activity id.'}, 401
 
     activity = models.Activity.query.filter_by(id=activity_id).first()
