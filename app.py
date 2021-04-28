@@ -356,9 +356,15 @@ def handle_trip_delete():
         print("helllo there")
         print(trip)
         print(trip.trip_name)
-        current_DB_session=DB.session.object_session(trip)
-        current_DB_session.delete(trip)
-        DB.session.commit()   
+        
+        trip_user = models.TripUser.query.filter_by(trip_id=trip.id, user_id=current_user.id).first()
+        if trip_user:
+            current_db_sessions = DB.session.object_session(trip_user)
+            current_db_sessions.delete(trip_user)
+            current_db_sessions.commit()
+        current_db_sessions = DB.session.object_session(trip)
+        current_db_sessions.delete(trip)
+        current_db_sessions.commit()
         return {
                 'success': True,
             }, 200
