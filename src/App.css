@@ -5,7 +5,7 @@
     position: absolute;
     background: linear-gradient(45deg,#FFFFFF, #D8F4D1, #555555 , #F4E4D1,#F4D1D1, #F4D1D4);
     background-size: 1000% 1000%;
-    animation: gradient 8s linear infinite;
+    animation: gradient 20s linear infinite;
     animation-direction: alternate;
 }
 @keyframes gradient {
@@ -224,18 +224,18 @@
   background-color: transparent;
 }
 
+
+
+
 .images{
-   float: left;
-   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-   border-radius: 8px;
-    max-width:100%;
-    height:auto;
+  float: left;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 8px;
+  max-width:100%;
+  height:auto;
 }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> d99985120eaa30a67df67e52374af3c0680b040e
 .overlay {
   position: absolute;
   top: 0;

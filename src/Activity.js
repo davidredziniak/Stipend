@@ -4,13 +4,41 @@ import './App.css';
 
 //import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
 
-// get all the users in the trip from the database
-
-// allow any user to create an activity in the form of a dictionary {USERNAME: amount_spent}
-
-// split money equally within the activity by TOTAL_MONEY_SPENT/total_number_of_users
-
 function Activity(){
+  
+  // get all the users in the trip from the database
+  function splitMoney(){
+    // var mtLst;
+    // for (const [index, value] of inputList[index].participants.entries()) {
+    //   console.log('trying for loop ',value);
+    // }
+    // console.log('mtlst here ',mtLst)
+    if (inputList[0].participants !== ""){
+      var lst = (inputList[0].participants.split(/[ ,]+/));
+      console.log(lst)
+      if(inputList[0].amount !== ""){
+        var splitAmount = (inputList[0].amount)/lst.length;
+        console.log("split amount is ",splitAmount);
+      }
+    }
+  }
+  
+  
+  //   function splitMoney(){
+  //   if (inputList[0].participants !== ""){
+  //     var lst = (inputList[0].participants.split(/[ ,]+/));
+  //     console.log(lst)
+  //     if(inputList[0].amount !== ""){
+  //       var splitAmount = (inputList[0].amount)/lst.length;
+  //       console.log("split amount is ",splitAmount);
+  //     }
+  //   }
+  // }
+  // allow any user to create an activity in the form of a dictionary {USERNAME: amount_spent}
+
+  // split money equally within the activity by TOTAL_MONEY_SPENT/total_number_of_users
+  
+  
     
     const [inputList, setInputList] = useState([{ activityName: "", amount: "", participants: ""  }]);
     const [showbtn, setShowBtn] = useState(true);
@@ -25,6 +53,8 @@ function Activity(){
     
       if (list[index].activityName !== "" && list[index].amount !== "" && list[index].participants !== "")
         {setShowBtn(false);}
+        
+      splitMoney();
       // list.map((list,index)=>{ 
       //   if (list[index].activityName !== "" && list[index].amount !== "" && list[index].participants !== "")
       //   {setShowBtn(false);}
@@ -89,12 +119,8 @@ function Activity(){
             </div>
           );
         })}
-<<<<<<< HEAD
         {console.log(inputList)}
         <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
-=======
-        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList.activityName)}</div>
->>>>>>> d99985120eaa30a67df67e52374af3c0680b040e
       </div>
     );
 }

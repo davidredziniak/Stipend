@@ -80,7 +80,7 @@ function HomePage(props){
         <div>
         {!hide ? (
         <div className="container">
-          <div className="row row-cols-3">
+        
             <div className="col">
               <a href={`/#/trip/${trip.trip_id}`}>
                 <img className="images" src={randomImages()}/>
@@ -92,7 +92,7 @@ function HomePage(props){
               <button type="submit" onClick={()=>deleteTrip(trip.trip_id)}>Delete</button>
               </div>
             </div>
-          </div>
+       
           ):null}
         </div>
         
