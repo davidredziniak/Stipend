@@ -234,11 +234,16 @@ def handle_trip_info():
                     id=user.user_id).first()
                 if current_user is not None:
                     users.append(current_user.to_json())
+            activities = []
+            for activity in trip.activities:
+                if activity is not None:
+                    activities.append(activity.id)
             return {
                 'success': True,
                 'tripName': trip.trip_name,
                 'tripOwner': trip_owner.first_name,
-                'participants': users
+                'participants': users,
+                'activities': activities
             }, 200
         return {
             'success': False,
@@ -483,6 +488,32 @@ def handle_create_activity():
         }, 401
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 
+@APP.route('/api/activity/get', methods=['GET'])
+def handle_get_activity():
+    '''
+        Given an activity id, returns information
+        about the activity
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+
+    activity_id = int(request.args.get('tripId'))
+
+    if activity_id is None:
+        return {'success': False, 'message': 'Missing activity id.'}, 401
+
+    activity = models.Activity.query.filter_by(id=activity_id).first()
+    if activity is None:
+        return {'success': False, 'message': 'Invalid activity id.'}, 401
+    activity_info = activity.to_json()
+    activity_info['success'] = True
+
+    return activity_info, 200
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":
