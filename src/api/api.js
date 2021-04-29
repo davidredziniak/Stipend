@@ -32,6 +32,16 @@ const userApi = (tokenId) => {
     }).then(response => response.json());
 };
 
+const userBalanceApi = (tokenId, tripId) => {
+    return fetch('/api/user/balance?trip_id=' + tripId, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        }
+    }).then(response => response.json());
+};
+
 const createTripApi = (tokenId, tripData) => {
     const data = {'trip_data': tripData};
     return fetch('/api/trip/create', {
@@ -122,5 +132,6 @@ export {
     userApi,
     deleteTripIdApi,
     createActivityApi,
-    getActivityApi
+    getActivityApi,
+    userBalanceApi
 };

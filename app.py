@@ -146,7 +146,7 @@ def authenticate_user_logout():
 
 
 @APP.route('/api/user', methods=['GET'])
-def handle_user_api():
+def handle_user_info():
     '''
         Given a token ID, this returns the user's email, name, and trips
     '''
@@ -181,6 +181,44 @@ def handle_user_api():
         }, 401
     return {'success': False, 'message': 'Missing Authorization header.'}, 401
 
+@APP.route('/api/user/balance', methods=['GET'])
+def handle_user_balance():
+    '''
+        Given a token ID and trip ID, this returns the user's total activity balance
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+
+    trip_id = int(request.args.get('trip_id'))
+    if trip_id is None:
+        return {'success': False, 'message': 'Missing trip id.'}, 401
+        
+    current_user = token_status['user']
+    balance = 0
+    
+    # Check if user is part of the trip
+    trip_user = models.TripUser.query.filter_by(trip_id=trip_id, user_id=current_user.id).first()
+        
+    if trip_user is not None:
+        # Get info of the trip
+        trip = models.Trip.query.filter_by(id=trip_id).first()
+        if trip is not None:
+            for activity in trip.activities:
+                # If user is part of the activity and hasn't paid, add to balance
+                activity_user = models.ActivityUser.query.filter_by(activity_id=activity.id, user_id=current_user.id, paid=0).first()
+                if activity_user is not None:
+                    cost_per_person = int(activity.total_sum/activity.total_users)
+                    balance += cost_per_person
+            return { 'success': True, 'balance': balance }, 200
+    return {
+        'success': False,
+        'message': 'You are not authorized to get data from this trip.'
+    }, 401
 
 def add_trip_to_database(trip_name, join_code, owner_id):
     '''
@@ -453,16 +491,17 @@ def handle_create_activity():
         if trip_user is not None:
             valid_participants = []
             # Check if participant list is valid
-            for participant in participants:
-                # Check if participant is a valid user
-                current_participant = models.User.query.filter_by(
-                    email=str(participant)).first()
-                if current_participant is None:
-                    return {
-                        'success': False,
-                        'message': 'Email of a participant is invalid.'
-                    }, 401
-                valid_participants.append(current_participant)
+            if len(participants) != 0:
+                for participant in participants:
+                    # Check if participant is a valid user
+                    current_participant = models.User.query.filter_by(
+                        email=str(participant)).first()
+                    if current_participant is None:
+                        return {
+                            'success': False,
+                            'message': 'Email of a participant is invalid.'
+                        }, 401
+                    valid_participants.append(current_participant)
             # Create Activity using provided details
             result = add_activity_to_database(trip.id, activity_name, int(cost),
                                               len(valid_participants)+1,

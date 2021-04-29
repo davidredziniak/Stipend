@@ -17,7 +17,6 @@ function Activity(props){
       setCost(data.totalCost);      
       setCostPerPerson(data.costPerPerson);
       setParticipants(data.participants);
-      console.log(data);
     }
     
     useEffect(() => {

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Activity from './Activity.js'
 import CreateActivity from './CreateActivity.js'
 import {useParams} from "react-router-dom";
-import { tripIdApi,userApi } from './api/api.js';
+import { tripIdApi,userApi,userBalanceApi } from './api/api.js';
 
 function Trip(props)
 {
@@ -15,6 +15,7 @@ function Trip(props)
     const [fullname, setFullname] = useState([]);
     const [participants,setParticipants] = useState([]);
     const [activityIds, setActivityIds] = useState([]);
+    const [balance, setBalance] = useState(0);
     
     //useState with activity id []
     function configureState(data)
@@ -30,8 +31,10 @@ function Trip(props)
 
     useEffect(() => {
       //If user is logged in and the token ID is valid, update home page
-      if(props.token !== "" && props.isAuth)
+      if(props.token !== "" && props.isAuth){
         tripIdApi(props.token, tripId).then(data => configureState(data));
+        userBalanceApi(props.token, tripId).then(data => setBalance(data.balance));
+      }
     },[props.token]);
 
     return (
@@ -43,12 +46,10 @@ function Trip(props)
              <div><h4>Trip creator: {tripOwner}</h4></div>
              
              <div><h6><table><th>Participants on this trip: </th>{participants.map(user => (<tr><td><h6>{user.firstName} - {user.email}</h6></td></tr>))}</table></h6></div>
-
              <div class="triptext">
-
+                <div className="smallBox">Outstanding balance: <b>${balance}</b></div>
                 <CreateActivity token={props.token} trip={tripId} />
                 {activityIds.map(activityId => <Activity token={props.token} isAuth={props.isAuth} id={activityId} />)}
-
              </div>
              </div>
              ):<h3>Please Login!!!</h3>}
