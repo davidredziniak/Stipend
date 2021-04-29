@@ -14,6 +14,7 @@ function Trip(props)
     const [fullname, setFullname] = useState([]);
     const [emails,setEmails] = useState([]);
   
+  //useState with activity id []
     function printData(data)
     {
         console.log(data)
@@ -29,6 +30,29 @@ function Trip(props)
         tripIdApi(props.token, tripId).then(data => printData(data));
   
     },[props.token]);
+
+    return (
+        <div className="activity">
+             {props.isAuth?
+             (
+             <div>
+             <div><h3>Welcome to trip: {tripName}!</h3></div>
+             
+             <div><h6><table><th>Trip users: </th>{fullname.map(index=><tr><td><h6>{index}</h6></td></tr>)}</table></h6></div>
+             
+             <div class="triptext">
+
+                <h2>Trip creator: {tripOwner}</h2>
+                <Activity/>
+
+             </div>
+             </div>
+             ):<h3>Please Login!!!</h3>}
+        </div>
+        );
+}
+export default Trip;
+
 
 // useEffect is running infinitely
     // useEffect(() => {
@@ -51,24 +75,3 @@ function Trip(props)
     //     //     tripIdApi(props.token, tripId).then(data => printData(data));
     // },[props.token]);
     
-    return (
-        <div className="activity">
-             {props.isAuth?
-             (
-             <div>
-             <div><h3>Welcome to trip: {tripName}!</h3></div>
-             
-             <div><h6><table><th>Trip users: </th>{emails.map(index=><tr><td><h6>{index}</h6></td></tr>)}</table></h6></div>
-             
-             <div class="triptext">
-
-                <h2>Trip creator: {tripOwner}</h2>
-                <Activity/>
-
-             </div>
-             </div>
-             ):<h3>Please Login!!!</h3>}
-        </div>
-        );
-}
-export default Trip;

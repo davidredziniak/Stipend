@@ -10,7 +10,7 @@ function Activity(){
     const [showbtn, setShowBtn] = useState(true);
     
           // get all the users in the trip from the database
-  function splitMoney(inputList){
+  function splitMoney(){
     console.log('heres the inputlist passed',inputList)
     // var mtLst;
     // for (const [index, value] of inputList[index].participants.entries()) {

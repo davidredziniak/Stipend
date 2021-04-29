@@ -78,6 +78,7 @@ const tripIdApi = (tokenId, tripId) => {
         }
     }).then(response => response.json());
 };
+
 const deleteTripIdApi = (tokenId, tripId) => {
     const data = {"trip_id": tripId}
     return fetch('/api/trip/delete', {
@@ -89,6 +90,17 @@ const deleteTripIdApi = (tokenId, tripId) => {
         body: JSON.stringify(data),
     }).then(response => response.json());
 };
+
+const getActivityApi = (tokenId, activityId) => {
+    return fetch('/api/activity/get?activity_id=' + activityId, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        }
+    }).then(response => response.json());
+};
+
 export {
     loginApi,
     logoutApi,

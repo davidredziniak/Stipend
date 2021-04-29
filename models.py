@@ -62,6 +62,19 @@ class Activity(DB.Model):
 
     def __repr__(self):
         return '<Activity %r>' % self.id
+        
+    def to_json(self):
+        """
+        Get a json serializable version of the object
+        :return:
+        """
+        return {
+            'id': self.id,
+            'name': self.activity_name,
+            'totalCost': self.total_sum,
+            'participants': self.total_users,
+            'costPerPerson': self.total_sum/self.total_users
+        }
 
 
 class ActivityUser(DB.Model):
@@ -71,5 +84,6 @@ class ActivityUser(DB.Model):
                             DB.ForeignKey('activity.id'),
                             nullable=False)
     user_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), nullable=False)
+    paid = DB.Column(DB.Integer, default=0, nullable=False)
     def __repr__(self):
         return '<ActivityUser %r>' % self.id
