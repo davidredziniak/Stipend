@@ -92,7 +92,7 @@ const deleteTripIdApi = (tokenId, tripId) => {
 };
 
 const getActivityApi = (tokenId, activityId) => {
-    return fetch('/api/activity/get?activity_id=' + activityId, {
+    return fetch('/api/activity?activity_id=' + activityId, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
@@ -101,6 +101,17 @@ const getActivityApi = (tokenId, activityId) => {
     }).then(response => response.json());
 };
 
+const createActivityApi = (tokenId, tripId, activityName, cost, participants) => {
+    const data = {'trip_id': tripId, 'activity_name': activityName, 'activity_cost': cost, 'participants': participants};
+    return fetch('/api/activity/create', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    }).then(response => response.json());
+};
 export {
     loginApi,
     logoutApi,
@@ -109,5 +120,7 @@ export {
     joinTripApi,
     tripIdApi,
     userApi,
-    deleteTripIdApi
+    deleteTripIdApi,
+    createActivityApi,
+    getActivityApi
 };

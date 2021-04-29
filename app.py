@@ -391,7 +391,7 @@ def add_activity_to_database(trip_id, activity_name, cost, num_participants,
         This function adds
         a new activity to the database
     '''
-    new_activity = models.Trip(trip_id=trip_id,
+    new_activity = models.Activity(trip_id=trip_id,
                                activity_name=activity_name,
                                total_sum=cost,
                                total_users=num_participants,
@@ -457,20 +457,22 @@ def handle_create_activity():
                 # Check if participant is a valid user
                 current_participant = models.User.query.filter_by(
                     email=str(participant)).first()
-                if current_participant:
-                    valid_participants.append(current_participant)
-                return {
-                    'success': False,
-                    'message': 'Email of a participant is invalid.'
-                }, 401
-
+                if current_participant is None:
+                    return {
+                        'success': False,
+                        'message': 'Email of a participant is invalid.'
+                    }, 401
+                valid_participants.append(current_participant)
             # Create Activity using provided details
-            result = add_activity_to_database(trip.id, activity_name, cost,
+            result = add_activity_to_database(trip.id, activity_name, int(cost),
                                               len(valid_participants),
                                               current_user.id)
 
             # Create database objects to link user to activity
             if result:
+                # Add initial creator to activity user table
+                add_user_to_activity(result, current_user.id)
+                
                 for user in valid_participants:
                     add_user_to_activity(result, user.id)
                 return {
@@ -488,7 +490,8 @@ def handle_create_activity():
         }, 401
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 
-@APP.route('/api/activity/get', methods=['GET'])
+
+@APP.route('/api/activity', methods=['GET'])
 def handle_get_activity():
     '''
         Given an activity id, returns information
@@ -502,18 +505,28 @@ def handle_get_activity():
     if not token_status['success']:
         return token_status, 401
 
-    activity_id = int(request.args.get('tripId'))
-
+    activity_id = int(request.args.get('activity_id'))
     if activity_id is None:
         return {'success': False, 'message': 'Missing activity id.'}, 401
 
+    # Check if activity exists
     activity = models.Activity.query.filter_by(id=activity_id).first()
     if activity is None:
         return {'success': False, 'message': 'Invalid activity id.'}, 401
     activity_info = activity.to_json()
     activity_info['success'] = True
 
-    return activity_info, 200
+    # Check if user can access info about this activity
+    current_user = token_status['user']
+    trip_user = models.TripUser.query.filter_by(
+        trip_id=activity.trip_id, user_id=current_user.id).first()
+    if trip_user is not None:
+        return activity_info, 200
+    return {
+        'success': False,
+        'message': 'You are unable to view information about this activity.'
+    }, 401
+
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":
