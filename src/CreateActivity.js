@@ -14,10 +14,7 @@ function CreateActivity(props){
     const [emails, setEmails] = useState('');
     
     function onSubmit(){
-      console.log(cost);
-      console.log(name);
       let arrayOfEmails = emails.split(',');
-      console.log(arrayOfEmails);
       createActivityApi(props.token, props.trip, name, cost, arrayOfEmails).then(data => console.log(data));
     }
     

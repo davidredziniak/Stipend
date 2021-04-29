@@ -43,11 +43,11 @@ function Trip(props)
              <div><h4>Trip creator: {tripOwner}</h4></div>
              
              <div><h6><table><th>Participants on this trip: </th>{participants.map(user => (<tr><td><h6>{user.firstName} - {user.email}</h6></td></tr>))}</table></h6></div>
-            <div><h6><table><th>Activities on trip: </th>{activityIds.map(activityId => <tr><td><h6>{activityId}</h6></td></tr>)}</table></h6></div>
 
              <div class="triptext">
 
                 <CreateActivity token={props.token} trip={tripId} />
+                {activityIds.map(activityId => <Activity token={props.token} isAuth={props.isAuth} id={activityId} />)}
 
              </div>
              </div>

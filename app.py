@@ -401,13 +401,13 @@ def add_activity_to_database(trip_id, activity_name, cost, num_participants,
     return new_activity.id
 
 
-def add_user_to_activity(activity_id, user_id):
+def add_user_to_activity(activity_id, user_id, user_paid):
     '''
         This function adds
         a new user to an activity
     '''
     new_activity_user = models.ActivityUser(activity_id=activity_id,
-                                            user_id=user_id)
+                                            user_id=user_id, paid=user_paid)
     DB.session.add(new_activity_user)
     DB.session.commit()
     return new_activity_user
@@ -465,16 +465,16 @@ def handle_create_activity():
                 valid_participants.append(current_participant)
             # Create Activity using provided details
             result = add_activity_to_database(trip.id, activity_name, int(cost),
-                                              len(valid_participants),
+                                              len(valid_participants)+1,
                                               current_user.id)
 
             # Create database objects to link user to activity
             if result:
                 # Add initial creator to activity user table
-                add_user_to_activity(result, current_user.id)
+                add_user_to_activity(result, current_user.id, 1)
                 
                 for user in valid_participants:
-                    add_user_to_activity(result, user.id)
+                    add_user_to_activity(result, user.id, 0)
                 return {
                     'success': True,
                     'message': 'Successfully created the activity.'
@@ -515,12 +515,19 @@ def handle_get_activity():
         return {'success': False, 'message': 'Invalid activity id.'}, 401
     activity_info = activity.to_json()
     activity_info['success'] = True
-
+    
     # Check if user can access info about this activity
     current_user = token_status['user']
     trip_user = models.TripUser.query.filter_by(
         trip_id=activity.trip_id, user_id=current_user.id).first()
     if trip_user is not None:
+        # Get participant data
+        participants = []
+        activity_users = models.ActivityUser.query.filter_by(activity_id=activity_id).all()
+        for user in activity_users:
+            user_data = models.User.query.filter_by(id=user.user_id).first()
+            participants.append({'firstName': user_data.first_name, 'email': user_data.email, 'paid': user.paid})
+        activity_info['participants'] = participants
         return activity_info, 200
     return {
         'success': False,
