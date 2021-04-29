@@ -72,7 +72,6 @@ class Activity(DB.Model):
             'id': self.id,
             'name': self.activity_name,
             'totalCost': self.total_sum,
-            'participants': self.total_users,
             'costPerPerson': self.total_sum/self.total_users
         }
 
