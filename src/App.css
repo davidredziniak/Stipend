@@ -419,3 +419,14 @@ table, th, td {
 	margin-left: auto; 
 	margin-right: auto; 
 }
+.imageClass
+{
+  text-align:center;
+  background-image:url('https://di-uploads-pod5.s3.amazonaws.com/millsmotorsbuickgmc/uploads/2016/08/road-trip-1500x750.jpg');
+  position:fixed;
+  min-width:100%;
+  min-height: 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
