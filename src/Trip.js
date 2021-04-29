@@ -15,40 +15,22 @@ function Trip(props)
     const [emails,setEmails] = useState([]);
   
   //useState with activity id []
-  
     function printData(data)
     {
         console.log(data)
         setTripName(data.tripName)
         setTripOwner(data.tripOwner)
         setTripUsers(data.participants[0].firstName)
+        data.participants.map((index)=>setEmails(prev=>[...prev,index.email]));
     }
 
-// useEffect is running infinitely
     useEffect(() => {
-        async function fetchData() {
-            console.log('look')
-            setIsLoading(true);
-            const fetcher = await tripIdApi(props.token, tripId);
-            console.log("showing fetcher",fetcher)
-            setTripName(fetcher.tripName)
-            setTripOwner(fetcher.tripOwner)
-            setFullname([]);
-            setEmails([]);
-            //fetcher.participants.map((index)=>setEmails(prev=>[...prev,index.email]));
-            fetcher.participants.map((index)=>setFullname(prev=>[...prev,index.firstName+" "+index.lastName]));
-            setIsLoading(false);
-        }
-        fetchData();
-        //   //If user is logged in and the token ID is valid, update home page
-        //   if(props.token !== "" && props.isAuth)
-        //     tripIdApi(props.token, tripId).then(data => printData(data));
+      //If user is logged in and the token ID is valid, update home page
+      if(props.token !== "" && props.isAuth)
+        tripIdApi(props.token, tripId).then(data => printData(data));
+  
     },[props.token]);
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> 03644a679b28c921e7f6353b47b376bb93dd97c6
     return (
         <div className="activity">
              {props.isAuth?
