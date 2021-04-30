@@ -421,7 +421,7 @@ def handle_trip_delete():
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 
 
-def add_activity_to_database(trip_id, activity_name, cost, num_participants,
+def add_activity_to_database(trip_id, activity_name, cost, date, time, num_participants,
                              owner_id):
     '''
         This function adds
@@ -430,6 +430,7 @@ def add_activity_to_database(trip_id, activity_name, cost, num_participants,
     new_activity = models.Activity(trip_id=trip_id,
                                    activity_name=activity_name,
                                    total_sum=cost,
+                                   date=date, time=time,
                                    total_users=num_participants,
                                    owner_id=owner_id)
     DB.session.add(new_activity)
@@ -535,6 +536,12 @@ def handle_create_activity():
             'message': 'Invalid list of participants.'
         }, 401
 
+    # Check date and time
+    date = request.get_json()['date']
+    time = request.get_json()['time']
+    if date and time is None or date == "" or time == "":
+        return {'success': False, 'message': 'Invalid date or time.'}, 401
+        
     # Check if trip exists
     trip = models.Trip.query.filter_by(id=trip_id).first()
     if trip is not None:
@@ -557,7 +564,7 @@ def handle_create_activity():
                     valid_participants.append(current_participant)
             # Create Activity using provided details
             result = add_activity_to_database(trip.id, activity_name,
-                                              int(cost),
+                                              int(cost), date, time,
                                               len(valid_participants) + 1,
                                               current_user.id)
 

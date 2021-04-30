@@ -11,6 +11,8 @@ function Activity(props){
     
     const [name, setName] = useState("");
     const [cost, setCost] = useState("");
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
     const [owner, setOwner] = useState(false);
     const [costPerPerson, setCostPerPerson] = useState("");
     const [participants, setParticipants] = useState([]);
@@ -29,8 +31,10 @@ function Activity(props){
     function configureState(data){
       console.log(data);
       setName(data.name);
-      setCost(data.totalCost);      
+      setCost(data.totalCost);
       setCostPerPerson(data.costPerPerson);
+      setDate(data.date);
+      setTime(data.time);
       setParticipants(data.participants);
       setOwner(data.owner);
     }
@@ -45,7 +49,7 @@ function Activity(props){
       <div className="Activity">
         <NotificationContainer/>
             <div className="box">
-              <h3>{name}..</h3><h5> Total cost ${cost} - Cost per person ${costPerPerson}</h5>
+              <h3>{name}.. </h3><h4>({date} at {time})</h4><h5> Total cost ${cost} - Cost per person ${costPerPerson}</h5>
               <p>Participants {participants.map( user => ( <p>{user.firstName} - {user.email} - Paid? {user.paid == 1 ? <b>Yes</b> : <b>No</b>} {owner && user.paid == 0? <div><button onClick={ () => markUserPaid(user.email)}>'Mark as Paid'</button></div> : '' }</p> ) )}</p>
             </div>
       </div>

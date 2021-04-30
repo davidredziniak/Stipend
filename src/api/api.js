@@ -123,8 +123,8 @@ const setUserPaidApi = (tokenId, activityId, email) => {
     }).then(response => response.json());
 };
 
-const createActivityApi = (tokenId, tripId, activityName, cost, participants) => {
-    const data = {'trip_id': tripId, 'activity_name': activityName, 'activity_cost': cost, 'participants': participants};
+const createActivityApi = (tokenId, tripId, activityName, date, time, cost, participants) => {
+    const data = {'trip_id': tripId, 'activity_name': activityName, 'activity_cost': cost, 'date': date, 'time': time, 'participants': participants};
     return fetch('/api/activity/create', {
         method: 'POST',
         headers: {
@@ -134,6 +134,7 @@ const createActivityApi = (tokenId, tripId, activityName, cost, participants) =>
         body: JSON.stringify(data)
     }).then(response => response.json());
 };
+
 export {
     loginApi,
     logoutApi,
