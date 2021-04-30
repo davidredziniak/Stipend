@@ -697,7 +697,7 @@ def handle_remove_user():
             'You do not have permissions to remove participants from this activity.'
         }, 401
     # Check if email to remove is valid
-    email_to_remove = request.get_json()['participant_email']
+    email_to_remove = request.get_json()['email_to_remove']
     if email_to_remove == "" or email_to_remove is None:
         return {'success': False, 'message': 'Invalid participant email.'}, 401
     if email_to_remove == current_user.email:

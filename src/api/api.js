@@ -159,5 +159,6 @@ export {
     createActivityApi,
     getActivityApi,
     setUserPaidApi,
-    userBalanceApi
+    userBalanceApi,
+    removeFromActivityApi
 };

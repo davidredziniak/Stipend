@@ -1,7 +1,7 @@
 import Login from './Login.js';
 import {useState, useEffect} from 'react';
 import './App.css';
-import { getActivityApi, setUserPaidApi } from './api/api.js';
+import { getActivityApi, setUserPaidApi, removeFromActivityApi } from './api/api.js';
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 
@@ -28,6 +28,10 @@ function Activity(props){
       setUserPaidApi(props.token, props.id, email).then(data => handleErrors(data)).then(data => props.refresh());
     }
     
+    function removeUserFromActivity(email){
+      removeFromActivityApi(props.token, props.id, email).then(data => handleErrors(data)).then(data => props.refresh());
+    }
+    
     function configureState(data){
       console.log(data);
       setName(data.name);
@@ -50,7 +54,12 @@ function Activity(props){
         <NotificationContainer/>
             <div className="box">
               <h3>{name}.. </h3><h4>({date} at {time})</h4><h5> Total cost ${cost} - Cost per person ${costPerPerson}</h5>
-              <p>Participants {participants.map( user => ( <p>{user.firstName} - {user.email} - Paid? {user.paid == 1 ? <b>Yes</b> : <b>No</b>} {owner && user.paid == 0? <div><button onClick={ () => markUserPaid(user.email)}>'Mark as Paid'</button></div> : '' }</p> ) )}</p>
+              <p>Participants {participants.map( user => ( 
+                <p>
+                  {user.firstName} - {user.email} - Paid? {user.paid == 1 ? <b>Yes</b> : <b>No</b>} {owner && user.paid == 0? <div><button onClick={ () => markUserPaid(user.email)}>'Mark as Paid'</button></div> : '' }
+                                                                                                    {owner ? <div><button onClick={ () => removeUserFromActivity(user.email)}>'Remove User'</button></div> : '' }
+                </p> 
+              ) )}</p>
             </div>
       </div>
     );
