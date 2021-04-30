@@ -28,8 +28,7 @@ function LandingPage()
                       <img alt="Qries" src="https://cdn.dribbble.com/users/3293507/screenshots/14667603/media/d8cbe035a61f64afdf6deabca5182842.jpg" width="40" height="50"/>
                         <h2>David Redziniak</h2>
                         <p class="title">CEO & Founder</p>
-                        <p>Email:- dr475@njit.edu</p>
-                        <p><button class="button">Contact</button></p>
+                        <p><a href="mailto:dr475@njit.edu"><button class="button">Contact</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -39,8 +38,7 @@ function LandingPage()
                       <img alt="Qries" src="https://cdn.dribbble.com/users/3293507/screenshots/14667603/media/d8cbe035a61f64afdf6deabca5182842.jpg" width="50" height="50"/>
                         <h2>Shanil Rahul Pathak</h2>
                         <p class="title">CEO & Founder</p>
-                        <p>Email:- srp93@njit.edu</p>
-                        <p><button class="button">Contact</button></p>
+                        <p><a href="mailto:rp93@njit.edu"><button class="button">Contact</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -50,8 +48,7 @@ function LandingPage()
                       <img alt="Qries" src="https://cdn.dribbble.com/users/3293507/screenshots/14667603/media/d8cbe035a61f64afdf6deabca5182842.jpg" width="50" height="50"/>
                         <h2>Mervyn Mathew</h2>
                         <p class="title">CEO & Founder</p>
-                        <p>Email:- mm2373@njit.edu</p>
-                        <p><button class="button">Contact</button></p>
+                        <p><a href="mailto:mm2373@njit.edu"><button class="button">Contact</button></a></p>
                       </div>
                     </div>
                   </div>
@@ -61,8 +58,7 @@ function LandingPage()
                       <img alt="Qries" src="https://cdn.dribbble.com/users/3293507/screenshots/14667603/media/d8cbe035a61f64afdf6deabca5182842.jpg" width="50" height="50"/>
                         <h2>Neel Patel</h2>
                         <p class="title">CEO & Founder</p>
-                        <p>Email:- ngp23@njit.edu</p>
-                        <p><button class="button">Contact</button></p>
+                        <p><a href="mailto:ngp23@njit.edu"><button class="button">Contact</button></a></p>
                       </div>
                     </div>
                   </div>

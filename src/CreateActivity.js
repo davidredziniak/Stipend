@@ -73,6 +73,7 @@ function CreateActivity(props){
                 value={time}
                 onChange={e => setTime(e.target.value)}
               />
+
               <input
                 required
                 type="text"
