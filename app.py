@@ -216,13 +216,13 @@ def handle_user_balance():
     }, 401
 
 
-def add_trip_to_database(trip_name, join_code, owner_id):
+def add_trip_to_database(trip_name, join_code, start_date, end_date, owner_id):
     '''
         This function adds
         a new trip to the database
     '''
     if len(join_code) == 7:
-        new_trip = models.Trip(trip_name=trip_name,
+        new_trip = models.Trip(trip_name=trip_name,start_date=start_date, end_date=end_date,
                                join_code=join_code,
                                owner_id=owner_id)
         DB.session.add(new_trip)
@@ -307,7 +307,7 @@ def handle_create_trip():
     if valid_trip is not None:
         return {'success': False, 'message': 'Join code already exists.'}, 200
     # Create Trip
-    add_trip_to_database(trip_data['trip_name'], trip_data['join_code'],
+    add_trip_to_database(trip_data['trip_name'], trip_data['join_code'], trip_data['start_date'], trip_data['end_date'],
                          current_user.id)
     # Create TripUser
     new_trip_user = models.TripUser(trip_id=DB.session.query(

@@ -33,22 +33,19 @@ function CreateTrip(props){
     }
     
  // const onSubmit = data => console.log(data);
-  function onSubmit(data){
-      console.log(data);
-      data.join_code=joinCode();
-      // doesnt redirect till all fields are filled up
-      if(props.token !== ""){
-        createTripApi(props.token, data).then(data => handleErrors(data));
-      }
-      const emails = getInvitedEmails().map(email => email['value'])
-      console.log(emails);
+    function onSubmit(data){
+        data.join_code=joinCode();
+        if(props.token !== ""){
+            createTripApi(props.token, data).then(data => handleErrors(data));
+        }
+        const emails = getInvitedEmails().map(email => email['value'])
+        console.log(emails);
       
-      if(emails !== []){
-         inviteToTripApi(props.token, emails, data['join_code'])
-      }
+        if(emails !== [])
+            inviteToTripApi(props.token, emails, data['join_code']);
     }
+    
 // sample Trip1- code: uw1YGGD
-
     return(
         <div className="activity">
             {props.isAuth?(
@@ -60,10 +57,10 @@ function CreateTrip(props){
                         <input required type="text" id="Name" className="createTripInputs1" placeholder="eg., Vegas" {...register("trip_name", {required: true, maxLength: 17})} /></div>
                         
                         <div><label for="tripStart" className="labels">Trip's Start Date:</label>
-                        <input required type="date" id="tripStart" className="createTripInputs" placeholder="Start Date" {...register("Start Date", {required: true})} /></div>
+                        <input required type="date" id="tripStart" className="createTripInputs" placeholder="Start Date" {...register("start_date", {required: true})} /></div>
                       
                         <div><label for="tripEnd" className="labels"> Trip's End Date :</label>
-                        <input required type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("End Date", {required: true})}/></div>
+                        <input required type="date" id="tripEnd" className="createTripInputs" placeholder="End Date" {...register("end_date", {required: true})}/></div>
                        
                         <div><label className="labels">Invite Participants: </label>
                         <InputEmails/></div>
