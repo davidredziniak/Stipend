@@ -150,36 +150,26 @@ def handle_user_info():
     '''
         Given a token ID, this returns the user's email, name, and trips
     '''
-    if 'Authorization' in request.headers:
-        if 'Bearer ' in request.headers['Authorization']:
-            token_id = request.headers['Authorization'].split(' ')[1]
-            email = get_email_from_token_id(CURRENT_SESSIONS, token_id)
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
 
-            # Token ID matches a session
-            if len(email) != 0 and email[0] != "":
-                current_user = models.User.query.filter_by(
-                    email=email[0]).first()
-                if current_user is not None:
-                    trips = []
-                    for trip in current_user.trips:
-                        current_trip = models.Trip.query.filter_by(
-                            id=trip.trip_id).first()
-                        trips.append({
-                            'trip_id': trip.trip_id,
-                            'name': current_trip.trip_name
-                        })
-                    return {
-                        'success': True,
-                        'email': current_user.email,
-                        'firstName': current_user.first_name,
-                        'lastName': current_user.last_name,
-                        'trips': trips
-                    }, 200
-        return {
-            'success': False,
-            'message': 'Invalid token ID. Please relogin.'
-        }, 401
-    return {'success': False, 'message': 'Missing Authorization header.'}, 401
+    current_user = token_status['user']
+    trips = []
+    for trip in current_user.trips:
+        current_trip = models.Trip.query.filter_by(id=trip.trip_id).first()
+        trips.append({'trip_id': trip.trip_id, 'name': current_trip.trip_name})
+    return {
+        'success': True,
+        'email': current_user.email,
+        'firstName': current_user.first_name,
+        'lastName': current_user.last_name,
+        'trips': trips
+    }, 200
 
 
 @APP.route('/api/user/balance', methods=['GET'])
@@ -500,7 +490,7 @@ def handle_get_activity():
                 'paid': user.paid
             })
         activity_info['participants'] = participants
-        
+
         # Get email of owner of activity
         activity_info['owner'] = False
         if current_user.id == activity.owner_id:
@@ -591,6 +581,7 @@ def handle_create_activity():
         }, 401
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 
+
 @APP.route('/api/activity/setpaid', methods=['POST'])
 def handle_mark_paid():
     '''
@@ -611,35 +602,62 @@ def handle_mark_paid():
     # Check if activity exists
     activity = models.Activity.query.filter_by(id=activity_id).first()
     if activity is None:
-        return {'success': False, 'message': 'Invalid activity id.'}, 401
+        return {
+            'success': False,
+            'message': 'Activity id does not match any activity.'
+        }, 401
     # Check if user is owner of activity (has permissions)
     if activity.owner_id != current_user.id:
-        return {'success': False, 'message': 'You do not have permissions to mark participants as paid.'}, 401
+        return {
+            'success': False,
+            'message':
+            'You do not have permissions to mark participants as paid.'
+        }, 401
     participant_email = request.get_json()['participant_email']
     if participant_email == "" or participant_email is None:
         return {'success': False, 'message': 'Invalid participant email.'}, 401
     # Check if user being marked as paid is themselves
     if current_user.email == participant_email:
-        return {'success': False, 'message': 'You cannot mark yourself as paid, you are the owner of the activity.'}, 401
+        return {
+            'success':
+            False,
+            'message':
+            'You cannot mark yourself as paid, you are the owner of the activity!'
+        }, 401
     # Check if participant is a valid trip user
     participant = models.User.query.filter_by(email=participant_email).first()
     if participant is None:
-        return {'success': False, 'message': 'Email is not part of the trip.'}, 401
+        return {
+            'success': False,
+            'message': 'Email is not part of the trip.'
+        }, 401
     # Check if participant is on the activity
-    activity_participant = models.ActivityUser.query.filter_by(user_id=participant.id, activity_id=activity.id).first()
+    activity_participant = models.ActivityUser.query.filter_by(
+        user_id=participant.id, activity_id=activity.id).first()
     if activity_participant is None:
-        return {'success': False, 'message': 'Participant is not not a part of the specified activity.'}, 401
+        return {
+            'success': False,
+            'message': 'Participant is not a part of the specified activity.'
+        }, 401
     # Check if participant has already paid
     if activity_participant.paid == 1:
-        return {'success': False, 'message': 'Participant has already paid for this trip.'}, 401
+        return {
+            'success': False,
+            'message': 'Participant has already paid for this trip.'
+        }, 401
     else:
         activity_participant.paid = 1
         DB.session.merge(activity_participant)
         DB.session.commit()
-        return {'success': True, 'message': 'Successfully updated participant as paid.'}, 200
+        return {
+            'success': True,
+            'message': 'Successfully marked participant as paid.'
+        }, 200
     return {
-        'success': False,
-        'message': 'Error has occured while trying to mark a user as paid.'
+        'success':
+        False,
+        'message':
+        'Error has occured while trying to mark the specified user as paid.'
     }, 401
 
 

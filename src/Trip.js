@@ -32,9 +32,6 @@ function Trip(props)
         setIsLoading(!isLoading);
     }
     
-    function handleClick(){
-        setUserPaidApi(props.token, 6, 'dr475@njit.edu').then(data => console.log(data)).then(data => setIsLoading(!isLoading));
-    }
 
     useEffect(() => {
       //If user is logged in and the token ID is valid, update home page
