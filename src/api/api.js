@@ -32,6 +32,16 @@ const userApi = (tokenId) => {
     }).then(response => response.json());
 };
 
+const userBalanceApi = (tokenId, tripId) => {
+    return fetch('/api/user/balance?trip_id=' + tripId, {
+        method: 'GET',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        }
+    }).then(response => response.json());
+};
+
 const createTripApi = (tokenId, tripData) => {
     const data = {'trip_data': tripData};
     return fetch('/api/trip/create', {
@@ -92,12 +102,36 @@ const deleteTripIdApi = (tokenId, tripId) => {
 };
 
 const getActivityApi = (tokenId, activityId) => {
-    return fetch('/api/activity/get?activity_id=' + activityId, {
+    return fetch('/api/activity?activity_id=' + activityId, {
         method: 'GET',
         headers: {
             'Authorization': 'Bearer ' + tokenId,
             'Content-Type': 'application/json',
         }
+    }).then(response => response.json());
+};
+
+const setUserPaidApi = (tokenId, activityId, email) => {
+    const data = {"activity_id": activityId, "participant_email": email}
+    return fetch('/api/activity/setpaid', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    }).then(response => response.json());
+};
+
+const createActivityApi = (tokenId, tripId, activityName, date, time, cost, participants) => {
+    const data = {'trip_id': tripId, 'activity_name': activityName, 'activity_cost': cost, 'date': date, 'time': time, 'participants': participants};
+    return fetch('/api/activity/create', {
+        method: 'POST',
+        headers: {
+            'Authorization': 'Bearer ' + tokenId,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
     }).then(response => response.json());
 };
 
@@ -109,5 +143,9 @@ export {
     joinTripApi,
     tripIdApi,
     userApi,
-    deleteTripIdApi
+    deleteTripIdApi,
+    createActivityApi,
+    getActivityApi,
+    setUserPaidApi,
+    userBalanceApi
 };
