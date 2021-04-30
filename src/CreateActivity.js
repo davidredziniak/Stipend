@@ -1,12 +1,7 @@
 import Login from './Login.js';
 import React, {useState, useEffect } from 'react';
 import './App.css';
-<<<<<<< HEAD
-import { createActivityApi,updateParticipants } from './api/api.js';
-import {NotificationContainer} from 'react-notifications';
-import 'react-notifications/lib/notifications.css';
 
-=======
 import { createActivityApi, tripIdApi } from './api/api.js';
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
@@ -14,7 +9,7 @@ import Popup from 'reactjs-popup';
 import 'reactjs-popup/dist/index.css';
 import {InputEmails , getInvitedEmails} from './InputEmails'
 import {useParams, useHistory} from "react-router-dom";
->>>>>>> 66f248cc25fbfccf03c9db208c09387f2b3922aa
+
 
 
 //import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
@@ -50,6 +45,7 @@ function CreateActivity(props){
       // if(arrayOfEmails[0] == "")
       //   arrayOfEmails = []
       console.log('emails list ',emails)
+      
       createActivityApi(props.token, props.trip, name, date, time, cost, emails).then(data => handleErrors(data)).then(data => props.refresh());
     }
 
@@ -112,7 +108,7 @@ function CreateActivity(props){
               <div className="selectEmails"><label for="email">Choose participants:</label></div>
                 <form className="ml101">
                   <select name="email" id="email" multiple={true} onChange={e => setEmails((previous)=>[...previous,e.target.value])}>
-                    {selectEmails.map(user=>(<option value="email">{user.email}</option>))}
+                    {selectEmails.map(user=>(<option value={user.email}>{user.email}</option>))}
                   </select>
                 </form>
       
