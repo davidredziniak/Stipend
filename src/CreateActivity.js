@@ -13,6 +13,8 @@ function CreateActivity(props){
     //const [showbtn, setShowBtn] = useState(true);
     const [cost, setCost] = useState('');
     const [name, setName] = useState('');
+    const [date, setDate] = useState('');
+    const [time, setTime] = useState('');
     const [emails, setEmails] = useState('');
     
     function handleErrors(data){
@@ -26,7 +28,7 @@ function CreateActivity(props){
       let arrayOfEmails = emails.split(',');
       if(arrayOfEmails[0] == "")
         arrayOfEmails = []
-      createActivityApi(props.token, props.trip, name, cost, arrayOfEmails).then(data => handleErrors(data)).then(data => props.refresh());
+      createActivityApi(props.token, props.trip, name, date, time, cost, arrayOfEmails).then(data => handleErrors(data)).then(data => props.refresh());
     }
     
     return (
@@ -52,6 +54,24 @@ function CreateActivity(props){
                 placeholder="Enter Cost"
                 value={cost}
                 onChange={e => setCost(e.target.value)}
+              />
+              <input
+                required
+                type="text"
+                name="date"
+                className="ml10"
+                placeholder="Enter Date"
+                value={date}
+                onChange={e => setDate(e.target.value)}
+              />
+              <input
+                required
+                type="text"
+                name="time"
+                className="ml10"
+                placeholder="Enter Time"
+                value={time}
+                onChange={e => setTime(e.target.value)}
               />
               <input
                 required
