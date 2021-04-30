@@ -134,17 +134,7 @@ const createActivityApi = (tokenId, tripId, activityName, date, time, cost, part
         body: JSON.stringify(data)
     }).then(response => response.json());
 };
-const updateParticipants = (tokenId, tripId, activityName, date, time, cost, participants) => {
-    const data = {'trip_id': tripId, 'participants': participants};
-    return fetch('/api/activity/update', {
-        method: 'POST',
-        headers: {
-            'Authorization': 'Bearer ' + tokenId,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data)
-    }).then(response => response.json());
-};
+
 
 export {
     loginApi,
@@ -158,6 +148,5 @@ export {
     createActivityApi,
     getActivityApi,
     setUserPaidApi,
-    userBalanceApi,
-    updateParticipants
+    userBalanceApi
 };

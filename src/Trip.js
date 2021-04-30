@@ -5,7 +5,7 @@ import {useParams, useHistory} from "react-router-dom";
 import { tripIdApi,userApi,userBalanceApi, setUserPaidApi } from './api/api.js';
 import LandingPage from "./LandingPage";
 import './App.css';
-import CreateTrip from './CreateTrip';
+
 
 
 function Trip(props)
@@ -21,6 +21,7 @@ function Trip(props)
     const [participants,setParticipants] = useState([]);
     const [activityIds, setActivityIds] = useState([]);
     const [balance, setBalance] = useState(0);
+    
 
     function handleErrors(data){
       if(data.success === false){
@@ -46,7 +47,7 @@ function Trip(props)
     function refresh(){
         setIsLoading(!isLoading);
     }
-    
+
 
     useEffect(() => {
       //If user is logged in and the token ID is valid, update home page
@@ -70,6 +71,7 @@ function Trip(props)
                 <CreateActivity createNotif={props.createNotif} token={props.token} trip={tripId} refresh={refresh} />
                 {activityIds.map(activityId => <Activity createNotif={props.createNotif} token={props.token} isAuth={props.isAuth} refresh={refresh} refreshState={isLoading} id={activityId} />)}
              </div>
+ 
              </div>
              ):<LandingPage/>}
         </div>
