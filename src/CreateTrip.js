@@ -1,14 +1,13 @@
 import Trip from './Trip';
 import React, { useState } from 'react';
-import LandingPage from './LandingPage'
-
-
 import { createTripApi, inviteToTripApi } from './api/api.js';
-
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 import { useForm } from "react-hook-form";
 import './App.css';
 import { getInvitedEmails, InputEmails } from './InputEmails';
 import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
+
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
     const history = useHistory();
@@ -26,19 +25,22 @@ function CreateTrip(props){
     }
     
 
+    function handleErrors(data){
+      if(data.success === false)
+        props.createNotif('error', data.message);
+      else
+          history.push('/trip/' + data.tripId);
+    }
+    
  // const onSubmit = data => console.log(data);
-
     function onSubmit(data){
         data.join_code=joinCode();
         if(props.token !== ""){
             createTripApi(props.token, data).then(data => handleErrors(data));
         }
         const emails = getInvitedEmails().map(email => email['value'])
-        console.log(emails);
-      
         if(emails !== [])
             inviteToTripApi(props.token, emails, data['join_code']);
-
     }
     
 // sample Trip1- code: uw1YGGD
@@ -64,7 +66,7 @@ function CreateTrip(props){
                         <div><button type="submit" className="tripSubmit">Create Trip</button></div>
                 </form>
             </div>)
-            :<LandingPage/>}
+            :null}
 
             <Router>
                 <div>

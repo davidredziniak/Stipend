@@ -3,9 +3,6 @@ import { useState, useEffect } from 'react';
 // import Logout from'../Logout.js';
 //import {loginApi, userApi} from '../api/api.js';
 import { userApi,deleteTripIdApi} from '../api/api.js';
-
-import LandingPage from "../LandingPage";
-
 import {NotificationContainer} from 'react-notifications';
 
 
@@ -119,12 +116,10 @@ function HomePage(props){
   }
   else{
     return (<div>
-      <LandingPage/>
+      <h2>Please log in!</h2>
     </div>
     );
   }
 }
 
 export default HomePage;
-
-//<button onClick={onClickButton} type="button">Test API</button> 

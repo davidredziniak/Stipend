@@ -2,11 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Activity from './Activity.js'
 import CreateActivity from './CreateActivity.js'
 import {useParams} from "react-router-dom";
-
-import LandingPage from './LandingPage';
-
 import { tripIdApi,userApi,userBalanceApi, setUserPaidApi } from './api/api.js';
-
 
 
 function Trip(props)
@@ -60,31 +56,8 @@ function Trip(props)
                 {activityIds.map(activityId => <Activity createNotif={props.createNotif} token={props.token} isAuth={props.isAuth} refresh={refresh} refreshState={isLoading} id={activityId} />)}
              </div>
              </div>
-             ):<LandingPage/>}
+             ):<h3>Please Login!!!</h3>}
         </div>
         );
 }
 export default Trip;
-
-
-// useEffect is running infinitely
-    // useEffect(() => {
-    //     async function fetchData() {
-    //         console.log('look')
-    //         setIsLoading(true);
-    //         const fetcher = await tripIdApi(props.token, tripId);
-    //         console.log("showing fetcher",fetcher)
-    //         setTripName(fetcher.tripName)
-    //         setTripOwner(fetcher.tripOwner)
-    //         setFullname([]);
-    //         //setEmails([]);
-    //         fetcher.participants.map((index)=>setEmails(prev=>[...prev,index.email]));
-    //         //fetcher.participants.map((index)=>setFullname(prev=>[...prev,index.firstName+" "+index.lastName]));
-    //         setIsLoading(false);
-    //     }
-    //     fetchData();
-    //     //   //If user is logged in and the token ID is valid, update home page
-    //     //   if(props.token !== "" && props.isAuth)
-    //     //     tripIdApi(props.token, tripId).then(data => printData(data));
-    // },[props.token]);
-    

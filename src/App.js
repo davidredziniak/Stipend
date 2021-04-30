@@ -10,7 +10,7 @@ import CreateTrip from './CreateTrip';
 import Trip from './Trip';
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-import LandingPage from './LandingPage';
+
 
 import {BrowserRouter as Router, HashRouter, Switch,Route} from "react-router-dom";
 // removed props from App()
@@ -69,15 +69,13 @@ function App() {
     return (
     <HashRouter>
     <div className="App">
-        
         <Nav login={loginHandler} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId}/>
         <Switch>
-          <Route exact path ="/" render={()=>(<LandingPage/>)}/>
-          <Route exact path="/home" render={(props) => ( <HomePage logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/activity" render={(props) => ( <Activity logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/jointrip" render={(props) => ( <JoinTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/createtrip" render={(props) => ( <CreateTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route path="/trip/:tripId" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/home" render={(props) => ( <HomePage createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/activity" render={(props) => ( <Activity createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/jointrip" render={(props) => ( <JoinTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/createtrip" render={(props) => ( <CreateTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route path="/trip/:tripId" render={(props) => ( <Trip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
         </Switch>
       </div>
     </HashRouter>);
