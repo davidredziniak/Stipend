@@ -578,7 +578,7 @@ def handle_create_activity():
                 return {
                     'success': True,
                     'message': 'Successfully created the activity.'
-                }, 401
+                }, 200
             return {
                 'success': False,
                 'message': 'Error creating the activity.'
