@@ -716,7 +716,18 @@ def handle_remove_user():
             'success': False,
             'message': 'Participant is not a part of the specified activity.'
         }, 401
-    
+    # Delete ActivityUser for participant
+    current_session = DB.session.object_session(activity_participant)
+    current_session.delete(activity_participant)
+    current_session.commit()
+    # Reduce total users in the activity
+    activity.total_users -= 1
+    DB.session.merge(activity)
+    DB.session.commit()
+    return {
+            'success': True,
+            'message': 'Successfully removed user from the activity.'
+        }, 200
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":
