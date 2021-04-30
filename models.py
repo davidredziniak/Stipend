@@ -32,6 +32,8 @@ class Trip(DB.Model):
     ''' Trip model '''
     id = DB.Column(DB.Integer, primary_key=True)
     trip_name = DB.Column(DB.String(100), unique=False, nullable=False)
+    start_date = DB.Column(DB.String(50), nullable=False)
+    end_date = DB.Column(DB.String(50), nullable=False)
     join_code = DB.Column(DB.String(7), unique=True, nullable=False)
     owner_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), nullable=False)
     users = DB.relationship('TripUser', backref='trip', lazy=True)
@@ -56,6 +58,8 @@ class Activity(DB.Model):
     id = DB.Column(DB.Integer, primary_key=True)
     trip_id = DB.Column(DB.Integer, DB.ForeignKey('trip.id'), nullable=False)
     activity_name = DB.Column(DB.String(100), unique=False, nullable=False)
+    date = DB.Column(DB.String(50), nullable=False)
+    time = DB.Column(DB.String(15), nullable=False)
     total_sum = DB.Column(DB.Float, nullable=False)
     total_users = DB.Column(DB.Integer, nullable=False)
     owner_id = DB.Column(DB.Integer, DB.ForeignKey('user.id'), nullable=False)
@@ -71,6 +75,8 @@ class Activity(DB.Model):
         return {
             'id': self.id,
             'name': self.activity_name,
+            'date': self.date,
+            'time': self.time,
             'totalCost': self.total_sum,
             'costPerPerson': self.total_sum / self.total_users
         }

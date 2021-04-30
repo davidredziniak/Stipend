@@ -18,7 +18,10 @@ function HomePage(props){
     const [trips, setTrips] = useState([]);
     const [hide, setHide]=useState(false);
     const [isLoading, setIsLoading] = useState(false);
-
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ];
+    
     function randomImages(){
       var images = ["https://i.stack.imgur.com/CJT47.jpg","https://www.freegreatpicture.com/files/85/2994-man-and-nature.jpg"
                     ,"https://www.freegreatpicture.com/files/31/10971-world-scenery.jpg"
@@ -50,13 +53,15 @@ function HomePage(props){
           //console.log(data.trips);
         }
       }
-
     }
+    
     function deleteTrip(trip_id)
     {
       if(props.token !== "")
         deleteTripIdApi(props.token, trip_id).then(data => handleErrors(data));
     }
+    
+
     
     //Rerender component when token ID and isAuth updates.
     useEffect(() => {
@@ -95,7 +100,7 @@ function HomePage(props){
             <div className="col">
               <a href={`/#/trip/${trip.trip_id}`}>
                 <img className="images" src={randomImages()}/>
-                <span className="align-middle">{trip.name}</span>
+                <span className="align-middle">{trip.name} - {trip.startDate} to {trip.endDate}</span>
                 <div>
                   
                 </div>
