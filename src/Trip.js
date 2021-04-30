@@ -4,6 +4,8 @@ import CreateActivity from './CreateActivity.js'
 import {useParams, useHistory} from "react-router-dom";
 import { tripIdApi,userApi,userBalanceApi, setUserPaidApi } from './api/api.js';
 import LandingPage from "./LandingPage";
+import './App.css';
+import CreateTrip from './CreateTrip';
 
 
 function Trip(props)
@@ -11,6 +13,7 @@ function Trip(props)
     let { tripId } = useParams();
     const history = useHistory();
     const [tripName, setTripName] = useState("");
+    const [joinCode,setJointCode]=useState("");
     const [tripOwner, setTripOwner] = useState("");
     const [tripUsers, setTripUsers] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +40,7 @@ function Trip(props)
         let newParticipants = participants;
         setParticipants(data.participants);
         setActivityIds(data.activities);
+        setJointCode(data.joinCode);
     }
     
     function refresh(){
@@ -59,7 +63,7 @@ function Trip(props)
              <div>
              <div><h1>{tripName}!</h1></div>
              <div><h4>Trip creator: {tripOwner}</h4></div>
-             
+             <div><p className="join">Join Code: {joinCode}</p></div>
              <div><h6><table><th>Participants on this trip: </th>{participants.map(user => (<tr><td><h6>{user.firstName} - {user.email}</h6></td></tr>))}</table></h6></div>
              <div class="triptext">
                 <div className="smallBox">Outstanding balance: <b>${balance}</b></div>

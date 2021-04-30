@@ -1,7 +1,7 @@
 import Login from './Login.js';
 import {useState} from 'react';
 import './App.css';
-import { createActivityApi } from './api/api.js';
+import { createActivityApi,updateParticipants } from './api/api.js';
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import Popup from 'reactjs-popup';
@@ -34,13 +34,19 @@ function CreateActivity(props){
         arrayOfEmails = []
       createActivityApi(props.token, props.trip, name, date, time, cost, arrayOfEmails).then(data => handleErrors(data)).then(data => props.refresh());
     }
+        function onSubmits(){
+      let arrayOfEmails = emails.split(',');
+      if(arrayOfEmails[0] == "")
+        arrayOfEmails = []
+      updateParticipants(props.token, props.trip, name, date, time, cost, arrayOfEmails).then(data => handleErrors(data)).then(data => props.refresh());
+    }
     
     
     return (
       <div className="Activity">
          <Popup trigger={<button> Add an Participant</button>} position="right center">
           <div><InputEmails/> <getInvitedEmails/></div>
-          <button type="submit" onChange={e => setEmails(e.target.value)} onClick={onSubmit}>Submit</button>
+          <button type="submit" onChange={e => setEmails(e.target.value)} onClick={onSubmits}>Submit</button>
         </Popup>
         <NotificationContainer/>
             <div className="box">
