@@ -39,8 +39,6 @@ function CreateTrip(props){
             createTripApi(props.token, data).then(data => handleErrors(data));
         }
         const emails = getInvitedEmails().map(email => email['value'])
-        console.log(emails);
-      
         if(emails !== [])
             inviteToTripApi(props.token, emails, data['join_code']);
     }

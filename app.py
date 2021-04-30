@@ -363,9 +363,9 @@ def handle_join_trip():
     # Check if join code is real
     trip = models.Trip.query.filter_by(join_code=join_code).first()
     if trip is not None:
-        # Check if user is already in the trip
         trip_user = models.TripUser.query.filter_by(
             trip_id=trip.id, user_id=current_user.id).first()
+        # Check if user is already in the trip
         if trip_user is None:
             new_trip_user = models.TripUser(trip_id=trip.id,
                                             user_id=current_user.id)
