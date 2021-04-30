@@ -162,7 +162,7 @@ def handle_user_info():
     trips = []
     for trip in current_user.trips:
         current_trip = models.Trip.query.filter_by(id=trip.trip_id).first()
-        trips.append({'trip_id': trip.trip_id, 'name': current_trip.trip_name})
+        trips.append({'trip_id': current_trip.id, 'name': current_trip.trip_name, 'startDate': current_trip.start_date, 'endDate': current_trip.end_date})
     return {
         'success': True,
         'email': current_user.email,
@@ -276,6 +276,8 @@ def handle_trip_info():
                 'success': True,
                 'tripName': trip.trip_name,
                 'tripOwner': trip_owner.first_name,
+                'startDate': trip.start_date,
+                'endDate': trip.end_date,
                 'participants': users,
                 'activities': activities
             }, 200
