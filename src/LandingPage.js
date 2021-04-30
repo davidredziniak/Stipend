@@ -11,16 +11,16 @@ function LandingPage()
                 <div className="LandingPage">
                     <h1>Welcome to STIPEND!</h1>
                     <h3>Basic Functionality  of the APP</h3>
-                  
-                        <p className="imageText">Helps you manage the trip by splitting the money</p>
-                        <p className="imageText">Helps you financially plans your trip</p>
-            
-            
+                        <h4 className="imageText">Helps you manage the trip by splitting the money</h4>
+                        <h4 className="imageText">Helps you financially plans your trip</h4>
                 </div>
             </div>
-        
+            <div className="matter">
+              <h1>Why it Matters?</h1>
+              <h4>Helps you keep Track of spendings.</h4>
+            </div>
             <div>
-            <h1>OUR TEAM </h1>
+                <h1>OUR TEAM </h1>
                 <div class="row">
                   <div class="column">
                     <div class="card">
@@ -33,10 +33,6 @@ function LandingPage()
                       </div>
                     </div>
                   </div>
-                
-               
-                
-                
                   <div class="column">
                     <div class="card">
                       <div class="container">
@@ -48,8 +44,6 @@ function LandingPage()
                       </div>
                     </div>
                   </div>
-                
-             
                   <div class="column">
                     <div class="card">
                       <div class="container">
@@ -61,10 +55,6 @@ function LandingPage()
                       </div>
                     </div>
                   </div>
-                
-               
-                
-                
                   <div class="column">
                     <div class="card">
                       <div class="container">
@@ -79,6 +69,7 @@ function LandingPage()
                 
                 </div>
             </div>
+            
         
         </div>
         
