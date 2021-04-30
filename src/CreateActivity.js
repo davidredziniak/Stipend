@@ -57,7 +57,7 @@ function CreateActivity(props){
               />
               <input
                 required
-                type="text"
+                type="date"
                 name="date"
                 className="ml10"
                 placeholder="Enter Date"
@@ -66,7 +66,7 @@ function CreateActivity(props){
               />
               <input
                 required
-                type="text"
+                type="time"
                 name="time"
                 className="ml10"
                 placeholder="Enter Time"
