@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import './App.css';
 import { getInvitedEmails, InputEmails } from './InputEmails';
 import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
+import LandingPage from "./LandingPage";
 
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
@@ -66,7 +67,7 @@ function CreateTrip(props){
                         <div><button type="submit" className="tripSubmit">Create Trip</button></div>
                 </form>
             </div>)
-            :null}
+            :<LandingPage/>}
 
             <Router>
                 <div>

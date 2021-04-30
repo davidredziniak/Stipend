@@ -1,12 +1,14 @@
 .App {
   text-align: center;
    width: 100%;
-    height: 125%;
+    height:100%;
     position: absolute;
     background: linear-gradient(45deg,#757f9a, #d7dde8, #dbd4b4 , #fff,#bbd2c5, #acb6e5);
     background-size: 1000% 1000%;
     animation: gradient 20s linear infinite;
     animation-direction: alternate;
+    background-attachment: fixed;
+    
 }
 @keyframes gradient {
     0% {background-position: 0%}
@@ -405,19 +407,52 @@
   margin-bottom:30px;
 }
 
-.smallBox{
-  padding:20px;
-  background:#D8F4D1;
-  width:10%;
-  margin:auto;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  margin-bottom:30px;
-}
-
 table, th, td {
   color:black;
   padding:5px;
   margin:auto;
   background:#ffffff;
   border: 1px solid black;
+}
+.LandingPage
+{
+  text-align: left;
+  float:right;
+  font-weight:bold;
+  font-size:20px;
+  padding-top:12rem;
+  padding-right:5rem;
+  color:#000000;
+  font-family:courier,arial,helvetica;
+}
+.imageClass
+{
+  
+  
+  
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  background-image:url('https://static.toiimg.com/thumb/66440952/road-trip.jpg?width=1200&height=900');
+  display: table;
+  top: 0;
+  background-size: cover;
+  height: 100vh;
+  
+  
+}
+.imageText{
+  text-align: left;
+  font-weight: bold;
+  color:#00008B;
+  font-size:20px;
+  font-family:courier,arial,helvetica;
+}
+.matter
+{
+  text-align: left;
+  font-weight: bold;
+  color:#000000;
+  font-size:20px;
+  font-family:Arial,;
 }

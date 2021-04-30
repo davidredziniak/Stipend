@@ -4,6 +4,7 @@ import { useHistory} from "react-router-dom";
 import './App.css';
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
+import LandingPage from './LandingPage';
 
 function JoinTrip(props){
     const user = useRef('');
@@ -31,7 +32,7 @@ function JoinTrip(props){
               <input required type="text" placeholder="Enter Invitation Code"  className = "joinTrip" ref={user} pattern="^[a-zA-Z0-9]*$" maxLength="7"/>
               <div ><button className = "joinSubmit" onClick={()=>joinTrip(user.current.value)} type="submit" required>Join Trip</button></div>
              </div>)
-             :null}
+             :<LandingPage/>}
         </div>
         </div>
         );
