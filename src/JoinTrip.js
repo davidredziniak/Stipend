@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { joinTripApi } from './api/api.js';
 import { useHistory} from "react-router-dom";
 import './App.css';
+import LandingPage from './LandingPage'
 
 function JoinTrip(props){
     const user = useRef('');
@@ -25,7 +26,7 @@ function JoinTrip(props){
                 <div><button className = "joinSubmit" onClick={()=>joinTrip(user.current.value)} type="submit">Join Trip</button></div>
              </form>
              </div>)
-             :null}
+             :<LandingPage/>}
         </div>
         );
 }

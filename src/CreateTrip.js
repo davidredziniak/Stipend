@@ -1,5 +1,6 @@
 import Trip from './Trip';
 import React, { useState } from 'react';
+import LandingPage from './LandingPage'
 
 
 import { createTripApi, inviteToTripApi } from './api/api.js';
@@ -64,7 +65,7 @@ function CreateTrip(props){
                         <div><button type="submit" className="tripSubmit">Create Trip</button></div>
                 </form>
             </div>)
-            :null}
+            :<LandingPage/>}
 
             <Router>
                 <div>

@@ -3,6 +3,7 @@ import Activity from './Activity.js'
 import CreateActivity from './CreateActivity.js'
 import {useParams} from "react-router-dom";
 import { tripIdApi,userApi } from './api/api.js';
+import LandingPage from './LandingPage';
 
 function Trip(props)
 {
@@ -51,7 +52,7 @@ function Trip(props)
 
              </div>
              </div>
-             ):<h3>Please Login!!!</h3>}
+             ):<LandingPage/>}
         </div>
         );
 }

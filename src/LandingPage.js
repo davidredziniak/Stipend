@@ -4,15 +4,17 @@ import './App.css';
 function LandingPage()
 {
     return (
-        <body className="imageClass">
-        <div>
-        <h1>Welcome to STIPEND!</h1>
-        <h3>Basic Functionality  of the APP</h3>
-        <ul className="LandingPage">
-            <li>Helps you manage the trip by splitting the money</li>
-            <li>Helps you financially plans your trip</li>
-
-        </ul>
+        <body >
+        <div className="imageClass">
+            <div className="LandingPage">
+                <h1>Welcome to STIPEND!</h1>
+                <h3>Basic Functionality  of the APP</h3>
+                <ul dir="rtl">
+                    <li className="imageText">Helps you manage the trip by splitting the money</li>
+                    <li className="imageText">Helps you financially plans your trip</li>
+        
+                </ul>
+            </div>
         </div>
         </body>
         
