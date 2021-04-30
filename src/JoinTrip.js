@@ -1,32 +1,39 @@
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import { joinTripApi } from './api/api.js';
 import { useHistory} from "react-router-dom";
 import './App.css';
-import LandingPage from './LandingPage'
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
+import LandingPage from './LandingPage';
 
 function JoinTrip(props){
     const user = useRef('');
     const history = useHistory();
-    const [check,setCheck] =useState(true); 
-    function joinTrip(joinCode){
-        if(props.token !== ""  && joinCode!=""){
-            joinTripApi(props.token, joinCode).then(data => history.push('/trip/' + data.tripId));
-            if(user==null || user=="" || user==undefined){
-            setCheck(false);
-            }
-            user.current.value=""
-        }
+    
+    function handleErrors(data){
+      if(data.success === false)
+        props.createNotif('error', data.message);
+      else
+          history.push('/trip/' + data.tripId);
     }
+    
+    function joinTrip(joinCode){
+        if(props.token !== "")
+            joinTripApi(props.token, joinCode).then(data => handleErrors(data));
+    }
+    
     return(
-        <div className="activity">
+        
+        <div>
+        <NotificationContainer/>
+        <div className="Activity">
              {props.isAuth ?
              (<div><h3 className="headingClass">Join an existing trip!</h3>
-             <form>
-                <input type="text" placeholder="Enter Invitation Code" className = "joinTrip" ref={user} pattern="^[a-zA-Z0-9]*$" maxLength="7" required/>
-                <div><button className = "joinSubmit" onClick={()=>joinTrip(user.current.value)} type="submit">Join Trip</button></div>
-             </form>
+              <input required type="text" placeholder="Enter Invitation Code"  className = "joinTrip" ref={user} pattern="^[a-zA-Z0-9]*$" maxLength="7"/>
+              <div ><button className = "joinSubmit" onClick={()=>joinTrip(user.current.value)} type="submit" required>Join Trip</button></div>
              </div>)
              :<LandingPage/>}
+        </div>
         </div>
         );
 }

@@ -8,7 +8,13 @@ import Activity from './Activity';
 import JoinTrip from './JoinTrip';
 import CreateTrip from './CreateTrip';
 import Trip from './Trip';
+<<<<<<< HEAD
 import LandingPage from './LandingPage'
+=======
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
+>>>>>>> 66c3406882bf25d6279879cbcdd73a11a410b71a
 
 import {BrowserRouter as Router, HashRouter, Switch,Route} from "react-router-dom";
 // removed props from App()
@@ -16,6 +22,24 @@ function App() {
     const [isAuthenticated, setAuth] = useState(false);
     const [tokenId, setTokenId] = useState('');
     
+    function createNotification(type, title, message) {
+      switch (type) {
+        case 'info':
+          console.log(type);
+          NotificationManager.info('Info message');
+          break;
+        case 'success':
+          NotificationManager.success(message, title, 3000);
+          break;
+        case 'warning':
+          NotificationManager.warning(message, title, 5000);
+          break;
+        case 'error':
+          NotificationManager.error(message, title, 5000);
+          break;
+      }
+    };
+  
     // When components gets added to the DOM tree, state is loaded from localStorage (if available)
     useEffect(() => {
       let storedAuth = localStorage.getItem('isAuth') === 'true';
