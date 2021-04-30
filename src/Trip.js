@@ -38,7 +38,7 @@ function Trip(props)
              <div>
              <div><h3>Welcome to trip: {tripName}!</h3></div>
              
-             <div><h6><table><th>Trip users: </th>{fullname.map(index=><tr><td><h6>{index}</h6></td></tr>)}</table></h6></div>
+             <div><h6><table><th>Trip users: </th>{emails.map(index=><tr><td><h6>{index}</h6></td></tr>)}</table></h6></div>
              
              <div class="triptext">
 
