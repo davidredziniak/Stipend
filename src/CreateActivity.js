@@ -2,6 +2,8 @@ import Login from './Login.js';
 import {useState} from 'react';
 import './App.css';
 import { createActivityApi } from './api/api.js';
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 //import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
 
@@ -13,15 +15,23 @@ function CreateActivity(props){
     const [name, setName] = useState('');
     const [emails, setEmails] = useState('');
     
+    function handleErrors(data){
+      if(data.success === false)
+        props.createNotif('error', data.message);
+      else if(data.success === true)
+        props.createNotif('success', data.message);
+    }
+    
     function onSubmit(){
       let arrayOfEmails = emails.split(',');
       if(arrayOfEmails[0] == "")
         arrayOfEmails = []
-      createActivityApi(props.token, props.trip, name, cost, arrayOfEmails).then(data => console.log(data)).then(data => props.refresh());
+      createActivityApi(props.token, props.trip, name, cost, arrayOfEmails).then(data => handleErrors(data)).then(data => props.refresh());
     }
     
     return (
       <div className="Activity">
+        <NotificationContainer/>
             <div className="box">
               <h5> Create an activity </h5>
               <input

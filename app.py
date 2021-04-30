@@ -378,7 +378,7 @@ def handle_join_trip():
             'success': False,
             'message': 'You have already joined this trip.'
         }, 401
-    return {'success': False, 'message': 'An error has occured.'}, 401
+    return {'success': False, 'message': 'Invalid join code.'}, 401
 
 
 @APP.route('/api/trip/delete', methods=['DELETE'])
@@ -411,7 +411,7 @@ def handle_trip_delete():
             current_session = DB.session.object_session(trip)
             current_session.delete(trip)
             current_session.commit()
-            return {'success': True}, 200
+            return {'success': True, 'message': 'Successfully deleted trip.'}, 200
         return {
             'success': False,
             'message': 'You are not authorized to delete this trip.'

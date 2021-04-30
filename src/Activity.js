@@ -2,6 +2,8 @@ import Login from './Login.js';
 import {useState, useEffect} from 'react';
 import './App.css';
 import { getActivityApi, setUserPaidApi } from './api/api.js';
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 //import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
 
@@ -13,8 +15,15 @@ function Activity(props){
     const [costPerPerson, setCostPerPerson] = useState("");
     const [participants, setParticipants] = useState([]);
     
+    function handleErrors(data){
+      if(data.success === false)
+        props.createNotif('error', data.message);
+      else if(data.success === true)
+        props.createNotif('success', data.message);
+    }
+    
     function markUserPaid(email){
-      setUserPaidApi(props.token, props.id, email).then(data => console.log(data)).then(data => props.refresh());
+      setUserPaidApi(props.token, props.id, email).then(data => handleErrors(data)).then(data => props.refresh());
     }
     
     function configureState(data){
@@ -34,6 +43,7 @@ function Activity(props){
 
     return (
       <div className="Activity">
+        <NotificationContainer/>
             <div className="box">
               <h3>{name}..</h3><h5> Total cost ${cost} - Cost per person ${costPerPerson}</h5>
               <p>Participants {participants.map( user => ( <p>{user.firstName} - {user.email} - Paid? {user.paid == 1 ? <b>Yes</b> : <b>No</b>} {owner && user.paid == 0? <div><button onClick={ () => markUserPaid(user.email)}>'Mark as Paid'</button></div> : '' }</p> ) )}</p>

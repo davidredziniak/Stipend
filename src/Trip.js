@@ -4,6 +4,7 @@ import CreateActivity from './CreateActivity.js'
 import {useParams} from "react-router-dom";
 import { tripIdApi,userApi,userBalanceApi, setUserPaidApi } from './api/api.js';
 
+
 function Trip(props)
 {
      let { tripId } = useParams();
@@ -19,7 +20,6 @@ function Trip(props)
     //useState with activity id []
     function configureState(data)
     {
-        console.log(data);
         setTripName(data.tripName);
         setTripOwner(data.tripOwner);
         setTripUsers(data.participants[0].firstName);
@@ -52,8 +52,8 @@ function Trip(props)
              <div><h6><table><th>Participants on this trip: </th>{participants.map(user => (<tr><td><h6>{user.firstName} - {user.email}</h6></td></tr>))}</table></h6></div>
              <div class="triptext">
                 <div className="smallBox">Outstanding balance: <b>${balance}</b></div>
-                <CreateActivity token={props.token} trip={tripId} refresh={refresh} />
-                {activityIds.map(activityId => <Activity token={props.token} isAuth={props.isAuth} refresh={refresh} refreshState={isLoading} id={activityId} />)}
+                <CreateActivity createNotif={props.createNotif} token={props.token} trip={tripId} refresh={refresh} />
+                {activityIds.map(activityId => <Activity createNotif={props.createNotif} token={props.token} isAuth={props.isAuth} refresh={refresh} refreshState={isLoading} id={activityId} />)}
              </div>
              </div>
              ):<h3>Please Login!!!</h3>}

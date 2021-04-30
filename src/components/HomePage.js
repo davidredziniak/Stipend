@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react';
 // import Logout from'../Logout.js';
 //import {loginApi, userApi} from '../api/api.js';
 import { userApi,deleteTripIdApi} from '../api/api.js';
+import {NotificationContainer} from 'react-notifications';
+
 
 function HomePage(props){
     
@@ -12,7 +14,8 @@ function HomePage(props){
     const [lastName, setLastName] = useState("");
     const [trips, setTrips] = useState([]);
     const [hide, setHide]=useState(false);
-    
+    const [isLoading, setIsLoading] = useState(false);
+
     function randomImages(){
       var images = ["https://i.stack.imgur.com/CJT47.jpg","https://www.freegreatpicture.com/files/85/2994-man-and-nature.jpg"
                     ,"https://www.freegreatpicture.com/files/31/10971-world-scenery.jpg"
@@ -22,6 +25,13 @@ function HomePage(props){
       return randomImage;
     }
     
+    function handleErrors(data){
+      if(data.success === false)
+        props.createNotif('error', data.message);
+      else if(data.success === true)
+        props.createNotif('success', data.message);
+      setIsLoading(!isLoading);
+    }
     
     function updateData(data){
       // If the user data API call fails, log the user out.
@@ -41,13 +51,8 @@ function HomePage(props){
     }
     function deleteTrip(trip_id)
     {
-      alert("Deleteing the Trip "+trip_id)
       if(props.token !== "")
-        {
-          deleteTripIdApi(props.token, trip_id).then(data => console.log(data));
-        }
-      
-      
+        deleteTripIdApi(props.token, trip_id).then(data => handleErrors(data));
     }
     
     //Rerender component when token ID and isAuth updates.
@@ -63,15 +68,18 @@ function HomePage(props){
         setFirstName("");
         setViewable(false);
       }
-    }, [props.token, props.isAuth]);
-// <button className="tripsButton">{trip.name} </button>
+    }, [isLoading, props.token, props.isAuth]);
+  // <button className="tripsButton">{trip.name} </button>
   
   if(isViewable){
     return (
       <div className="homePage">
+      
+      <NotificationContainer/>
         <h2>Hello, {firstName}!</h2>
         <h5>Email: {email}</h5>
         <h5>Last Name: {lastName}</h5>
+
         <div>
           <button className="hideButton" onClick={()=>{setHide(!hide)}} >Show / Hide Trips<br /></button>
         </div>
