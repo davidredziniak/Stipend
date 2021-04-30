@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect } from 'react';
 import Activity from './Activity.js'
 import CreateActivity from './CreateActivity.js'
-import {useParams} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom";
 import { tripIdApi,userApi,userBalanceApi, setUserPaidApi } from './api/api.js';
 import LandingPage from "./LandingPage";
 
 
 function Trip(props)
 {
-     let { tripId } = useParams();
+    let { tripId } = useParams();
+    const history = useHistory();
     const [tripName, setTripName] = useState("");
     const [tripOwner, setTripOwner] = useState("");
     const [tripUsers, setTripUsers] = useState([]);
@@ -18,7 +19,16 @@ function Trip(props)
     const [activityIds, setActivityIds] = useState([]);
     const [balance, setBalance] = useState(0);
 
-    //useState with activity id []
+    function handleErrors(data){
+      if(data.success === false){
+        // Redirect user to homepage if they try to access a trip they aren't a part of
+        history.push('/home');
+      }
+      else if(data.success === true){
+        configureState(data);
+      }
+    }
+    
     function configureState(data)
     {
         setTripName(data.tripName);
@@ -37,7 +47,7 @@ function Trip(props)
     useEffect(() => {
       //If user is logged in and the token ID is valid, update home page
       if(props.token !== "" && props.isAuth){
-        tripIdApi(props.token, tripId).then(data => configureState(data));
+        tripIdApi(props.token, tripId).then(data => handleErrors(data));
         userBalanceApi(props.token, tripId).then(data => setBalance(data.balance));
       }
     },[isLoading, props.token, props.isAuth]);
