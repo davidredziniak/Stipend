@@ -1,3 +1,4 @@
+
 import { useRef } from 'react';
 import { joinTripApi } from './api/api.js';
 import { useHistory} from "react-router-dom";
@@ -39,4 +40,3 @@ function JoinTrip(props){
 }
 
 export default JoinTrip;
-

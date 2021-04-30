@@ -1,3 +1,4 @@
+
 import Login from './Login.js';
 import {useState} from 'react';
 import './App.css';
@@ -73,6 +74,7 @@ function CreateActivity(props){
                 value={time}
                 onChange={e => setTime(e.target.value)}
               />
+
               <input
                 required
                 type="text"
