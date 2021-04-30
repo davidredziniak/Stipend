@@ -669,6 +669,54 @@ def handle_mark_paid():
         'Error has occured while trying to mark the specified user as paid.'
     }, 401
 
+@APP.route('/api/activity/user/remove', methods=['POST'])
+def handle_remove_user():
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+    current_user = token_status['user']
+    activity_id = request.get_json()['activity_id']
+    if activity_id == "" or activity_id is None:
+        return {'success': False, 'message': 'Invalid activity id.'}, 401
+    # Check if activity exists
+    activity = models.Activity.query.filter_by(id=activity_id).first()
+    if activity is None:
+        return {
+            'success': False,
+            'message': 'Activity id does not match any activity.'
+        }, 401
+    # Check if user is owner of activity (has permissions)
+    if activity.owner_id != current_user.id:
+        return {
+            'success': False,
+            'message':
+            'You do not have permissions to remove participants from this activity.'
+        }, 401
+    # Check if email to remove is valid
+    email_to_remove = request.get_json()['participant_email']
+    if email_to_remove == "" or email_to_remove is None:
+        return {'success': False, 'message': 'Invalid participant email.'}, 401
+    if email_to_remove == current_user.email:
+        return {'success': False, 'message': 'Cannot remove yourself from activity.'}, 401
+    participant = models.User.query.filter_by(email=email_to_remove).first()
+    if participant is None:
+        return {
+            'success': False,
+            'message': 'Email is not part of the trip.'
+        }, 401
+    # Check if participant is on the activity
+    activity_participant = models.ActivityUser.query.filter_by(
+        user_id=participant.id, activity_id=activity.id).first()
+    if activity_participant is None:
+        return {
+            'success': False,
+            'message': 'Participant is not a part of the specified activity.'
+        }, 401
+    
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":
