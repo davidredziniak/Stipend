@@ -3,6 +3,7 @@ import Activity from './Activity.js'
 import CreateActivity from './CreateActivity.js'
 import {useParams} from "react-router-dom";
 import { tripIdApi,userApi,userBalanceApi, setUserPaidApi } from './api/api.js';
+import LandingPage from "./LandingPage";
 
 
 function Trip(props)
@@ -56,7 +57,7 @@ function Trip(props)
                 {activityIds.map(activityId => <Activity createNotif={props.createNotif} token={props.token} isAuth={props.isAuth} refresh={refresh} refreshState={isLoading} id={activityId} />)}
              </div>
              </div>
-             ):<h3>Please Login!!!</h3>}
+             ):<LandingPage/>}
         </div>
         );
 }

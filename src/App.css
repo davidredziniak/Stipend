@@ -414,23 +414,29 @@ table, th, td {
 }
 .LandingPage
 {
-  text-align: right;
-  padding-top:5rem;
-  padding-right:8rem;
+  text-align: left;
+  float:right;
+  padding-top:6rem;
+  padding-right:5rem;
 }
 .imageClass
 {
   
+  
+  
+  height: 100%;
+  width: 100%;
+  margin: auto;
   background-image:url('https://static.toiimg.com/thumb/66440952/road-trip.jpg?width=1200&height=900');
-  position:fixed;
-  min-width:100%;
-  min-height:100%;
-  background-position: center center;
-  background-repeat: no-repeat;
+  display: table;
+  top: 0;
   background-size: cover;
+  height: 100vh;
+  
+  
 }
 .imageText{
-  text-align: right;
+  text-align: left;
   font-weight: bold;
   color:#00008B;
   font-size:20px;
