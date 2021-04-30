@@ -226,11 +226,12 @@
   background-color: transparent;
 }
 
+.btn-box{
+  margin-top:20px;
+}
 
 .ml101{
-  margin-left:20px;
-  width: 30%;
-  margin-bottom:10px;
+  margin:auto;
 }
 
 .images{
@@ -398,6 +399,10 @@
   margin-top:30px;
 }
 
+.selectEmails{
+  margin-top:10px;
+}
+
 .box{
   padding:20px;
   background:#D8F4D1;
@@ -427,8 +432,6 @@ table, th, td {
 }
 .imageClass
 {
-  
-  
   
   height: 100%;
   width: 100%;
