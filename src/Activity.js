@@ -46,12 +46,16 @@ function Activity(props){
     },[props.token, props.refreshState]);
 
     return (
-      <div className="Activity">
-        <NotificationContainer/>
-            <div className="box">
-              <h3>{name}.. </h3><h4>({date} at {time})</h4><h5> Total cost ${cost} - Cost per person ${costPerPerson}</h5>
-              <p>Participants {participants.map( user => ( <p>{user.firstName} - {user.email} - Paid? {user.paid == 1 ? <b>Yes</b> : <b>No</b>} {owner && user.paid == 0? <div><button onClick={ () => markUserPaid(user.email)}>'Mark as Paid'</button></div> : '' }</p> ) )}</p>
-            </div>
+      <div>
+       
+        <div className="Activity">
+          <NotificationContainer/>
+          
+              <div className="box">
+                <h3>{name}.. </h3><h4>({date} at {time})</h4><h5> Total cost ${cost} - Cost per person ${costPerPerson}</h5>
+                <p>Participants {participants.map( user => ( <p>{user.firstName} - {user.email} - Paid? {user.paid == 1 ? <b>Yes</b> : <b>No</b>} {owner && user.paid == 0? <div><button onClick={ () => markUserPaid(user.email)}>'Mark as Paid'</button></div> : '' }</p> ) )}</p>
+              </div>
+        </div>
       </div>
     );
 }

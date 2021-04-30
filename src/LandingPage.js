@@ -23,7 +23,7 @@ function LandingPage()
                 <h1>OUR TEAM </h1>
                 <div class="row">
                   <div class="column">
-                    <div class="card">
+                    <div class="card ">
                       <div class="container">
                       <img alt="Qries" src="https://cdn.dribbble.com/users/3293507/screenshots/14667603/media/d8cbe035a61f64afdf6deabca5182842.jpg" width="40" height="50"/>
                         <h2>David Redziniak</h2>
