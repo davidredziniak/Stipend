@@ -8,13 +8,9 @@ import Activity from './Activity';
 import JoinTrip from './JoinTrip';
 import CreateTrip from './CreateTrip';
 import Trip from './Trip';
-<<<<<<< HEAD
-import LandingPage from './LandingPage'
-=======
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
-
->>>>>>> 66c3406882bf25d6279879cbcdd73a11a410b71a
+import LandingPage from './LandingPage';
 
 import {BrowserRouter as Router, HashRouter, Switch,Route} from "react-router-dom";
 // removed props from App()
