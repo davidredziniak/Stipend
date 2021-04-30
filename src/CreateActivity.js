@@ -17,7 +17,7 @@ function CreateActivity(props){
       let arrayOfEmails = emails.split(',');
       if(arrayOfEmails[0] == "")
         arrayOfEmails = []
-      createActivityApi(props.token, props.trip, name, cost, arrayOfEmails);
+      createActivityApi(props.token, props.trip, name, cost, arrayOfEmails).then(data => console.log(data)).then(data => props.refresh());
     }
     
     return (

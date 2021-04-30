@@ -181,6 +181,7 @@ def handle_user_info():
         }, 401
     return {'success': False, 'message': 'Missing Authorization header.'}, 401
 
+
 @APP.route('/api/user/balance', methods=['GET'])
 def handle_user_balance():
     '''
@@ -197,28 +198,33 @@ def handle_user_balance():
     trip_id = int(request.args.get('trip_id'))
     if trip_id is None:
         return {'success': False, 'message': 'Missing trip id.'}, 401
-        
+
     current_user = token_status['user']
     balance = 0
-    
+
     # Check if user is part of the trip
-    trip_user = models.TripUser.query.filter_by(trip_id=trip_id, user_id=current_user.id).first()
-        
+    trip_user = models.TripUser.query.filter_by(
+        trip_id=trip_id, user_id=current_user.id).first()
+
     if trip_user is not None:
         # Get info of the trip
         trip = models.Trip.query.filter_by(id=trip_id).first()
         if trip is not None:
             for activity in trip.activities:
                 # If user is part of the activity and hasn't paid, add to balance
-                activity_user = models.ActivityUser.query.filter_by(activity_id=activity.id, user_id=current_user.id, paid=0).first()
+                activity_user = models.ActivityUser.query.filter_by(
+                    activity_id=activity.id, user_id=current_user.id,
+                    paid=0).first()
                 if activity_user is not None:
-                    cost_per_person = int(activity.total_sum/activity.total_users)
+                    cost_per_person = int(activity.total_sum /
+                                          activity.total_users)
                     balance += cost_per_person
-            return { 'success': True, 'balance': balance }, 200
+            return {'success': True, 'balance': balance}, 200
     return {
         'success': False,
         'message': 'You are not authorized to get data from this trip.'
     }, 401
+
 
 def add_trip_to_database(trip_name, join_code, owner_id):
     '''
@@ -430,10 +436,10 @@ def add_activity_to_database(trip_id, activity_name, cost, num_participants,
         a new activity to the database
     '''
     new_activity = models.Activity(trip_id=trip_id,
-                               activity_name=activity_name,
-                               total_sum=cost,
-                               total_users=num_participants,
-                               owner_id=owner_id)
+                                   activity_name=activity_name,
+                                   total_sum=cost,
+                                   total_users=num_participants,
+                                   owner_id=owner_id)
     DB.session.add(new_activity)
     DB.session.commit()
     return new_activity.id
@@ -445,10 +451,65 @@ def add_user_to_activity(activity_id, user_id, user_paid):
         a new user to an activity
     '''
     new_activity_user = models.ActivityUser(activity_id=activity_id,
-                                            user_id=user_id, paid=user_paid)
+                                            user_id=user_id,
+                                            paid=user_paid)
     DB.session.add(new_activity_user)
     DB.session.commit()
     return new_activity_user
+
+
+@APP.route('/api/activity', methods=['GET'])
+def handle_get_activity():
+    '''
+        Given an activity id, returns information
+        about the activity
+    '''
+    headers_status = verify_headers(request.headers)
+    if not headers_status['success']:
+        return headers_status, 401
+    token_status = verify_token_id(
+        request.headers['Authorization'].split(' ')[1])
+    if not token_status['success']:
+        return token_status, 401
+
+    activity_id = int(request.args.get('activity_id'))
+    if activity_id is None:
+        return {'success': False, 'message': 'Missing activity id.'}, 401
+
+    # Check if activity exists
+    activity = models.Activity.query.filter_by(id=activity_id).first()
+    if activity is None:
+        return {'success': False, 'message': 'Invalid activity id.'}, 401
+    activity_info = activity.to_json()
+    activity_info['success'] = True
+
+    # Check if user can access info about this activity
+    current_user = token_status['user']
+    trip_user = models.TripUser.query.filter_by(
+        trip_id=activity.trip_id, user_id=current_user.id).first()
+    if trip_user is not None:
+        # Get participant data
+        participants = []
+        activity_users = models.ActivityUser.query.filter_by(
+            activity_id=activity_id).all()
+        for user in activity_users:
+            user_data = models.User.query.filter_by(id=user.user_id).first()
+            participants.append({
+                'firstName': user_data.first_name,
+                'email': user_data.email,
+                'paid': user.paid
+            })
+        activity_info['participants'] = participants
+        
+        # Get email of owner of activity
+        activity_info['owner'] = False
+        if current_user.id == activity.owner_id:
+            activity_info['owner'] = True
+        return activity_info, 200
+    return {
+        'success': False,
+        'message': 'You are unable to view information about this activity.'
+    }, 401
 
 
 @APP.route('/api/activity/create', methods=['POST'])
@@ -503,15 +564,16 @@ def handle_create_activity():
                         }, 401
                     valid_participants.append(current_participant)
             # Create Activity using provided details
-            result = add_activity_to_database(trip.id, activity_name, int(cost),
-                                              len(valid_participants)+1,
+            result = add_activity_to_database(trip.id, activity_name,
+                                              int(cost),
+                                              len(valid_participants) + 1,
                                               current_user.id)
 
             # Create database objects to link user to activity
             if result:
                 # Add initial creator to activity user table
                 add_user_to_activity(result, current_user.id, 1)
-                
+
                 for user in valid_participants:
                     add_user_to_activity(result, user.id, 0)
                 return {
@@ -529,12 +591,11 @@ def handle_create_activity():
         }, 401
     return {'success': False, 'message': 'Invalid trip id.'}, 401
 
-
-@APP.route('/api/activity', methods=['GET'])
-def handle_get_activity():
+@APP.route('/api/activity/setpaid', methods=['POST'])
+def handle_mark_paid():
     '''
-        Given an activity id, returns information
-        about the activity
+        Given an activity id and user email,
+        mark user as paid for the activity
     '''
     headers_status = verify_headers(request.headers)
     if not headers_status['success']:
@@ -543,34 +604,42 @@ def handle_get_activity():
         request.headers['Authorization'].split(' ')[1])
     if not token_status['success']:
         return token_status, 401
-
-    activity_id = int(request.args.get('activity_id'))
-    if activity_id is None:
-        return {'success': False, 'message': 'Missing activity id.'}, 401
-
+    current_user = token_status['user']
+    activity_id = request.get_json()['activity_id']
+    if activity_id == "" or activity_id is None:
+        return {'success': False, 'message': 'Invalid activity id.'}, 401
     # Check if activity exists
     activity = models.Activity.query.filter_by(id=activity_id).first()
     if activity is None:
         return {'success': False, 'message': 'Invalid activity id.'}, 401
-    activity_info = activity.to_json()
-    activity_info['success'] = True
-    
-    # Check if user can access info about this activity
-    current_user = token_status['user']
-    trip_user = models.TripUser.query.filter_by(
-        trip_id=activity.trip_id, user_id=current_user.id).first()
-    if trip_user is not None:
-        # Get participant data
-        participants = []
-        activity_users = models.ActivityUser.query.filter_by(activity_id=activity_id).all()
-        for user in activity_users:
-            user_data = models.User.query.filter_by(id=user.user_id).first()
-            participants.append({'firstName': user_data.first_name, 'email': user_data.email, 'paid': user.paid})
-        activity_info['participants'] = participants
-        return activity_info, 200
+    # Check if user is owner of activity (has permissions)
+    if activity.owner_id != current_user.id:
+        return {'success': False, 'message': 'You do not have permissions to mark participants as paid.'}, 401
+    participant_email = request.get_json()['participant_email']
+    if participant_email == "" or participant_email is None:
+        return {'success': False, 'message': 'Invalid participant email.'}, 401
+    # Check if user being marked as paid is themselves
+    if current_user.email == participant_email:
+        return {'success': False, 'message': 'You cannot mark yourself as paid, you are the owner of the activity.'}, 401
+    # Check if participant is a valid trip user
+    participant = models.User.query.filter_by(email=participant_email).first()
+    if participant is None:
+        return {'success': False, 'message': 'Email is not part of the trip.'}, 401
+    # Check if participant is on the activity
+    activity_participant = models.ActivityUser.query.filter_by(user_id=participant.id, activity_id=activity.id).first()
+    if activity_participant is None:
+        return {'success': False, 'message': 'Participant is not not a part of the specified activity.'}, 401
+    # Check if participant has already paid
+    if activity_participant.paid == 1:
+        return {'success': False, 'message': 'Participant has already paid for this trip.'}, 401
+    else:
+        activity_participant.paid = 1
+        DB.session.merge(activity_participant)
+        DB.session.commit()
+        return {'success': True, 'message': 'Successfully updated participant as paid.'}, 200
     return {
         'success': False,
-        'message': 'You are unable to view information about this activity.'
+        'message': 'Error has occured while trying to mark a user as paid.'
     }, 401
 
 
