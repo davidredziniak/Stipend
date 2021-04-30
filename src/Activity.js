@@ -1,118 +1,57 @@
 import Login from './Login.js';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import './App.css';
+import { getActivityApi, setUserPaidApi } from './api/api.js';
+import {NotificationContainer} from 'react-notifications';
+import 'react-notifications/lib/notifications.css';
 
 //import { BrowserRouter as Router,Switch,Route, Link} from "react-router-dom";
 
-function Activity(){
-  
-    const [inputList, setInputList] = useState([{ activityName: "", amount: "", participants: ""  }]);
-    const [showbtn, setShowBtn] = useState(true);
+function Activity(props){
     
-          // get all the users in the trip from the database
-  function splitMoney(){
-    console.log('heres the inputlist passed',inputList)
-    // var mtLst;
-    // for (const [index, value] of inputList[index].participants.entries()) {
-    //   console.log('trying for loop ',value);
-    // }
-    // console.log('mtlst here ',mtLst)
-    if (inputList[0].participants !== ""){
-      var lst = (inputList[0].participants.split(/[ ,]+/));
-      console.log(lst)
-      if(inputList[0].amount !== ""){
-        var splitAmount = (inputList[0].amount)/lst.length;
-        console.log("split amount is ",splitAmount);
-        return(
-          <div>Money split per person is {splitAmount}</div>
-          );
-      }
+    const [name, setName] = useState("");
+    const [cost, setCost] = useState("");
+    const [date, setDate] = useState("");
+    const [time, setTime] = useState("");
+    const [owner, setOwner] = useState(false);
+    const [costPerPerson, setCostPerPerson] = useState("");
+    const [participants, setParticipants] = useState([]);
+    
+    function handleErrors(data){
+      if(data.success === false)
+        props.createNotif('error', data.message);
+      else if(data.success === true)
+        props.createNotif('success', data.message);
     }
-  }
     
-    // handle input change
-    const handleInputChange = (e, index) => {
-      const { name, value } = e.target;
-      const list = [...inputList];
-      list[index][name] = value;
-      setInputList(list);
-      console.log(list)
-      console.log(list[index])
+    function markUserPaid(email){
+      setUserPaidApi(props.token, props.id, email).then(data => handleErrors(data)).then(data => props.refresh());
+    }
     
-      if (list[index].activityName !== "" && list[index].amount !== "" && list[index].participants !== "")
-        {setShowBtn(false);}
-        
-      splitMoney();
-      // list.map((list,index)=>{ 
-      //   if (list[index].activityName !== "" && list[index].amount !== "" && list[index].participants !== "")
-      //   {setShowBtn(false);}
-      // });
-      
-    };
-     
-    // handle click event of the Remove button
-    const handleRemoveClick = index => {
-      const list = [...inputList];
-      list.splice(index, 1);
-      setInputList(list);
-    };
-     
-    // handle click event of the Add button
-    const handleAddClick = () => {
-      setInputList([...inputList, { activityName: "", amount: "", participants: "" }]);
-    };
+    function configureState(data){
+      console.log(data);
+      setName(data.name);
+      setCost(data.totalCost);
+      setCostPerPerson(data.costPerPerson);
+      setDate(data.date);
+      setTime(data.time);
+      setParticipants(data.participants);
+      setOwner(data.owner);
+    }
     
+    useEffect(() => {
+      //If user is logged in and the token ID is valid, update home page
+      if(props.token !== "" && props.isAuth)
+        getActivityApi(props.token, props.id).then(data => configureState(data));
+    },[props.token, props.refreshState]);
+
     return (
       <div className="Activity">
-      <h3>Your Activities for the trip:</h3>
-        {inputList.map((x, i) => {
-          return (
+        <NotificationContainer/>
             <div className="box">
-              <input
-                required
-                type="text"
-                
-                name="activityName"
-                className="ml10"
-                placeholder="Enter Activity Name"
-                value={x.activityName}
-                onChange={e => handleInputChange(e, i)}
-              />
-              <input
-                required
-                type="text"
-                name="amount"
-                className="ml10"
-                placeholder="Enter Amount"
-                value={x.amount}
-                onChange={e => handleInputChange(e, i)}
-              />
-              <input
-                required
-                type="text"
-                className="ml101"
-                name="participants"
-                placeholder="Participant Email#1, Email#2,.."
-                value={x.participants}
-                onChange={e => handleInputChange(e, i)}
-              />
-              <div className="btn-box">
-                {inputList.length !== 1 && <button
-                  className="mr10"
-                  
-                  onClick={() => handleRemoveClick(i)}>Remove</button>}
-                {inputList.length - 1 === i && <button onClick={handleAddClick} disabled={showbtn} >Add</button>}
-                
-              </div>
-             
+              <h3>{name}.. </h3><h4>({date} at {time})</h4><h5> Total cost ${cost} - Cost per person ${costPerPerson}</h5>
+              <p>Participants {participants.map( user => ( <p>{user.firstName} - {user.email} - Paid? {user.paid == 1 ? <b>Yes</b> : <b>No</b>} {owner && user.paid == 0? <div><button onClick={ () => markUserPaid(user.email)}>'Mark as Paid'</button></div> : '' }</p> ) )}</p>
             </div>
-            
-          );
-        })}
-        
-        {console.log(inputList)}
-        <div style={{ marginTop: 20 }}>{JSON.stringify(inputList)}</div>
-        
       </div>
     );
 }
