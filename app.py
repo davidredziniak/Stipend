@@ -792,9 +792,10 @@ def handle_remove_user():
     current_session.delete(activity_participant)
     current_session.commit()
     # Reduce total users in the activity
+    current_session = DB.session.object_session(activity)
     activity.total_users -= 1
-    DB.session.merge(activity)
-    DB.session.commit()
+    current_session.merge(activity)
+    current_session.commit()
     return {
         'success': True,
         'message': 'Successfully removed user from the activity.'
