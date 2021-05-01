@@ -3,6 +3,7 @@ import React, {useEffect} from 'react';
 import './App.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
+import LandingPage  from './LandingPage';
 
 
 import {Link} from "react-router-dom";

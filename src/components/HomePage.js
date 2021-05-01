@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 //import {loginApi, userApi} from '../api/api.js';
 import { userApi,deleteTripIdApi} from '../api/api.js';
 import {NotificationContainer} from 'react-notifications';
-
+import LandingPage from "../LandingPage";
 
 function HomePage(props){
     
@@ -115,13 +115,9 @@ function HomePage(props){
     );
   }
   else{
-    return (<div>
-      <h2>Please log in!</h2>
-    </div>
+    return (<LandingPage/>
     );
   }
 }
 
 export default HomePage;
-
-//<button onClick={onClickButton} type="button">Test API</button> 

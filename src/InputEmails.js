@@ -65,7 +65,7 @@ function InputEmails() {
     </div>
   );
 }
-export {
+export  {
   getInvitedEmails,
   InputEmails
 };

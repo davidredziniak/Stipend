@@ -279,7 +279,8 @@ def handle_trip_info():
                 'startDate': trip.start_date,
                 'endDate': trip.end_date,
                 'participants': users,
-                'activities': activities
+                'activities': activities,
+                'joinCode':trip.join_code
             }, 200
         return {
             'success': False,
@@ -578,7 +579,7 @@ def handle_create_activity():
                 return {
                     'success': True,
                     'message': 'Successfully created the activity.'
-                }, 401
+                }, 200
             return {
                 'success': False,
                 'message': 'Error creating the activity.'
@@ -728,6 +729,7 @@ def handle_remove_user():
             'success': True,
             'message': 'Successfully removed user from the activity.'
         }, 200
+
 
 # Note we need to add this line so we can import app in the python shell
 if __name__ == "__main__":

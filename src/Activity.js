@@ -57,7 +57,7 @@ function Activity(props){
               <p>Participants {participants.map( user => ( 
                 <p>
                   {user.firstName} - {user.email} - Paid? {user.paid == 1 ? <b>Yes</b> : <b>No</b>} {owner && user.paid == 0? <div><button onClick={ () => markUserPaid(user.email)}>'Mark as Paid'</button></div> : '' }
-                                                                                                    {owner ? <div><button onClick={ () => removeUserFromActivity(user.email)}>'Remove User'</button></div> : '' }
+                                                                                                    {owner && user.email != owner.email? <div><button onClick={ () => removeUserFromActivity(user.email)}>'Remove User'</button></div> : '' }
                 </p> 
               ) )}</p>
             </div>
