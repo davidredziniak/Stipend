@@ -407,6 +407,12 @@ def handle_trip_delete():
     if trip is not None:
         # Check if user is authorized to delete trip
         if current_user.id == trip.owner_id:
+            # Delete all activities
+            for activity in trip.activities:
+                remove_activity_status = remove_activity_from_database(activity.id, current_user.id, True)
+                if not remove_activity_status['success']:
+                    return remove_activity_status, 401
+            # Delete all trip users
             for user in trip.users:
                 current_session = DB.session.object_session(user)
                 current_session.delete(user)
@@ -420,6 +426,40 @@ def handle_trip_delete():
             'message': 'You are not authorized to delete this trip.'
         }, 401
     return {'success': False, 'message': 'Invalid trip id.'}, 401
+
+
+def remove_activity_from_database(activity_id, user_id, owner_bypass):
+    '''
+        Given an activity id and user id, deletes the 
+        from the database if the user is the owner of
+        the activity. If owner_bypass is true, will delete
+        activitiy even if the user is not the owner.
+    '''
+    if activity_id == "" or activity_id is None:
+        return {'success': False, 'message': 'Invalid activity id.'}
+    # Check if activity exists
+    activity = models.Activity.query.filter_by(id=activity_id).first()
+    if activity is None:
+        return {
+            'success': False,
+            'message': 'Error in removing activity, id does not match any activity.'
+        }
+    # Check if user is owner of activity (has permissions)
+    if not owner_bypass and activity.owner_id != user_id:
+        return {
+            'success': False,
+            'message':
+            'You are not the owner of an activity you are trying to delete.'
+        }
+    activity_users = models.ActivityUser.query.filter_by(activity_id=activity_id).all()
+    for user in activity_users:
+        current_session = DB.session.object_session(user)
+        current_session.delete(user)
+        current_session.commit()
+    current_session = DB.session.object_session(activity)
+    current_session.delete(activity)
+    current_session.commit()
+    return {'success': True, 'message': 'Successfully deleted activity.'}
 
 
 def add_activity_to_database(trip_id, activity_name, cost, date, time, num_participants,
