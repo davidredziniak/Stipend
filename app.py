@@ -162,7 +162,12 @@ def handle_user_info():
     trips = []
     for trip in current_user.trips:
         current_trip = models.Trip.query.filter_by(id=trip.trip_id).first()
-        trips.append({'trip_id': current_trip.id, 'name': current_trip.trip_name, 'startDate': current_trip.start_date, 'endDate': current_trip.end_date})
+        trips.append({
+            'trip_id': current_trip.id,
+            'name': current_trip.trip_name,
+            'startDate': current_trip.start_date,
+            'endDate': current_trip.end_date
+        })
     return {
         'success': True,
         'email': current_user.email,
@@ -222,7 +227,9 @@ def add_trip_to_database(trip_name, join_code, start_date, end_date, owner_id):
         a new trip to the database
     '''
     if len(join_code) == 7:
-        new_trip = models.Trip(trip_name=trip_name,start_date=start_date, end_date=end_date,
+        new_trip = models.Trip(trip_name=trip_name,
+                               start_date=start_date,
+                               end_date=end_date,
                                join_code=join_code,
                                owner_id=owner_id)
         DB.session.add(new_trip)
@@ -280,7 +287,7 @@ def handle_trip_info():
                 'endDate': trip.end_date,
                 'participants': users,
                 'activities': activities,
-                'joinCode':trip.join_code
+                'joinCode': trip.join_code
             }, 200
         return {
             'success': False,
@@ -310,7 +317,8 @@ def handle_create_trip():
     if valid_trip is not None:
         return {'success': False, 'message': 'Join code already exists.'}, 200
     # Create Trip
-    add_trip_to_database(trip_data['trip_name'], trip_data['join_code'], trip_data['start_date'], trip_data['end_date'],
+    add_trip_to_database(trip_data['trip_name'], trip_data['join_code'],
+                         trip_data['start_date'], trip_data['end_date'],
                          current_user.id)
     # Create TripUser
     new_trip_user = models.TripUser(trip_id=DB.session.query(
@@ -409,7 +417,8 @@ def handle_trip_delete():
         if current_user.id == trip.owner_id:
             # Delete all activities
             for activity in trip.activities:
-                remove_activity_status = remove_activity_from_database(activity.id, current_user.id, True)
+                remove_activity_status = remove_activity_from_database(
+                    activity.id, current_user.id, True)
                 if not remove_activity_status['success']:
                     return remove_activity_status, 401
             # Delete all trip users
@@ -420,7 +429,10 @@ def handle_trip_delete():
             current_session = DB.session.object_session(trip)
             current_session.delete(trip)
             current_session.commit()
-            return {'success': True, 'message': 'Successfully deleted trip.'}, 200
+            return {
+                'success': True,
+                'message': 'Successfully deleted trip.'
+            }, 200
         return {
             'success': False,
             'message': 'You are not authorized to delete this trip.'
@@ -430,7 +442,7 @@ def handle_trip_delete():
 
 def remove_activity_from_database(activity_id, user_id, owner_bypass):
     '''
-        Given an activity id and user id, deletes the 
+        Given an activity id and user id, deletes the
         from the database if the user is the owner of
         the activity. If owner_bypass is true, will delete
         activitiy even if the user is not the owner.
@@ -441,17 +453,21 @@ def remove_activity_from_database(activity_id, user_id, owner_bypass):
     activity = models.Activity.query.filter_by(id=activity_id).first()
     if activity is None:
         return {
-            'success': False,
-            'message': 'Error in removing activity, id does not match any activity.'
+            'success':
+            False,
+            'message':
+            'Error in removing activity, id does not match any activity.'
         }
     # Check if user is owner of activity (has permissions)
     if not owner_bypass and activity.owner_id != user_id:
         return {
-            'success': False,
+            'success':
+            False,
             'message':
             'You are not the owner of an activity you are trying to delete.'
         }
-    activity_users = models.ActivityUser.query.filter_by(activity_id=activity_id).all()
+    activity_users = models.ActivityUser.query.filter_by(
+        activity_id=activity_id).all()
     for user in activity_users:
         current_session = DB.session.object_session(user)
         current_session.delete(user)
@@ -462,8 +478,8 @@ def remove_activity_from_database(activity_id, user_id, owner_bypass):
     return {'success': True, 'message': 'Successfully deleted activity.'}
 
 
-def add_activity_to_database(trip_id, activity_name, cost, date, time, num_participants,
-                             owner_id):
+def add_activity_to_database(trip_id, activity_name, cost, date, time,
+                             num_participants, owner_id):
     '''
         This function adds
         a new activity to the database
@@ -471,7 +487,8 @@ def add_activity_to_database(trip_id, activity_name, cost, date, time, num_parti
     new_activity = models.Activity(trip_id=trip_id,
                                    activity_name=activity_name,
                                    total_sum=cost,
-                                   date=date, time=time,
+                                   date=date,
+                                   time=time,
                                    total_users=num_participants,
                                    owner_id=owner_id)
     DB.session.add(new_activity)
@@ -582,7 +599,7 @@ def handle_create_activity():
     time = request.get_json()['time']
     if date and time is None or date == "" or time == "":
         return {'success': False, 'message': 'Invalid date or time.'}, 401
-        
+
     # Check if trip exists
     trip = models.Trip.query.filter_by(id=trip_id).first()
     if trip is not None:
@@ -710,8 +727,14 @@ def handle_mark_paid():
         'Error has occured while trying to mark the specified user as paid.'
     }, 401
 
+
 @APP.route('/api/activity/user/remove', methods=['POST'])
 def handle_remove_user():
+    '''
+        Given an activity id and email, removes
+        the user associated with the email from
+        the activity.
+    '''
     headers_status = verify_headers(request.headers)
     if not headers_status['success']:
         return headers_status, 401
@@ -733,7 +756,8 @@ def handle_remove_user():
     # Check if user is owner of activity (has permissions)
     if activity.owner_id != current_user.id:
         return {
-            'success': False,
+            'success':
+            False,
             'message':
             'You do not have permissions to remove participants from this activity.'
         }, 401
@@ -742,7 +766,10 @@ def handle_remove_user():
     if email_to_remove == "" or email_to_remove is None:
         return {'success': False, 'message': 'Invalid participant email.'}, 401
     if email_to_remove == current_user.email:
-        return {'success': False, 'message': 'Cannot remove yourself from activity.'}, 401
+        return {
+            'success': False,
+            'message': 'Cannot remove yourself from activity.'
+        }, 401
     participant = models.User.query.filter_by(email=email_to_remove).first()
     if participant is None:
         return {
@@ -766,9 +793,9 @@ def handle_remove_user():
     DB.session.merge(activity)
     DB.session.commit()
     return {
-            'success': True,
-            'message': 'Successfully removed user from the activity.'
-        }, 200
+        'success': True,
+        'message': 'Successfully removed user from the activity.'
+    }, 200
 
 
 # Note we need to add this line so we can import app in the python shell
