@@ -611,6 +611,9 @@ def handle_create_activity():
             # Check if participant list is valid
             if len(participants) != 0:
                 for participant in participants:
+                    # Skips the activity creator if in participant list
+                    if participant == current_user.email:
+                        continue
                     # Check if participant is a valid user
                     current_participant = models.User.query.filter_by(
                         email=str(participant)).first()
