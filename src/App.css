@@ -267,18 +267,50 @@ table, th, td {
   height: 100%;
   width: 100%;
   margin: auto;
-  background-image:url('https://static.toiimg.com/thumb/66440952/road-trip.jpg?width=1200&height=900');
+  background-image:url('https://lh3.googleusercontent.com/Xll7pgJGogfFXEb8lrAH8xoRDa5ihFYa7Ks8mCNDGMCqATll7kt3bac3LH3Q6kzKrxcNo8mNQfiwQGOIHWkvrWB7SNpvT3KvA3MdDF4DCHHQXBEl3xvLlHnSb8mlW65FTi2XrKgp90Jd7m-bFFUuCTyT3XE5lMSd9SIfDpdN7A0AoBLM06ZbYjQmGqidEdiDQP78cQ4if2V1WRq6Dr84K4NFxh5WwZ9mYSATVrfAilbIbyx8jwimXxZjDJtgj76XJ2Lf3KXE9Wc_fqQrHF6dzWCBK0n2Nouf2zwWen9kyEOf02NfH8NyCMhe9Ob3su-03l9LOYlSCC6FiTQorZ1fI52YrZKT9_AiebOOqohZI0ytmPBAoIlAnqLnhsdEuxyO6-u6AHf6G5j6AWrLMncM_4s57x0Bcjf98getAmswTmsREmX3TcoplwRN0XsJYWak_caseczaLHHGQt41d3vbVUhtybvVxWXB1b4zKeFzV7aBC3ARD5Fgun2EumWvUBK3S-llKNxkMNGfhYHJKDlBP-0ODweXiIoavj2q6SV58SO0lwEFwIa54UCCiq2JIFteEPgtfcjyB8Bsm3SjYV-JRvIUGJqhriwaF5PAi1uAfCm45qFronoFjTC_vrGyYcnxCSXQo6no3r0TMfm0-_MegRM8SSyE_Dwd6auFwX6Jbg=w808-h606-no');
   display: table;
   top: 0;
   background-size: cover;
   height: 100vh;
 }
 
+.imageTextH{
+  text-shadow: 2px 2px 8px #ffffff;
+  color: #fff;
+  font-size: 6vw;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 6px;
+  display: inline-block;
+  position: relative;
+  font-family: courier,arial,helvetica;
+  -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+  -webkit-mask-size: 200%;
+  animation: shine 2s linear infinite;
+  text-align: left;
+  font-weight: bold;
+  color:#ffffff;
+
+}
+
+@keyframes shine {
+  from { -webkit-mask-position: 150%; }
+  to { -webkit-mask-position: -50%; }
+}
+
 .imageText{
   text-align: left;
   font-weight: bold;
-  color:#00008B;
-  font-size:20px;
+  color:#ffffff;
+  font-size:25px;
+  font-family:courier,arial,helvetica;
+}
+
+.imageText1{
+  text-align: left;
+  font-weight: bold;
+  color:#ffffff;
+  font-size:30px;
   font-family:courier,arial,helvetica;
 }
 
@@ -299,12 +331,13 @@ table, th, td {
 .LandingPage
 {
   text-align: left;
-  float:right;
+  float:left;
+  margin-left:100px;
   font-weight:bold;
-  font-size:20px;
+  font-size:100px;
   padding-top:12rem;
   padding-right:5rem;
-  color:#000000;
+  color:#ffffff;
   font-family:courier,arial,helvetica;
 }
 

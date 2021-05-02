@@ -93,7 +93,7 @@ function CreateActivity(props){
                 type="emails"
                 name="emails"
                 className="ml101"
-                placeholder="Participant Email1, Email2"
+                placeholder="Participant Email1,Email2"
                 value={emails}
                 onChange={e => setEmails(e.target.value)}
               />
