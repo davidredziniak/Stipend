@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import './App.css';
-
-// import Login from './Login.js';
-// import Trip from './Trip';
-//import { useForm } from "react-hook-form";
+import './CreateTrip.css';
 
 var invitedEmails = [];
 

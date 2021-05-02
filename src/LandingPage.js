@@ -19,7 +19,7 @@ function LandingPage()
               <h1>Why it Matters?</h1>
               <h4>Helps you keep Track of spendings.</h4>
             </div>
-            <div>
+            <div className="landing">
                 <h1>OUR TEAM </h1>
                 <div class="row">
                   <div class="column">

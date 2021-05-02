@@ -1,4 +1,5 @@
 import React from 'react';
+import './CreateTrip.css';
 
 function TripHome(props)
 {console.log(props.name)

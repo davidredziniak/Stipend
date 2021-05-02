@@ -62,133 +62,8 @@
   min-height:10vh;
 }
 
-.removeemails{
-  border-radius: 20%;
-  padding-left: 20px;
-  border: none;
-  background-color: coral;
-  padding: 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.emails{
-  background-color: coral;
-  border-radius: 5px;
-  border: none;
-  color: black;
-  padding: 12px 29px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  margin-right:15px;
-  cursor: pointer;
-}
-
-.joinSubmit{
-  min-width: 300px;
-  min-height: 60px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 22px;
-  text-transform: uppercase;
-  letter-spacing: 1.3px;
-  font-weight: 700;
-  color: #313133;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  border: none;
-  border-radius: 1000px;
-  box-shadow: 12px 12px 24px rgba(79,209,197,.64);
-  transition: all 0.3s ease-in-out 0s;
-  cursor: pointer;
-  outline: none;
-  position: relative;
-  padding: 10px;
-}
-
-
-.tripSubmit{
-  min-width: 300px;
-  min-height: 60px;
-  font-family: 'Nunito', sans-serif;
-  font-size: 22px;
-  text-transform: uppercase;
-  letter-spacing: 1.3px;
-  font-weight: 700;
-  color: #313133;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  border: none;
-  border-radius: 1000px;
-  box-shadow: 12px 12px 24px rgba(79,209,197,.64);
-  transition: all 0.3s ease-in-out 0s;
-  cursor: pointer;
-  outline: none;
-  position: relative;
-  padding: 10px;
-}
-
 .lines{
   color: #E8E8E8;
-}
-
-.headingClass{
-  margin-top:30px;
-}
-
-.joinTrip{
-  font-size: 20px;
-  height: 60px;
-  width: 25%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.createTripInputs1{
-  padding-left:3px;
-  font-size: 20px;
-  height: 60px;
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box; 
-}
-
-.createTripInputs{
-  color:grey;
-  font-size: 20px;
-  height: 60px;
-  width: 50%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-.createEmailInput{
-  color:grey;
-  font-size: 20px;
-  height: 60px;
-  width: 39.6%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
 }
 
 .container {
@@ -232,6 +107,8 @@
 
 .ml101{
   margin:auto;
+  margin-left:15px;
+  width:20%;
 }
 
 .images{
@@ -270,12 +147,6 @@
   -ms-transform: translate(-50%, -50%);
 }
 
-.labels{
-  color:black;
-  font-size:20px;
-  padding-right:20px;
-}
-
 .nav-links
 {
   width:20%;
@@ -304,14 +175,6 @@
   margin-left:15px;
 }
 
-.activity{
-
-  color:Hotpink;
-
-  font-size:50px;
-
-}
-
 .removeParticipants{
   margin-left:30px;
 }
@@ -337,34 +200,6 @@
   cursor: pointer;
 }
 
-.createTrip{
-  background-color: coral;
-  border-radius: 25px;
-  border: none;
-  color: black;
-  padding: 12px 29px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  margin-right:15px;
-  cursor: pointer;
-}
-.joinTripbtn{
-  background-color: #00ccff;
-  border-radius: 25px;
-  border: none;
-  color: black;
-  padding: 12px 29px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 14px;
-  margin: 4px 2px;
-  margin-right:15px;
-  cursor: pointer;
-}
 .home{
   background-color: #33cc33;
   border-radius: 25px;
@@ -395,13 +230,20 @@
   color:white;
 }
 
-.activity{
-  margin-top:30px;
-}
-
 .selectEmails{
   margin-top:10px;
 }
+
+.box1{
+  padding:20px;
+  background:#E2CEDD;
+  width:50%;
+  margin:auto;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-bottom:30px;
+  margin-top:30px;
+}
+
 
 .box{
   padding:20px;
@@ -419,20 +261,9 @@ table, th, td {
   background:#ffffff;
   border: 1px solid black;
 }
-.LandingPage
-{
-  text-align: left;
-  float:right;
-  font-weight:bold;
-  font-size:20px;
-  padding-top:12rem;
-  padding-right:5rem;
-  color:#000000;
-  font-family:courier,arial,helvetica;
-}
+
 .imageClass
 {
-  
   height: 100%;
   width: 100%;
   margin: auto;
@@ -441,9 +272,8 @@ table, th, td {
   top: 0;
   background-size: cover;
   height: 100vh;
-  
-  
 }
+
 .imageText{
   text-align: left;
   font-weight: bold;
@@ -451,6 +281,7 @@ table, th, td {
   font-size:20px;
   font-family:courier,arial,helvetica;
 }
+
 .matter
 {
   text-align: left;
@@ -463,4 +294,21 @@ table, th, td {
 {
   font-size:15px;
   color:#000000;
+}
+
+.LandingPage
+{
+  text-align: left;
+  float:right;
+  font-weight:bold;
+  font-size:20px;
+  padding-top:12rem;
+  padding-right:5rem;
+  color:#000000;
+  font-family:courier,arial,helvetica;
+}
+
+.landing{
+  margin-left:50px;
+  padding-bottom:50px;
 }

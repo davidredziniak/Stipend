@@ -1,0 +1,114 @@
+.activity{
+  margin-top:30px;
+  color:Hotpink;
+  font-size:50px;
+}
+
+.labels{
+  color:black;
+  font-size:20px;
+  padding-right:20px;
+}
+
+.tripSubmit{
+  min-width: 300px;
+  min-height: 60px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: 1.3px;
+  font-weight: 700;
+  color: #313133;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  border: none;
+  border-radius: 1000px;
+  box-shadow: 12px 12px 24px rgba(79,209,197,.64);
+  transition: all 0.3s ease-in-out 0s;
+  cursor: pointer;
+  outline: none;
+  position: relative;
+  padding: 10px;
+}
+
+.createTripInputs1{
+  padding-left:3px;
+  font-size: 20px;
+  height: 60px;
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box; 
+}
+
+.createTripInputs{
+  color:grey;
+  font-size: 20px;
+  height: 60px;
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.createEmailInput{
+  color:grey;
+  font-size: 20px;
+  height: 60px;
+  width: 39.6%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.removeemails{
+  border-radius: 20%;
+  padding-left: 20px;
+  border: none;
+  background-color: coral;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.emails{
+  background-color: coral;
+  border-radius: 5px;
+  border: none;
+  color: black;
+  padding: 12px 29px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  margin-right:15px;
+  cursor: pointer;
+}
+
+.createTrip{
+  background-color: coral;
+  border-radius: 25px;
+  border: none;
+  color: black;
+  padding: 12px 29px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  margin-right:15px;
+  cursor: pointer;
+}
