@@ -48,3 +48,8 @@
 4. C0413 - messed around with the positioning of import statement but ultimately it conflicted with other pylint codes
 5. E0401 - on unit tests was showing unable to import app, but importing app was successful
 6. R0401 - for now, have to use cyclic import because unit tests weren't cooperating
+7. R0913 - Says too many arguments passed
+8. R0914 - too many local local variables
+9. R0911 - too many return statements
+10. R0912 - too many branches
+11. R1705 - unnecessary else after return
