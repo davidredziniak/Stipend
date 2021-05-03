@@ -58,11 +58,11 @@ function Trip(props)
     },[isLoading, props.token, props.isAuth]);
 
     return (
-        <div className="activity">
+        <div className="tripactivity">
              {props.isAuth?
              (
              <div>
-             <div><h1>{tripName}!</h1></div>
+             <div><h1 className="neon">{tripName}!</h1></div>
              <div><h4>Trip creator: {tripOwner}</h4></div>
              <div><p className="join">Join Code: {joinCode}</p></div>
              <div><h6><table><th>Participants on this trip: </th>{participants.map(user => (<tr><td><h6>{user.firstName} - {user.email}</h6></td></tr>))}</table></h6></div>

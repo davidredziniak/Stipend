@@ -1,7 +1,6 @@
 import React from 'react';
 import './Logo.css';
 import './App.css';
-import Login from "./Login"
 
 function LandingPage()
 {
@@ -17,8 +16,10 @@ function LandingPage()
                 </div>
             </div>
             <hr/>
+            <game/>
             <div className="landing">
                 <h1>OUR TEAM </h1>
+                <br/>
                 <div class="row">
                   <div class="column">
                     <div class="card ">
@@ -63,12 +64,8 @@ function LandingPage()
                 
                 </div>
             </div>
-            
-        
+
         </div>
-        
-        
-        
         
         );
 }
