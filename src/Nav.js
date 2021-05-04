@@ -1,6 +1,8 @@
 
 import React, {useEffect} from 'react';
 import './App.css';
+import './CreateTrip.css';
+import './JoinTrips.css';
 import Login from'./Login.js';
 import Logout from'./Logout.js';
 import LandingPage  from './LandingPage';
@@ -29,7 +31,7 @@ function Nav(props) {
             <div>
                 {props.isAuth?
                 (
-                <Link to='/home'><li><button className="home">Home</button></li></Link>
+                <Link to='/home'><li><button className="home">ViewTrips</button></li></Link>
                 )
                 :null}
             </div>

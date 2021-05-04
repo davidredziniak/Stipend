@@ -2,7 +2,7 @@
 import { useRef } from 'react';
 import { joinTripApi } from './api/api.js';
 import { useHistory} from "react-router-dom";
-import './App.css';
+import './JoinTrips.css';
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import LandingPage from './LandingPage';

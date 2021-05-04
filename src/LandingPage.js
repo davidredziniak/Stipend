@@ -9,18 +9,17 @@ function LandingPage()
         <div>
             <div className="imageClass">
                 <div className="LandingPage">
-                    <h1>Welcome to STIPEND!</h1>
-                    <h3>Basic Functionality  of the APP</h3>
-                        <h4 className="imageText">Helps you manage the trip by splitting the money</h4>
-                        <h4 className="imageText">Helps you financially plans your trip</h4>
+                    <h1 className="imageTextH">Welcome to STIPEND!</h1>
+                      <h4 className="imageText">Plan trips with no worries about splitting your spendings!</h4>
+                      <h1 className="imageText1"><br/>Why it Matters?</h1>
+                      <h2 className="imageText">We help you Create Trips, Join Trips and Manage Trips with no effort!</h2>
                 </div>
             </div>
-            <div className="matter">
-              <h1>Why it Matters?</h1>
-              <h4>Helps you keep Track of spendings.</h4>
-            </div>
-            <div>
+            <hr/>
+            <game/>
+            <div className="landing">
                 <h1>OUR TEAM </h1>
+                <br/>
                 <div class="row">
                   <div class="column">
                     <div class="card ">
@@ -65,12 +64,8 @@ function LandingPage()
                 
                 </div>
             </div>
-            
-        
+
         </div>
-        
-        
-        
         
         );
 }

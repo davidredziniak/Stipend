@@ -4,10 +4,10 @@ import { createTripApi, inviteToTripApi } from './api/api.js';
 import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import { useForm } from "react-hook-form";
-import './App.css';
 import { getInvitedEmails, InputEmails } from './InputEmails';
 import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
 import LandingPage from "./LandingPage";
+import './CreateTrip.css';
 
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
