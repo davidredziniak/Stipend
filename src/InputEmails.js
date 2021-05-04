@@ -1,9 +1,5 @@
 import { useState } from 'react';
-import './App.css';
-
-// import Login from './Login.js';
-// import Trip from './Trip';
-//import { useForm } from "react-hook-form";
+import './CreateTrip.css';
 
 var invitedEmails = [];
 
@@ -45,26 +41,27 @@ function InputEmails() {
         return (
           <div key={`${field}-${idx}`}>
             <input required
-              className="createTripInputs"
+              className="createEmailInput"
               type="text"
               placeholder="Email"
               onChange={e => handleChange(idx, e)}
             />
-            <button type="button" className="removeParticipants" onClick={() => handleRemove(idx)}>
-              Remove
+            <button type="button" className="removeemails" onClick={() => handleRemove(idx)}>
+              –
             </button>
+            
           </div>
         );
       })}
 
-      <button type="button" onClick={() => handleAdd()}>
+      <button className="emails" type="button" onClick={() => handleAdd()}>
         Add Participant
       </button>
       
     </div>
   );
 }
-export {
+export  {
   getInvitedEmails,
   InputEmails
 };

@@ -8,6 +8,9 @@ import Activity from './Activity';
 import JoinTrip from './JoinTrip';
 import CreateTrip from './CreateTrip';
 import Trip from './Trip';
+import 'react-notifications/lib/notifications.css';
+import LandingPage from './LandingPage';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
 import {BrowserRouter as Router, HashRouter, Switch,Route} from "react-router-dom";
@@ -16,6 +19,24 @@ function App() {
     const [isAuthenticated, setAuth] = useState(false);
     const [tokenId, setTokenId] = useState('');
     
+    function createNotification(type, title, message) {
+      switch (type) {
+        case 'info':
+          console.log(type);
+          NotificationManager.info('Info message');
+          break;
+        case 'success':
+          NotificationManager.success(message, title, 3000);
+          break;
+        case 'warning':
+          NotificationManager.warning(message, title, 5000);
+          break;
+        case 'error':
+          NotificationManager.error(message, title, 5000);
+          break;
+      }
+    };
+  
     // When components gets added to the DOM tree, state is loaded from localStorage (if available)
     useEffect(() => {
       let storedAuth = localStorage.getItem('isAuth') === 'true';
@@ -51,11 +72,12 @@ function App() {
     <div className="App">
         <Nav login={loginHandler} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId}/>
         <Switch>
-          <Route exact path="/home" render={(props) => ( <HomePage logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/activity" render={(props) => ( <Activity logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/jointrip" render={(props) => ( <JoinTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/createtrip" render={(props) => ( <CreateTrip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route path="/trip/:tripId" render={(props) => ( <Trip logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/" render={() => ( <LandingPage/>)}/>
+          <Route exact path="/home" render={(props) => ( <HomePage createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/activity" render={(props) => ( <Activity createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/jointrip" render={(props) => ( <JoinTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/createtrip" render={(props) => ( <CreateTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route path="/trip/:tripId" render={(props) => ( <Trip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
         </Switch>
       </div>
     </HashRouter>);

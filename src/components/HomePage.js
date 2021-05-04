@@ -2,7 +2,10 @@ import { useState, useEffect } from 'react';
 // import Login from'../Login.js';
 // import Logout from'../Logout.js';
 //import {loginApi, userApi} from '../api/api.js';
-import { userApi} from '../api/api.js';
+import { userApi,deleteTripIdApi} from '../api/api.js';
+import {NotificationContainer} from 'react-notifications';
+import LandingPage from "../LandingPage";
+
 function HomePage(props){
     
     const [isViewable, setViewable] = useState(false);
@@ -10,6 +13,28 @@ function HomePage(props){
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [trips, setTrips] = useState([]);
+    const [hide, setHide]=useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+    ];
+    
+    function randomImages(){
+      var images = ["https://i.stack.imgur.com/CJT47.jpg","https://www.freegreatpicture.com/files/85/2994-man-and-nature.jpg"
+                    ,"https://www.freegreatpicture.com/files/31/10971-world-scenery.jpg"
+                    ,"https://media.cntraveler.com/photos/5949abf42bd0d42819c6065e/master/pass/Big-Bend-GettyImages-516259396.jpg"
+                    ,"https://media.timeout.com/images/105685502/image.jpg"];
+     var randomImage = images[Math.floor(Math.random()*images.length)];
+      return randomImage;
+    }
+    
+    function handleErrors(data){
+      if(data.success === false)
+        props.createNotif('error', data.message);
+      else if(data.success === true)
+        props.createNotif('success', data.message);
+      setIsLoading(!isLoading);
+    }
     
     function updateData(data){
       // If the user data API call fails, log the user out.
@@ -27,6 +52,14 @@ function HomePage(props){
       }
     }
     
+    function deleteTrip(trip_id)
+    {
+      if(props.token !== "")
+        deleteTripIdApi(props.token, trip_id).then(data => handleErrors(data));
+    }
+    
+
+    
     //Rerender component when token ID and isAuth updates.
     useEffect(() => {
       //If user is logged in and the token ID is valid, update home page
@@ -40,32 +73,51 @@ function HomePage(props){
         setFirstName("");
         setViewable(false);
       }
-    }, [props.token, props.isAuth]);
+    }, [isLoading, props.token, props.isAuth]);
+  // <button className="tripsButton">{trip.name} </button>
   
   if(isViewable){
     return (
-      <div>
-        <h2>Hello, {firstName}</h2>
+      <div className="homePage">
+      
+      <NotificationContainer/>
+        <h2>Hello, {firstName}!</h2>
         <h5>Email: {email}</h5>
         <h5>Last Name: {lastName}</h5>
+
+        <div>
+          <button className="hideButton" onClick={()=>{setHide(!hide)}} >Show / Hide Trips<br /></button>
+        </div>
         {trips.map((trip, index) => {
         return (
         <div>
-          <a href={`/#/trip/${trip.trip_id}`}><button>{trip.name}</button></a>
+        {!hide ? (
+        <div className="container">
+        
+            <div className="col">
+              <a href={`/#/trip/${trip.trip_id}`}>
+                <img className="images" src={randomImages()}/>
+                <span className="align-middle">{trip.name}<br/> {trip.startDate}<br/> to<br/> {trip.endDate}</span>
+                <div>
+                  
+                </div>
+              </a>
+              <button className="tripDelete" type="submit" onClick={()=>deleteTrip(trip.trip_id)}>Delete</button>
+              </div>
+            </div>
+       
+          ):null}
         </div>
+        
         );
       })}
       </div>
     );
   }
   else{
-    return (<div>
-      <h2>Please log in!</h2>
-    </div>
+    return (<LandingPage/>
     );
   }
 }
 
 export default HomePage;
-
-//<button onClick={onClickButton} type="button">Test API</button> 
