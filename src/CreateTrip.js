@@ -5,13 +5,13 @@ import {NotificationContainer} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import { useForm } from "react-hook-form";
 import { getInvitedEmails, InputEmails } from './InputEmails';
-import { useHistory, BrowserRouter as Router,Route, Link} from "react-router-dom";
+import { useNavigate, BrowserRouter as Router,Route, Link} from "react-router-dom";
 import LandingPage from "./LandingPage";
 import './CreateTrip.css';
 
 /* eslint-disable react/jsx-props-no-spreading */
 function CreateTrip(props){
-    const history = useHistory();
+    const navigate = useNavigate();
     //const user = useState('');
     const { register, handleSubmit } = useForm();
     
@@ -30,7 +30,7 @@ function CreateTrip(props){
       if(data.success === false)
         props.createNotif('error', data.message);
       else
-          history.push('/trip/' + data.tripId);
+        navigate('/trip/' + data.tripId);
     }
     
  // const onSubmit = data => console.log(data);
@@ -40,8 +40,7 @@ function CreateTrip(props){
             createTripApi(props.token, data).then(data => handleErrors(data));
         }
         const emails = getInvitedEmails().map(email => email['value'])
-        if(emails !== [])
-            inviteToTripApi(props.token, emails, data['join_code']);
+        inviteToTripApi(props.token, emails, data['join_code']);
     }
     
 // sample Trip1- code: uw1YGGD

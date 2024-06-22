@@ -10,15 +10,19 @@ from sqlalchemy import func
 from google_auth import verify_user_token
 from invite_users import send_invites
 
-load_dotenv(find_dotenv())  # This is to load your env variables from .env
+print(find_dotenv())
 
+
+load_dotenv(find_dotenv())  # This is to load your env variables from .env
 APP = Flask(__name__, static_folder='./build/static')
-DB = SQLAlchemy(APP)
 
 # Point SQLAlchemy to your Heroku database
 APP.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
+
 # Gets rid of a warning
 APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+DB = SQLAlchemy(APP)
 
 import models
 
@@ -126,6 +130,8 @@ def authenticate_user():
             # Add to token id to session list, for future API calls
             CURRENT_SESSIONS[email] = token_id
             return {'success': True}, 200
+        else:
+            return {'success': False, 'Message': 'Not valid user code.'}, 401
     return {'success': False}, 401
 
 

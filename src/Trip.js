@@ -1,7 +1,7 @@
 import React, {useState, useEffect } from 'react';
 import Activity from './Activity.js'
 import CreateActivity from './CreateActivity.js'
-import {useParams, useHistory} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import { tripIdApi,userApi,userBalanceApi, setUserPaidApi } from './api/api.js';
 import LandingPage from "./LandingPage";
 import './App.css';
@@ -11,7 +11,7 @@ import './App.css';
 function Trip(props)
 {
     let { tripId } = useParams();
-    const history = useHistory();
+    const navigate = useNavigate();
     const [tripName, setTripName] = useState("");
     const [joinCode,setJointCode]=useState("");
     const [tripOwner, setTripOwner] = useState("");
@@ -26,7 +26,7 @@ function Trip(props)
     function handleErrors(data){
       if(data.success === false){
         // Redirect user to homepage if they try to access a trip they aren't a part of
-        history.push('/home');
+        navigate('/home');
       }
       else if(data.success === true){
         configureState(data);

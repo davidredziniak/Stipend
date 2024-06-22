@@ -13,7 +13,7 @@ import LandingPage from './LandingPage';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 
 
-import {BrowserRouter as Router, HashRouter, Switch,Route} from "react-router-dom";
+import {BrowserRouter as Router, HashRouter, Routes,Route} from "react-router-dom";
 // removed props from App()
 function App() {
     const [isAuthenticated, setAuth] = useState(false);
@@ -71,14 +71,14 @@ function App() {
     <HashRouter>
     <div className="App">
         <Nav login={loginHandler} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId}/>
-        <Switch>
+        <Routes >
           <Route exact path="/" render={() => ( <LandingPage/>)}/>
           <Route exact path="/home" render={(props) => ( <HomePage createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
           <Route exact path="/activity" render={(props) => ( <Activity createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
           <Route exact path="/jointrip" render={(props) => ( <JoinTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
           <Route exact path="/createtrip" render={(props) => ( <CreateTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
           <Route path="/trip/:tripId" render={(props) => ( <Trip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-        </Switch>
+        </Routes>
       </div>
     </HashRouter>);
 };

@@ -1,9 +1,9 @@
-import {GoogleLogin} from 'react-google-login';
-import {refreshTokenSetup} from './refreshToken.js';
-import {loginApi} from './api/api.js';
-import { useHistory} from "react-router-dom";
-
-const clientId = process.env.REACT_APP_CLIENT_ID;
+import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
+import { refreshTokenSetup } from './refreshToken.js';
+import { loginApi } from './api/api.js';
+import { useNavigate } from "react-router-dom";
+import { Button } from '@mui/material';
+import {jwtDecode} from "jwt-decode";
 
 function Login(props)
 {
@@ -12,33 +12,33 @@ function Login(props)
     //const [tokenId, setTokenId] = useState('');
     //const [givenName,setGivenName] = useState('');
    // const [logStatus,setLogStatus] = useState(false);
-    const history = useHistory();
 
-    const onSuccess= (res)=>
-    {
-        // console.log('[Login Success] currentUser:',res.tokenId);
-        loginApi(res.tokenId).then(data => console.log('Verified API login:', data)).then(result => props.login(res.tokenId));
-        refreshTokenSetup(res);
-        history.push('/home');
-    };
-    const onFailure = (res)=> 
-    {
-        console.log('[Login failed] res: ',res);
-    };
+   const navigate = useNavigate();
 
+   const login = useGoogleLogin({
+    onSuccess: async (response) =>{
+        console.log(response);
+
+        loginApi(response.code).then(data => console.log('Verified API login:', data)).then(result => props.login(response.code));
+        refreshTokenSetup(response);
+        navigate('/home');
+    },
+    onError: (error)=>{
+      console.log(error);
+    },
+    flow: 'auth-code',
+  });
     return (
-            <div>
-                
-                <GoogleLogin
-                    clientId={clientId}
+            <div> 
+                {/*<GoogleLogin
                     buttonText="Login"
                     onSuccess={onSuccess}
                     onFailure={onFailure}
-                    cookiePolicy ={'single_host_origin'}
                     style ={{marginTop: '100px'}}
+                    cookiePolicy={'single_host_origin'}
                     isSignedIn={false}
-                />
-                
+                />*/}
+                <Button onClick={login} >Login</Button>
             </div>
             );
 }
