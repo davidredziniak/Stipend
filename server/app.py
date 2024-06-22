@@ -27,6 +27,7 @@ DB.init_app(APP)
 with APP.app_context():
     DB.create_all()
 
+# Keep track of currently logged in users
 CURRENT_SESSIONS = {}
 
 # Import models to used
