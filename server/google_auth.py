@@ -36,19 +36,18 @@ def verify_user_token(client_code):
         }
  
         response = requests.post(url, json=data)
+        token = ''
         if(response.status_code == 200):
             token = response.json()['id_token']
+            request = google_requests.Request()
+            id_info = id_token.verify_oauth2_token(token, request, client_id, clock_skew_in_seconds=10)
 
-        request = google_requests.Request()
-
-        id_info = id_token.verify_oauth2_token(token, request,
-                                               client_id, clock_skew_in_seconds=10)
-
-        # ID token is valid. Get the user info and return
-        email = id_info['email']
-        first_name = id_info['given_name']
-        last_name = id_info['family_name']
-        return first_name, last_name, email, True
+            # ID token is valid. Get the user info and return
+            email = id_info['email']
+            first_name = id_info['given_name']
+            last_name = id_info['family_name']
+            return first_name, last_name, email, True
+        return "", "", "", False
     except Exception as e:
         logging.error(traceback.format_exc())
         # Logs the error appropriately. 
