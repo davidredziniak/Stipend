@@ -18,9 +18,8 @@ function Login(props)
    const login = useGoogleLogin({
     onSuccess: async (response) =>{
         console.log(response);
-
         loginApi(response.code).then(data => console.log('Verified API login:', data)).then(result => props.login(response.code));
-        refreshTokenSetup(response);
+        //refreshTokenSetup(response);
         navigate('/home');
     },
     onError: (error)=>{
@@ -30,15 +29,7 @@ function Login(props)
   });
     return (
             <div> 
-                {/*<GoogleLogin
-                    buttonText="Login"
-                    onSuccess={onSuccess}
-                    onFailure={onFailure}
-                    style ={{marginTop: '100px'}}
-                    cookiePolicy={'single_host_origin'}
-                    isSignedIn={false}
-                />*/}
-                <Button onClick={login} >Login</Button>
+                <Button onClick={login}>Login</Button>
             </div>
             );
 }

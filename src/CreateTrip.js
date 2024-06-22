@@ -68,12 +68,6 @@ function CreateTrip(props){
             </div>)
             :<LandingPage/>}
 
-            <Router>
-                <div>
-                    <Route path="/trip" component={Trip}/>
-                </div>
-            </Router>
-
                 
         </div>
         );

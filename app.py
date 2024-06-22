@@ -9,9 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import func
 from google_auth import verify_user_token
 from invite_users import send_invites
-
-print(find_dotenv())
-
+from models import DB
 
 load_dotenv(find_dotenv())  # This is to load your env variables from .env
 APP = Flask(__name__, static_folder='./build/static')
@@ -22,12 +20,17 @@ APP.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 # Gets rid of a warning
 APP.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-DB = SQLAlchemy(APP)
+# Initialize app
+DB.init_app(APP)
 
-import models
+# If DB not initialized, create
+with APP.app_context():
+    DB.create_all()
 
 CURRENT_SESSIONS = {}
 
+# Import models to used
+import models
 
 def verify_headers(headers):
     '''
@@ -129,7 +132,7 @@ def authenticate_user():
                 add_user_to_database(email, first_name, last_name)
             # Add to token id to session list, for future API calls
             CURRENT_SESSIONS[email] = token_id
-            return {'success': True}, 200
+            return { 'success': True }, 200
         else:
             return {'success': False, 'Message': 'Not valid user code.'}, 401
     return {'success': False}, 401

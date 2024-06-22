@@ -42,9 +42,8 @@ def verify_user_token(client_code):
         request = google_requests.Request()
 
         id_info = id_token.verify_oauth2_token(token, request,
-                                               client_id)
+                                               client_id, clock_skew_in_seconds=10)
 
-        print(id_info)
         # ID token is valid. Get the user info and return
         email = id_info['email']
         first_name = id_info['given_name']

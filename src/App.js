@@ -72,12 +72,12 @@ function App() {
     <div className="App">
         <Nav login={loginHandler} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId}/>
         <Routes >
-          <Route exact path="/" render={() => ( <LandingPage/>)}/>
-          <Route exact path="/home" render={(props) => ( <HomePage createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/activity" render={(props) => ( <Activity createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/jointrip" render={(props) => ( <JoinTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route exact path="/createtrip" render={(props) => ( <CreateTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
-          <Route path="/trip/:tripId" render={(props) => ( <Trip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> )}/>
+          <Route exact path="/" element={<LandingPage/>} />
+          <Route exact path="/home" element={<HomePage createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} />}/>
+          <Route exact path="/activity" element={<Activity createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> }/>
+          <Route exact path="/jointrip" element={<JoinTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> }/>
+          <Route exact path="/createtrip" element={<CreateTrip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> }/>
+          <Route path="/trip/:tripId" element={<Trip createNotif={createNotification} logout={logoutHandler} isAuth={isAuthenticated} token={tokenId} /> }/>
         </Routes>
       </div>
     </HashRouter>);

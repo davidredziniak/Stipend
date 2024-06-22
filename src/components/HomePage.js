@@ -20,7 +20,7 @@ function HomePage(props){
     ];
     
     function randomImages(){
-      var images = ["https://i.stack.imgur.com/CJT47.jpg","https://www.freegreatpicture.com/files/85/2994-man-and-nature.jpg"
+      var images = ["https://i.sstatic.net/CJT47.jpg","https://www.freegreatpicture.com/files/85/2994-man-and-nature.jpg"
                     ,"https://www.freegreatpicture.com/files/31/10971-world-scenery.jpg"
                     ,"https://media.cntraveler.com/photos/5949abf42bd0d42819c6065e/master/pass/Big-Bend-GettyImages-516259396.jpg"
                     ,"https://media.timeout.com/images/105685502/image.jpg"];

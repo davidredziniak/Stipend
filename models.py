@@ -1,6 +1,8 @@
 ''' Models for the database '''
-from app import DB
+from flask_sqlalchemy import SQLAlchemy
 
+# Create DB instance from SQLAlchemy
+DB = SQLAlchemy()
 
 class User(DB.Model):
     ''' User model '''
