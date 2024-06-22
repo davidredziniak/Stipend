@@ -815,5 +815,5 @@ def handle_remove_user():
 if __name__ == "__main__":
     APP.run(
         host=os.getenv('IP', '0.0.0.0'),
-        port=8081 if os.getenv('C9_PORT') else int(os.getenv('PORT', "8081")),
+        port=8081,
     )
